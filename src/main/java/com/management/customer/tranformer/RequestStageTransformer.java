@@ -1,13 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.ProfessionDTO;
-import com.management.customer.dto.RequestStageDTO;
-import com.management.customer.entity.lookup.Profession;
-import com.management.customer.entity.lookup.RequestStage;
+import com.management.customer.model.master.RequestStageModel;
+import com.management.customer.entity.master.RequestStage;
 
 public class RequestStageTransformer {
-    public static RequestStageDTO entityToModel(RequestStage requestStage){
-            return new RequestStageDTO(requestStage.getId(), requestStage.getRequestStage());
+    public static RequestStageModel entityToModel(RequestStage requestStage){
+            return new RequestStageModel(requestStage.getId(), requestStage.getRequestStage());
         }
 
 }

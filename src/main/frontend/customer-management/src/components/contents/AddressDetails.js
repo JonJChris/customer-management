@@ -2,38 +2,49 @@ import React from 'react'
 import TextField from '../elements/TextField'
 import SelectField from '../elements/SelectField'
 import {useSelector} from 'react-redux';
+import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../functions/generalUtil'
+import { useOutletContext } from 'react-router-dom';
 
 const AddressDetails = () => {
 const masterData = useSelector( state => state.masterDataSlice);
+const context = useOutletContext();
+const addressDetail = context.addressDetails
+const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
   return (
     <div className="tab-pane fade show active" id="home" role="tabpanel"  >
         <div className='m-2' >
         <h6 className='tab-section-title'>Registered Address </h6>
         <div className='row'>
             <div className='col'>
-            <TextField fieldId="114_reg_address_line1" fieldName="Address Line 1"  isMandatory={true} isVisible={true} isEditable={true}  />
+            <TextField fieldId="Field_114_reg_address_line1" fieldName="Address Line 1" fieldValue={addressDetail.registeredAddressLine1} 
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_114_reg_address_line1')} isVisible={isFieldVisible(uiFieldStore, 'Field_114_reg_address_line1')} isEditable={isFieldEditable(uiFieldStore, 'Field_114_reg_address_line1')} />
             </div>
             <div className='col'>
-            <TextField  fieldId="115_reg_address_line2" fieldName="Address Line 2" fieldPlaceholder=""  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField  fieldId="Field_115_reg_address_line2" fieldName="Address Line 2" fieldValue={addressDetail.registeredAddressLine2} fieldPlaceholder=""  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_115_reg_address_line2')} isVisible={isFieldVisible(uiFieldStore, 'Field_115_reg_address_line2')} isEditable={isFieldEditable(uiFieldStore, 'Field_10Field_115_reg_address_line28_customer_display_name')} />
             </div>
         </div>
         
         <div className='row'>
             <div className='col'>
-            <TextField fieldId="116_reg_address_city" fieldName="City" fieldPlaceholder="Enter Customer Firstname"  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField fieldId="Field_116_reg_address_city" fieldName="City" fieldValue={addressDetail.registeredAddressCity} fieldPlaceholder="Enter Customer Firstname"  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_116_reg_address_city')} isVisible={isFieldVisible(uiFieldStore, 'Field_116_reg_address_city')} isEditable={isFieldEditable(uiFieldStore, 'Field_116_reg_address_city')} />
             </div>
             <div className='col'>
-            <TextField  fieldId="117_reg_address_state" fieldName="State" fieldPlaceholder="Enter Customer Lastname"  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField  fieldId="Field_117_reg_address_state" fieldName="State" fieldValue={addressDetail.registeredAddressState} fieldPlaceholder="Enter Customer Lastname"  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_117_reg_address_state')} isVisible={isFieldVisible(uiFieldStore, 'Field_117_reg_address_state')} isEditable={isFieldEditable(uiFieldStore, 'Field_117_reg_address_state')} />
             </div>
         </div>
       
         <div className='row'>
             <div className='col'>
-            <SelectField fieldId="118_reg_address_country" fieldName="Country" fieldPlaceholder="Enter Customer Display Name" fieldOptions={masterData.countryList} isMandatory={true} isVisible={true} isEditable={true} />
+            <SelectField fieldId="Field_118_reg_address_country" fieldName="Country" fieldValue={addressDetail.registeredAddressCountry} fieldPlaceholder="Enter Customer Display Name" fieldOptions={masterData.countryModelList} 
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_118_reg_address_country')} isVisible={isFieldVisible(uiFieldStore, 'Field_118_reg_address_country')} isEditable={isFieldEditable(uiFieldStore, 'Field_118_reg_address_country')} />
             </div>
             
             <div className='col'>
-            <TextField  fieldId="119_reg_address_postal_code" fieldName="PostalCode" fieldPlaceholder="Enter Customer Nationality"  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField  fieldId="Field_119_reg_address_postal_code" fieldName="PostalCode" fieldValue={addressDetail.registeredAddressPostalCode} fieldPlaceholder="Enter Customer Nationality"  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_119_reg_address_postal_code')} isVisible={isFieldVisible(uiFieldStore, 'Field_119_reg_address_postal_code')} isEditable={isFieldEditable(uiFieldStore, 'Field_119_reg_address_postal_code')} />
             </div>
         </div>
 
@@ -42,29 +53,35 @@ const masterData = useSelector( state => state.masterDataSlice);
     <h6 className='tab-section-title'>Communication Address </h6>
         <div className='row'>
             <div className='col'>
-            <TextField fieldId="120_com_address_line1" fieldName="Address Line 1" fieldPlaceholder=""  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField fieldId="Field_120_com_address_line1" fieldName="Address Line 1" fieldValue={addressDetail.communicationAddressLine1} fieldPlaceholder=""  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_120_com_address_line1')} isVisible={isFieldVisible(uiFieldStore, 'Field_120_com_address_line1')} isEditable={isFieldEditable(uiFieldStore, 'Field_120_com_address_line1')} />
             </div>
             <div className='col'>
-            <TextField  fieldId="121_com_address_line2" fieldName="Address Line 2" fieldPlaceholder=""  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField  fieldId="Field_121_com_address_line2" fieldName="Address Line 2" fieldValue={addressDetail.communicationAddressLine2} fieldPlaceholder=""  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_121_com_address_line2')} isVisible={isFieldVisible(uiFieldStore, 'Field_121_com_address_line2')} isEditable={isFieldEditable(uiFieldStore, 'Field_121_com_address_line2')} />
             </div>
         </div>
         
         <div className='row'>
             <div className='col'>
-            <TextField fieldId="122_com_address_city" fieldName="City" fieldPlaceholder="Enter Customer Firstname"  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField fieldId="Field_122_com_address_city" fieldName="City" fieldValue={addressDetail.communicationAddressCity} fieldPlaceholder="Enter Customer Firstname" 
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_122_com_address_city')} isVisible={isFieldVisible(uiFieldStore, 'Field_122_com_address_city')} isEditable={isFieldEditable(uiFieldStore, 'Field_122_com_address_city')} />
             </div>
             <div className='col'>
-            <TextField  fieldId="123_com_address_state" fieldName="State" fieldPlaceholder="Enter Customer Lastname"  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField  fieldId="Field_123_com_address_state" fieldName="State" fieldValue={addressDetail.communicationAddressState} fieldPlaceholder="Enter Customer Lastname"  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_123_com_address_state')} isVisible={isFieldVisible(uiFieldStore, 'Field_123_com_address_state')} isEditable={isFieldEditable(uiFieldStore, 'Field_123_com_address_state')} />
             </div>
         </div>
       
         <div className='row'>
             <div className='col'>
-            <SelectField fieldId="124_com_address_country" fieldName="Country" fieldPlaceholder="Enter Customer Display Name" fieldOptions={masterData.countryList} isMandatory={true} isVisible={true} isEditable={true} />
+            <SelectField fieldId="Field_124_com_address_country" fieldName="Country" fieldValue={addressDetail.communicationAddressCountry} fieldPlaceholder="Enter Customer Display Name" fieldOptions={masterData.countryModelList} 
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_124_com_address_country')} isVisible={isFieldVisible(uiFieldStore, 'Field_124_com_address_country')} isEditable={isFieldEditable(uiFieldStore, 'Field_124_com_address_country')} />
             </div>
             
             <div className='col'>
-            <TextField  fieldId="125_com_address_postal_code" fieldName="Postal Code" fieldPlaceholder="Enter Customer Nationality"  isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField  fieldId="Field_125_com_address_postal_code" fieldName="Postal Code" fieldValue={addressDetail.communicationAddressPostalCode} fieldPlaceholder="Enter Customer Nationality"  
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_125_com_address_postal_code')} isVisible={isFieldVisible(uiFieldStore, 'Field_125_com_address_postal_code')} isEditable={isFieldEditable(uiFieldStore, 'Field_125_com_address_postal_code')} />
             </div>
         </div>
 

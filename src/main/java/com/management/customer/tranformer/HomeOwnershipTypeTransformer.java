@@ -1,13 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.HomeOwnershipTypeDTO;
-import com.management.customer.dto.ProfessionDTO;
-import com.management.customer.entity.lookup.HomeOwnershipType;
-import com.management.customer.entity.lookup.Profession;
+import com.management.customer.model.master.HomeOwnershipTypeModel;
+import com.management.customer.entity.master.HomeOwnershipType;
 
 public class HomeOwnershipTypeTransformer {
-    public static HomeOwnershipTypeDTO entityToModel(HomeOwnershipType homeOwnershipType){
-        return new HomeOwnershipTypeDTO(homeOwnershipType.getId(), homeOwnershipType.getHomeOwnershipType());
+    public static HomeOwnershipTypeModel entityToModel(HomeOwnershipType homeOwnershipType){
+        return new HomeOwnershipTypeModel(homeOwnershipType.getId(), homeOwnershipType.getHomeOwnershipType());
         }
 
 }

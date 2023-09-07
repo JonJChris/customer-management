@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+
 const TextField = (props) => {
 
   if (props.isVisible) {
@@ -11,8 +12,8 @@ const TextField = (props) => {
           {props.isMandatory && <span className='field-mandatory-indicator'>*</span>}
         </div>
         {props.isEditable
-          ? <input type="text" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} />
-          : <label className='text-strong col'>{"XUZ"}</label>
+          ? <input type="text" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder}  value={props.fieldValue}/>
+          : <label className='text-strong col'>{props.fieldValue}</label>
         }
 
 

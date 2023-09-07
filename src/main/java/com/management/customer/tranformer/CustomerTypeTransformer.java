@@ -1,13 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.CustomerStatusDTO;
-import com.management.customer.dto.CustomerTypeDTO;
-import com.management.customer.entity.lookup.CustomerStatus;
-import com.management.customer.entity.lookup.CustomerType;
+import com.management.customer.model.master.CustomerTypeModel;
+import com.management.customer.entity.master.CustomerType;
 
 public class CustomerTypeTransformer {
-    public static  CustomerTypeDTO entityToModel(CustomerType customerType){
-            return new CustomerTypeDTO(customerType.getId(), customerType.getCustomerType());
+    public static CustomerTypeModel entityToModel(CustomerType customerType){
+            return new CustomerTypeModel(customerType.getId(), customerType.getCustomerType());
         }
 
 }

@@ -14,10 +14,10 @@ const App = () => {
 
   return (
     <div className="App container">
-        <BrowserRouter>
+        { <BrowserRouter>
           <Routes>
-            <Route path="/" element={<RequestLayout />} >
-              <Route index element={<BasicDetails />} />
+            <Route path="/request/:requestId" element={<RequestLayout />} >
+              <Route path="basic" element={<BasicDetails />} />
               <Route path="Address" element={<AddressDetails />} />
               <Route path="Additional" element={<AdditionalDetails />} />
               <Route path="Document" element={<DocumentDetails />} />
@@ -26,7 +26,7 @@ const App = () => {
               
             </Route>
           </Routes>
-        </BrowserRouter>
+        </BrowserRouter> }
     </div>
   )
 }

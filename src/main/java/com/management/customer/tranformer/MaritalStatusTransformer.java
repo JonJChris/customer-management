@@ -1,13 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.EducationLevelDTO;
-import com.management.customer.dto.MaritalStatusDTO;
-import com.management.customer.entity.lookup.EducationLevel;
-import com.management.customer.entity.lookup.MaritalStatus;
+import com.management.customer.model.master.MaritalStatusModel;
+import com.management.customer.entity.master.MaritalStatus;
 
 public class MaritalStatusTransformer {
-    public static MaritalStatusDTO entityToModel(MaritalStatus maritalStatus){
-            return new MaritalStatusDTO(maritalStatus.getId(), maritalStatus.getMaritalStatus());
+    public static MaritalStatusModel entityToModel(MaritalStatus maritalStatus){
+            return new MaritalStatusModel(maritalStatus.getId(), maritalStatus.getMaritalStatus());
         }
 
 }

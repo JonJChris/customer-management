@@ -1,13 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.CountryDTO;
-import com.management.customer.dto.RequestTypeDTO;
-import com.management.customer.entity.lookup.Country;
-import com.management.customer.entity.lookup.RequestType;
+import com.management.customer.model.master.CountryModel;
+import com.management.customer.entity.master.Country;
 
 public class CountryTransformer {
-    public static CountryDTO entityToModel(Country country){
-            return new CountryDTO(country.getId(), country.getCountryName());
+    public static CountryModel entityToModel(Country country){
+            return new CountryModel(country.getId(), country.getCountryName());
         }
 
 }

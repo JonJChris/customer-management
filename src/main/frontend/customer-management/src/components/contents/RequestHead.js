@@ -14,27 +14,29 @@ const stages = [
     
 ]
 
-const RequestHead = () => {
+const RequestHead = (props) => {
+
   const masterData = useSelector( state => state.masterDataSlice);
+  console.log(JSON.stringify(props));
   return (
     <div className='mt-3 border border-rounded p-3'>
         <div className='row'>
             <div className='col-5'>
-            <TextField fieldId="100_request_id" fieldName="Request Id" isMandatory={true} isVisible={true} isEditable={true}/>
+            <TextField fieldId="100_request_id" fieldName="Request Id" fieldValue={props.requestId} isMandatory={true} isVisible={true} isEditable={true}/>
             </div>
             <div className='col-1'></div>
             <div className='col-5'>
-            <SelectField fieldId="102_request_type"  fieldName="Request Type"  fieldOptions={masterData.requestTypesList} isMandatory={true} isEditable={true}/>
+            <SelectField fieldId="102_request_type"  fieldName="Request Type" fieldValue={props.requestType} fieldOptions={masterData.requestTypeModelList} isMandatory={true} isEditable={true}/>
             </div>
         </div>
         
         <div className='row mt-3'>
             <div className='col-5'>
-            <TextField fieldId="101_request_created"  fieldName="Request Created" isMandatory={true} isVisible={true} isEditable={true} />
+            <TextField fieldId="101_request_created"  fieldName="Request Created"  fieldValue={props.requestCreated} isMandatory={true} isVisible={true} isEditable={true} />
             </div>
             <div className='col-1'></div>
             <div className='col-5'>
-            <SelectField  fieldId="103_request_status"  fieldName="Request Status" fieldOptions={masterData.requestStageList} isMandatory={true} isVisible={true} isEditable={true}/>
+            <SelectField  fieldId="103_request_status"  fieldName="Request Stage"  fieldValue={props.requestStage} fieldOptions={masterData.requestStageModelList} isMandatory={true} isVisible={true} isEditable={true}/>
             </div>
         </div>
         <WorkflowRibbon items={stages}/>

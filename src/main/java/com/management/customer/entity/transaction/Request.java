@@ -1,32 +1,45 @@
 package com.management.customer.entity.transaction;
 
-import com.management.customer.entity.lookup.RequestStage;
-import com.management.customer.entity.lookup.RequestType;
+import com.management.customer.entity.authrisation.User;
+import com.management.customer.entity.master.RequestStage;
+import com.management.customer.entity.master.RequestType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
 @Table(name="RQ_REQUEST")
 public class Request {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="REQUEST_ID")
     private Long requestId;
-    @Column(name="REQUEST_TYPE")
+    @ManyToOne
+    @JoinColumn(name="REQUEST_TYPE")
     private RequestType requestType;
-    @Column(name="REQUEST_STAGE")
+    @ManyToOne
+    @JoinColumn(name="REQUEST_STAGE")
     private RequestStage requestStage;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdOn;
-    @Column(name="CREATED_BY")
+    @ManyToOne
+    @JoinColumn(name="CREATED_BY")
     private User createdBy;
     @Column(name="LAST_UPDATED_DATE")
     private LocalDateTime updatedOn;
-    @Column(name="LAST_UPDATED_BY")
+    @ManyToOne
+    @JoinColumn(name="LAST_UPDATED_BY")
     private User updatedBy;
+    @OneToOne(mappedBy = "request")
+    private Customer customer;
+    @OneToOne(mappedBy = "request")
+    private Address address;
+    @OneToMany(mappedBy = "request")
+    private List<Stage> requestStages;
 
 }

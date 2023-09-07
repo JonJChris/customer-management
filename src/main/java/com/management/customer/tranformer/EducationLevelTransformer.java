@@ -1,13 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.CustomerTypeDTO;
-import com.management.customer.dto.EducationLevelDTO;
-import com.management.customer.entity.lookup.CustomerType;
-import com.management.customer.entity.lookup.EducationLevel;
+import com.management.customer.model.master.EducationLevelModel;
+import com.management.customer.entity.master.EducationLevel;
 
 public class EducationLevelTransformer {
-    public static EducationLevelDTO entityToModel(EducationLevel educationLevel){
-            return new EducationLevelDTO(educationLevel.getId(), educationLevel.getEducationLevel());
+    public static EducationLevelModel entityToModel(EducationLevel educationLevel){
+            return new EducationLevelModel(educationLevel.getId(), educationLevel.getEducationLevel());
         }
 
 }

@@ -1,11 +1,11 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.dto.RequestTypeDTO;
-import com.management.customer.entity.lookup.RequestType;
+import com.management.customer.model.master.RequestTypeModel;
+import com.management.customer.entity.master.RequestType;
 
 public class RequestTypeTransformer {
-        public static RequestTypeDTO entityToModel(RequestType requestType){
-            return new RequestTypeDTO(requestType.getId(), requestType.getRequestType());
+        public static RequestTypeModel entityToModel(RequestType requestType){
+            return new RequestTypeModel(requestType.getId(), requestType.getRequestType());
         }
 
 }

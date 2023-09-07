@@ -4,22 +4,43 @@ const masterDataSlice = createSlice(
     {
         name: "MasterData",
         initialState: {
-            requestTypesList: ["one", "two"],
-            requestStageList: [],
-            customerTypeList: [],
-            customerStatusList: [],
-            titleList: [],
-            countryList: [],
-            educationLevelList: [],
-            employmentStatusList: [],
-            maritalStatusList: [],
-            professionList: [],
-            yearlyIncomeList: [],
-            homeOwnershipTypesList:[],
-            relationshipTypesList:[],
-            userInterfaceRulesList: []
+            masterDataExists:false,
+            requestTypeModelList: ["one", "two"],
+            countryModelList: [],
+            educationLevelsList: [],
+            employmentStatusModelList: [],
+            maritalStatusModelList: [],
+            professionModelList: [],
+            requestStageModelList: [],
+            titleModelList: [],
+            yearlyIncomeModelList: [],
+            relationshipTypeModelList: [],
+            homeOwnershipTypeModelList: [],
+            customerTypeModelList:[],
         },
         reducers: {
+
+            refreshMasterData : (state, action) => {
+                if(action.payload){
+                    const masterData = action.payload;
+                    state.requestTypeModelList = masterData.requestTypeModelList && masterData.requestTypeModelList.map( item => ({optionKey:item.requestTypeId, optionValue:item.requestTypeName}));
+                    state.countryModelList = masterData.countryModelList && masterData.countryModelList.map( item => ({optionKey:item.countryId, optionValue:item.countryName}));
+                    state.educationLevelsList = masterData.educationLevelsList && masterData.educationLevelsList.map( item => ({optionKey:item.educationLevelId, optionValue:item.educationLevelName}));
+                    state.employmentStatusModelList = masterData.employmentStatusModelList && masterData.employmentStatusModelList.map( item => ({optionKey:item.employmentStatusId, optionValue:item.employmentStatusName}));
+                    state.maritalStatusModelList = masterData.maritalStatusModelList && masterData.maritalStatusModelList.map( item => ({optionKey:item.maritalStatusId, optionValue:item.maritalStatusName}));
+                    state.professionModelList = masterData.professionModelList && masterData.professionModelList.map( item => ({optionKey:item.professionId, optionValue:item.professionName}));
+                    state.requestStageModelList = masterData.requestStageModelList && masterData.requestStageModelList.map( item => ({optionKey:item.requestStageId, optionValue:item.requestStageName}));
+                    state.titleModelList = masterData.titleModelList && masterData.titleModelList.map( item => ({optionKey:item.titleId, optionValue:item.titleName}));
+                    state.yearlyIncomeModelList = masterData.yearlyIncomeModelList && masterData.yearlyIncomeModelList.map( item => ({optionKey:item.yearlyIncomeId, optionValue:item.yearlyIncomeName}));
+                    state.relationshipTypeModelList = masterData.relationshipTypeModelList && masterData.relationshipTypeModelList.map( item => ({optionKey:item.relationshipTypeId, optionValue:item.relationshipTypeName}));
+                    state.homeOwnershipTypeModelList = masterData.homeOwnershipTypeModelList && masterData.homeOwnershipTypeModelList.map( item => ({optionKey:item.homeOwnershipTypeId, optionValue:item.homeOwnershipTypeName}));
+                    state.customerTypeModelList = masterData.customerTypeModelList && masterData.customerTypeModelList.map( item => ({optionKey:item.customerTypeId, optionValue:item.customerTypeName}));
+                    state.masterDataExists = true;
+                }
+            },
+            updateMasterDataExistsFlag: (state, action) => {
+                state.masterDataExists = action.payload;
+            },
             refreshRequesTypesList: (state, action) => {
                 state.requestTypesList = action.payload && action.payload.map( item => ({optionKey:item.requestTypeId, optionValue:item.requestTypeName}));
             },
