@@ -5,7 +5,7 @@ const UIFieldStoreSlice = createSlice({
     initialState: {
         uiFields: {
             Field_100_request_id: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_101_reqeust_created: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            Field_101_request_created: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_102_reuest_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_103_request_status: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_104_customer_id: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },

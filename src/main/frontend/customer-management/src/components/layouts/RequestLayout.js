@@ -6,7 +6,7 @@ import RequestTabs from './../layouts/RequestTabs'
 import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../store/master-data'
-import { actions as uiFieldActions} from './../../store/ui-field-store'
+import { actions as uiFieldActions } from './../../store/ui-field-store'
 import { updateRequestHeadDetails, updateAdditionalDetails, updateAddressDetails, updateBasicDetails } from './../functions/updateStateFromModel'
 
 const RequestLayout = () => {
@@ -20,30 +20,43 @@ const RequestLayout = () => {
   const dispatch = useDispatch();
   const masterData = useSelector(state => state.masterDataSlice);
   const params = useParams();
-  const [requestHeadDetails, setRequestHeadDetails] = useState({ requestId: 0, requestType: 0, requestCreated: '', requestStage: 0 })
-  const [basicDetails, setBasicDetails] = useState({ customerId: 0, userTitle: 0, firstName: '', lastName: '', displayName: '', nationality: 0, email: '', dateOfBirth: '', maritalStatus: 0, customerType: 0 })
-  const [addressDetails, setAddressDetails] = useState({ addressId: 0, registeredAddressLine1: "", registeredAddressLine2: "", registeredAddressCity: "", registeredAddressState: "", registeredAddressCountry: 0, registeredAddressPostalCode: "", communicationAddressLine1: "", communicationAddressLine2: "", communicationAddressCity: "", communicationAddressState: "", communicationAddressCountry: 0, communicationAddressPostalCode: "" })
-  const [additionalDetails, setAdditionalDetails] = useState({ customerEducationLevel: 0, customerProfession: 0, customerOrganisationName: "", customerYearlyIncome: "", homeOwnershipType: 0, nomineeRelationshipType: 0, nomineeFirstName: "", nomineeLastName: "", nomineeDateOfBirth: "" })
-  
+  const [requestHeadDetails, setRequestHeadDetails] = useState({ Field_100_request_id: 0, Field_102_request_type: { key: 0, value: '' }, Field_101_request_created: "", Field_103_request_status: {key: 0, value: ''} })
+  const [basicDetails, setBasicDetails] = useState({
+    Field_104_customer_id: 0, Field_105_customer_title: { key: 0, value: '' }, Field_106_customer_first_name: '', Field_107_customer_last_name: '', 
+    Field_108_customer_display_name: '', Field_109_customer_nationality: { key: 0, value: '' }, email: '', Field_110_customer_date_of_birth: '', 
+    Field_112_customer_marital_status: { key: 0, value: '' }, Field_113_customer_type: {}
+  })
+  const [addressDetails, setAddressDetails] = useState({ 
+    addressId: 0, Field_114_reg_address_line1: "", Field_115_reg_address_line2: "", Field_116_reg_address_city: "", 
+    Field_117_reg_address_state: "", Field_118_reg_address_country: { key: 0, value: '' }, Field_119_reg_address_postal_code: "", 
+    Field_120_com_address_line1: "", Field_121_com_address_line2: "", Field_122_com_address_city: "", Field_123_com_address_state: "", 
+    Field_124_com_address_country: { key: 0, value: '' }, Field_125_com_address_postal_code: "" })
+
+  const [additionalDetails, setAdditionalDetails] = useState({ 
+    Field_126_educational_qualification: { key: 0, value: '' }, Field_127_occupation_type: { key: 0, value: '' }, 
+    Field_128_organisation_name: "", Field_130_yearly_income: "", Field_142_home_ownership_type: { key: 0, value: '' }, 
+    Field_132_nominee_realtionship_type: { key: 0, value: '' }, Field_133_nominee_first_name: "", Field_134_nominee_last_name: "", 
+    Field_143_nominee_date_of_birth: "" })
+
 
 
   const fetchAndThenCallBack = async (url, callbackFunc) => {
-      try{
-        const resp = await fetch(url);
-        if (!resp.ok){
-          throw new Error("Error while fetching from url "+url)
-        }
-        const data = await resp.json();
-        callbackFunc(data);
-      }catch(error){
-        console.log(error.message);
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) {
+        throw new Error("Error while fetching from url " + url)
       }
+      const data = await resp.json();
+      callbackFunc(data);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   const updateMasterDataInStore = (masterData) => {
     dispatch(actions.refreshMasterData(masterData));
   }
-  const updateRequesPageState = (requestDetails) => {
+  const updateRequestPageState = (requestDetails) => {
     updateRequestHeadDetails(requestDetails, setRequestHeadDetails);
     updateBasicDetails(requestDetails, setBasicDetails);
     updateAddressDetails(requestDetails, setAddressDetails);
@@ -58,10 +71,31 @@ const RequestLayout = () => {
     }
 
     if (params.requestId) {
-      fetchAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, updateRequesPageState);
+      fetchAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, updateRequestPageState);
     }
 
   }, []);
+
+  const updateStateDetailsTab = (evt, setStateFunc)=> {
+    let newVal = ''
+    if(evt.target.type === 'select-one'){
+      newVal = {key: evt.target.value, value: evt.target.options[evt.target.selectedIndex].text}
+    }else{
+      newVal = evt.target.value;
+    }
+    setStateFunc((prevState) => {
+      return {
+        ...prevState,
+        [evt.target.name]: newVal
+      }
+    })
+  }
+
+  // }
+
+  const updateStateForBasicDetailTab = (evt) => updateStateDetailsTab(evt, setBasicDetails);
+  const updateStateForAddressTab = (evt) => updateStateDetailsTab(evt, setAddressDetails);
+  const updateStateForAdditionalTab = (evt) => updateStateDetailsTab(evt, setAdditionalDetails);
 
 
   return (
@@ -74,7 +108,7 @@ const RequestLayout = () => {
         <div className='border border-rounded mt-2 p-2'>
           <RequestTabs tabItems={tabItems} />
           <div className="tab-content" id="myTabContent">
-            <Outlet context={{ basicDetails, addressDetails, additionalDetails }} />
+            <Outlet context={ {basicDetails, addressDetails, additionalDetails, updateStateForBasicDetailTab, updateStateForAddressTab, updateStateForAdditionalTab }} />
           </div>
         </div>
 
@@ -82,11 +116,10 @@ const RequestLayout = () => {
       </form>
     </div>
   )
-}
 
+  }
 
 export default RequestLayout
-
 
 
 

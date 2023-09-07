@@ -10,12 +10,12 @@ const SelectField = (props) => {
           { props.isMandatory && <span className='field-mandatory-indicator'>*</span>}
           </div>
           {props.isEditable ?
-          <select id={props.fieldId} className="form-select col" value={props.fieldValue} >
+          <select id={props.fieldId} className="form-select col" value={props.fieldValue.key} onChange={props.fieldOnChange} name={props.fieldId}>
                 {props.fieldOptions && props.fieldOptions.map( option => (
                     <option key={option.optionKey} value={option.optionKey}>{option.optionValue}</option>
                 ))}
           </select>
-      : <label className='text-strong col'>{props.fieldValue}</label>}
+      : <label className='text-strong col'>{props.fieldValue.value}</label>}
     </div>
   )
               }
