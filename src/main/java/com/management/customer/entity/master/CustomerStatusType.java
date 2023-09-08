@@ -12,12 +12,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "LOOKUP_YEARLY_INCOME")
-public class YearlyIncome {
+@Table(name = "LOOKUP_CUSTOMER_STATUS_TYPE")
+public class CustomerStatusType {
     @Id
     @Column(name="ID")
     private Integer id;
-    @Column(name="YEARLY_INCOME")
-    private String yearlyIncome;
+    @Column(name="CUSTOMER_STATUS")
+    private String customerStatus;
 
 }

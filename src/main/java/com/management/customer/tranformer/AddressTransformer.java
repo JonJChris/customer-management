@@ -1,24 +1,24 @@
 package com.management.customer.tranformer;
 
+import com.management.customer.entity.transaction.RequestAddress;
 import com.management.customer.model.transaction.AddressModel;
-import com.management.customer.entity.transaction.Address;
 
 public class AddressTransformer {
-    public static AddressModel entityToModel(Address address){
+    public static AddressModel entityToModel(RequestAddress requestAddress){
         return new AddressModel(
-                address.getAddressId(),
-                address.getRegisteredAddressLine1(),
-                address.getRegisteredAddressLine2(),
-                address.getRegisteredAddressCity(),
-                address.getRegisteredAddressState(),
-                CountryTransformer.entityToModel(address.getRegisteredAddressCountry()),
-                address.getRegisteredAddressPostalCode(),
-                address.getCommunicationAddressLine1(),
-                address.getCommunicationAddressLine2(),
-                address.getCommunicationAddressCity(),
-                address.getCommunicationAddressState(),
-                CountryTransformer.entityToModel(address.getCommunicationAddressCountry()),
-                address.getCommunicationAddressPostalCode()
+                requestAddress.getAddressId(),
+                requestAddress.getRegisteredAddressLine1(),
+                requestAddress.getRegisteredAddressLine2(),
+                requestAddress.getRegisteredAddressCity(),
+                requestAddress.getRegisteredAddressState(),
+                CountryTransformer.entityToModel(requestAddress.getRegisteredAddressCountryType()),
+                requestAddress.getRegisteredAddressPostalCode(),
+                requestAddress.getCommunicationAddressLine1(),
+                requestAddress.getCommunicationAddressLine2(),
+                requestAddress.getCommunicationAddressCity(),
+                requestAddress.getCommunicationAddressState(),
+                CountryTransformer.entityToModel(requestAddress.getCommunicationAddressCountryType()),
+                requestAddress.getCommunicationAddressPostalCode()
                 );
     }
 

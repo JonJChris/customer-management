@@ -1,7 +1,7 @@
 package com.management.customer.entity.transaction;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.master.RequestStage;
+import com.management.customer.entity.master.StageType;
 import com.management.customer.entity.master.RequestType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class Request {
     private RequestType requestType;
     @ManyToOne
     @JoinColumn(name="REQUEST_STAGE")
-    private RequestStage requestStage;
+    private StageType stageType;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdOn;
     @ManyToOne
@@ -36,10 +36,10 @@ public class Request {
     @JoinColumn(name="LAST_UPDATED_BY")
     private User updatedBy;
     @OneToOne(mappedBy = "request")
-    private Customer customer;
+    private RequestCustomer requestCustomer;
     @OneToOne(mappedBy = "request")
-    private Address address;
+    private RequestAddress requestAddress;
     @OneToMany(mappedBy = "request")
-    private List<Stage> requestStages;
+    private List<RequestStage> requestRequestStages;
 
 }

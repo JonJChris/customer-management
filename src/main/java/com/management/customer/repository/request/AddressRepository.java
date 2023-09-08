@@ -1,7 +1,7 @@
 package com.management.customer.repository.request;
 
-import com.management.customer.entity.transaction.Address;
+import com.management.customer.entity.transaction.RequestAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AddressRepository extends JpaRepository<Address, Long> {
+public interface AddressRepository extends JpaRepository<RequestAddress, Long> {
 }

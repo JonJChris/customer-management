@@ -1,7 +1,7 @@
 package com.management.customer.repository.master;
 
-import com.management.customer.entity.master.Product;
+import com.management.customer.entity.master.ProductType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<ProductType, Integer> {
 }

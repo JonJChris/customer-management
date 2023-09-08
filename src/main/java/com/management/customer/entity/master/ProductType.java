@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "LOOKUP_PRODUCT")
-public class Product {
+@Table(name = "LOOKUP_PRODUCT_TYPE")
+public class ProductType {
     @Id
     @Column(name="ID")
     private Integer id;
@@ -23,6 +23,6 @@ public class Product {
     @Column(name="PRODUCT_DESCRIPTION")
     private String productDescription;
     @ManyToMany(mappedBy = "productsList")
-    private List<Branch> branchList;
+    private List<BranchType> branchList;
 
 }

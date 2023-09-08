@@ -18,7 +18,9 @@ public record RequestModel(
         UserModel requestCreatedBy,
         LocalDateTime requestLastUpdatedDate,
         UserModel requestLastUpdatedBy,
-        List<UIFieldModel>uiFieldModelsList
+        List<UIFieldModel> uiInputFieldModelsList,
+        List<UIFieldModel> uiTabModelsList,
+        UserModel requestSubmittedBy
 
 ) {
 }

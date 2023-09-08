@@ -1,7 +1,7 @@
 package com.management.customer.entity.transaction;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.master.Country;
+import com.management.customer.entity.master.CountryType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name="RQ_ADDRESS")
-public class Address {
+public class RequestAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
@@ -32,7 +32,7 @@ public class Address {
     private String registeredAddressState;
     @ManyToOne
     @JoinColumn(name="REGISTERED_ADDRESS_COUNTRY")
-    private Country registeredAddressCountry;
+    private CountryType registeredAddressCountryType;
     @Column(name="REGISTERED_ADDRESS_POSTAL_CODE")
     private String registeredAddressPostalCode;
     @Column(name="COMMUNICATION_ADDRESS_LINE1")
@@ -45,7 +45,7 @@ public class Address {
     private String communicationAddressState;
     @ManyToOne
     @JoinColumn(name="COMMUNICATION_ADDRESS_COUNTRY")
-    private Country communicationAddressCountry;
+    private CountryType communicationAddressCountryType;
     @Column(name="COMMUNICATION_ADDRESS_POSTAL_CODE")
     private String communicationAddressPostalCode;
     @Column(name="CREATED_DATE")

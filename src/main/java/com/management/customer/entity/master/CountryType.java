@@ -12,8 +12,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "LOOKUP_COUNTRY")
-public class Country {
+@Table(name = "LOOKUP_COUNTRY_TYPE")
+public class CountryType {
     @Id
     @Column(name="ID")
     private Integer id;

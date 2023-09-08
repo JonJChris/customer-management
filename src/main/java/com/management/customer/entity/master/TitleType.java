@@ -12,13 +12,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "LOOKUP_STATUS")
-public class Status {
+@Table(name = "LOOKUP_TITLE_TYPE")
+public class TitleType {
     @Id
     @Column(name="ID")
     private Integer id;
-    @Column(name="STATUS_CODE")
-    private String statusCode;
-    @Column(name="STATUS_NAME")
-    private String statusName;
+    @Column(name="TITLE")
+    private String title;
+
 }

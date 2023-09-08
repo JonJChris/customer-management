@@ -9,27 +9,19 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "UI_FIELD_RULES")
-public class UIFieldRules {
+@Table(name = "REQUEST_TYPE_REQUEST_STAGE_RULES")
+public class RequestTypeRequestStageRules {
     @Id
     @Column(name="ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     @JoinColumn(name="REQUEST_TYPE_ID")
-    private RequestType requestTypeId;
+    private RequestType requestType;
     @ManyToOne
     @JoinColumn(name="REQUEST_STAGE_ID")
-    private RequestStage requestStageId;
-    @ManyToOne
-    @JoinColumn(name="FIELD_ID")
-    private UIFiled uiFiled;
-    @Column(name="IS_VISIBLE")
-    private Boolean isVisible;
-    @Column(name="IS_EDITABLE")
-    private Boolean isEditable;
-    @Column(name="IS_MANDATORY")
-    private Boolean isMandatory;
-
+    private RequestType requestStage;
+    @Column(name="STAGE_ORDER")
+    private Integer stageOrder;
 
 }

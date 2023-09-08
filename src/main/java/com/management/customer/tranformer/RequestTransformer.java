@@ -8,20 +8,22 @@ import java.util.List;
 
 public class RequestTransformer {
     public static RequestModel entityToModel(Request request) {
-     return entityToModel(request, null);
+     return entityToModel(request, null, null);
     }
-    public static RequestModel entityToModel(Request request, List<UIFieldModel> uiFieldModelList) {
+    public static RequestModel entityToModel(Request request, List<UIFieldModel> uiInputFieldModelList, List<UIFieldModel> uiTabModelList) {
         return new RequestModel(
                 request.getRequestId(),
                 RequestTypeTransformer.entityToModel(request.getRequestType()),
-                RequestStageTransformer.entityToModel(request.getRequestStage()),
-                CustomerTransformer.entityToModel(request.getCustomer()),
-                AddressTransformer.entityToModel(request.getAddress()),
+                RequestStageTransformer.entityToModel(request.getStageType()),
+                CustomerTransformer.entityToModel(request.getRequestCustomer()),
+                AddressTransformer.entityToModel(request.getRequestAddress()),
                 request.getCreatedOn(),
                 UserTransformer.entityToModel(request.getCreatedBy()),
                 request.getUpdatedOn(),
                 UserTransformer.entityToModel(request.getUpdatedBy()),
-                uiFieldModelList
+                uiInputFieldModelList,
+                uiTabModelList,
+                null
                 );
     }
 }

@@ -17,7 +17,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Syntax Highlighting in the Editor](#syntax-highlighting-in-the-editor)
 - [Displaying Lint Output in the Editor](#displaying-lint-output-in-the-editor)
 - [Debugging in the Editor](#debugging-in-the-editor)
-- [Changing the Page `<title>`](#changing-the-page-title)
+- [Changing the Page `<titleType>`](#changing-the-page-titleType)
 - [Installing a Dependency](#installing-a-dependency)
 - [Importing a Component](#importing-a-component)
 - [Adding a Stylesheet](#adding-a-stylesheet)
@@ -191,7 +191,7 @@ In addition to [ES6](https://github.com/lukehoban/es6features) syntax features, 
 
 Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-).
 
-While we recommend to use experimental proposals with some caution, Facebook heavily uses these features in the product code, so we intend to provide [codemods](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb) if any of these proposals change in the future.
+While we recommend to use experimental proposals with some caution, Facebook heavily uses these features in the productType code, so we intend to provide [codemods](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb) if any of these proposals change in the future.
 
 Note that **the project only includes a few ES6 [polyfills](https://en.wikipedia.org/wiki/Polyfill)**:
 
@@ -281,15 +281,15 @@ Then add the block below to your `launch.json` file and put it inside the `.vsco
 
 Start your app by running `npm start`, and start debugging in VS Code by pressing `F5` or by clicking the green debug icon. You can now write code, set breakpoints, make changes to the code, and debug your newly modified code—all from your editor.
 
-## Changing the Page `<title>`
+## Changing the Page `<titleType>`
 
-You can find the source HTML file in the `public` folder of the generated project. You may edit the `<title>` tag in it to change the title from “React App” to anything else.
+You can find the source HTML file in the `public` folder of the generated project. You may edit the `<titleType>` tag in it to change the titleType from “React App” to anything else.
 
 Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
 
-If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API. For more complex scenarios when you want to change the title from React components, you can use [React Helmet](https://github.com/nfl/react-helmet), a third party library.
+If you need to dynamically update the page titleType based on the content, you can use the browser [`document.titleType`](https://developer.mozilla.org/en-US/docs/Web/API/Document/titleType) API. For more complex scenarios when you want to change the titleType from React components, you can use [React Helmet](https://github.com/nfl/react-helmet), a third party library.
 
-If you use a custom server for your app in production and want to modify the title before it gets sent to the browser, you can follow advice in [this section](#generating-dynamic-meta-tags-on-the-server). Alternatively, you can pre-build each page as a static HTML file which then loads the JavaScript bundle, which is covered [here](#pre-rendering-into-static-html-files).
+If you use a custom server for your app in production and want to modify the titleType before it gets sent to the browser, you can follow advice in [this section](#generating-dynamic-meta-tags-on-the-server). Alternatively, you can pre-build each page as a static HTML file which then loads the JavaScript bundle, which is covered [here](#pre-rendering-into-static-html-files).
 
 ## Installing a Dependency
 
@@ -513,7 +513,7 @@ An alternative way of handling static assets is described in the next section.
 
 ### Changing the HTML
 
-The `public` folder contains the HTML file so you can tweak it, for example, to [set the page title](#changing-the-page-title).
+The `public` folder contains the HTML file so you can tweak it, for example, to [set the page titleType](#changing-the-page-titleType).
 The `<script>` tag with the compiled code will be added to it automatically during the build process.
 
 ### Adding Assets Outside of the Module System
@@ -713,7 +713,7 @@ When you compile the app with `npm run build`, the minification step will strip 
 You can also access the environment variables starting with `REACT_APP_` in the `public/index.html`. For example:
 
 ```html
-<title>%REACT_APP_WEBSITE_NAME%</title>
+<titleType>%REACT_APP_WEBSITE_NAME%</titleType>
 ```
 
 Note that the caveats from the above section apply:
@@ -856,7 +856,7 @@ Since Create React App doesn’t support server rendering, you might be wonderin
 <!doctype html>
 <html lang="en">
   <head>
-    <meta property="og:title" content="__OG_TITLE__">
+    <meta property="og:titleType" content="__OG_TITLE__">
     <meta property="og:description" content="__OG_DESCRIPTION__">
 ```
 

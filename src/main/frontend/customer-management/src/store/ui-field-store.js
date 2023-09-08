@@ -35,19 +35,20 @@ const UIFieldStoreSlice = createSlice({
             Field_129_designation: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_130_yearly_income: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_131_educational_level: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_132_nominee_realtionship_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            Field_132_nominee_relationship_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_133_nominee_first_name: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_134_nominee_last_name: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_135_add_new_product_button: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_136_add_new_document_button: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_137_basic_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_138_address_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_139_additional_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_140_product_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_141_document_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            // Field_137_basic_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            // Field_138_address_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            // Field_139_additional_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            // Field_140_product_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            // Field_141_document_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_142_home_ownership_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_143_nominee_date_of_birth: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-        }
+        },
+        uiTabs: [],
     },
     reducers: {
         updateUIFields: (state, action) => {
@@ -59,6 +60,9 @@ const UIFieldStoreSlice = createSlice({
                 ...newState
             }
 
+        },
+        updateUITabs:(state, action) => {
+            state.uiTabs = action.payload
         }
     }
 

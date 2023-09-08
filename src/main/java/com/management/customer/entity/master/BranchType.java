@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "LOOKUP_BRANCH")
-public class Branch {
+@Table(name = "LOOKUP_BRANCH_TYPE")
+public class BranchType {
     @Id
     @Column(name="ID")
     private Integer id;
@@ -26,7 +26,7 @@ public class Branch {
     @JoinTable(name="BRANCH_PRODUCT",
             joinColumns = @JoinColumn(name="BRANCH_ID"),
             inverseJoinColumns = @JoinColumn(name="PRODUCT_ID"))
-    private List<Product> productsList;
+    private List<ProductType> productsList;
 
 
 }

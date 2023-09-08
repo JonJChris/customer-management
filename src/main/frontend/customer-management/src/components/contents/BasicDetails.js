@@ -2,7 +2,7 @@ import React from 'react'
 import TextField from '../elements/TextField'
 import SelectField from '../elements/SelectField'
 import {useSelector} from 'react-redux';
-import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../functions/generalUtil'
+import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../utility/generalUtil'
 import { useOutletContext } from "react-router-dom";
 
 const BasicDetails = () => {
@@ -68,7 +68,9 @@ const BasicDetails = () => {
         </div>
         
         <div className='col'>
-    
+        <TextField fieldId="Field_144_customer_email" fieldName="Email"  fieldValue={basicDetail && basicDetail.Field_144_customer_email} 
+        isMandatory={isFieldMandatory(uiFieldStore, 'Field_144_customer_email')} isVisible={isFieldVisible(uiFieldStore, 'Field_144_customer_email')} isEditable={isFieldEditable(uiFieldStore, 'Field_144_customer_email')} 
+        fieldOnChange={context.updateStateForBasicDetailTab}/>
         </div>
     </div>
     

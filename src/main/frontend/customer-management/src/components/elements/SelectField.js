@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const SelectField = (props) => {
   if (props.isVisible) {
+    
   return (
     <div className='text-field row'>
             <div className='col text-field-label'>

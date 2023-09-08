@@ -1,10 +1,14 @@
 package com.management.customer.service;
 
+import com.management.customer.entity.authrisation.User;
+import com.management.customer.entity.master.StageType;
+import com.management.customer.entity.master.StageWorkflowRules;
+import com.management.customer.model.master.RequestStageModel;
+import com.management.customer.enums.StageActionEnum;
 import com.management.customer.model.transaction.RequestModel;
 import com.management.customer.entity.transaction.Request;
 import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.userInterface.UIFieldModel;
-import com.management.customer.repository.master.UserInterfaceRulesRepository;
 import com.management.customer.repository.request.RequestRepository;
 import com.management.customer.tranformer.RequestTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +23,75 @@ public class RequestService {
     RequestRepository requestRepository;
     @Autowired
     UserInterfaceService userInterfaceService;
-    public RequestModel getRequestDetails(Long requestId){
+    @Autowired
+    WorkflowService workflowService;
+    @Autowired
+    MergeService mergeService;
+    @Autowired
+    AuthorisationService authorisationService;
+
+
+
+    public RequestModel getRequestDetails(Long requestId) {
         Optional<Request> request = requestRepository.findById(requestId);
 
-        if(request.isEmpty()){
-            throw  new NoDataFoundException("Request Not Found");
-        }else{
+        if (request.isEmpty()) {
+            throw new NoDataFoundException("Request Not Found");
+        } else {
             Request requestEntity = request.get();
-            Optional<List<UIFieldModel>> uiFieldRules = userInterfaceService.getUIFieldRules(requestEntity.getRequestType(), requestEntity.getRequestStage());
-            return RequestTransformer.entityToModel(requestEntity, uiFieldRules.orElse(null));
+            Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+            Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+            return RequestTransformer.entityToModel(requestEntity, uiInputFieldRules.orElse(null), uiTabRules.orElse(null));
         }
     }
+
+
+    public RequestStageModel getNextRequestStage(Long requestId) {
+        Optional<Request> request = requestRepository.findById(requestId);
+        if (request.isEmpty()) {
+            throw new NoDataFoundException("Request Not Found");
+        }
+        Request requestEntity = request.get();
+        return workflowService.getNextStageModel(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.SUCCESS.name());
+
+    }
+
+    public RequestModel submitRequest(RequestModel requestModel) {
+        Integer userId = requestModel.requestSubmittedBy().userId();
+        Optional<Request> requestOptional = requestRepository.findById(requestModel.requestId());
+        if (requestOptional.isEmpty()) {
+            throw new NoDataFoundException("Request Not Found");
+        }
+        Request requestEntity = requestOptional.get();
+
+        // get next request stage
+        Optional<StageWorkflowRules> nextStageOptional = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.SUCCESS.name());
+        if (nextStageOptional.isEmpty()) {
+            throw new NoDataFoundException("Next Request Stage Not Found");
+        }
+        StageWorkflowRules transitStageEntity = nextStageOptional.get();
+
+        User userEntity =  authorisationService.getUserEntity(userId).orElse(null);
+
+        // merge data
+        mergeService.mergeRequestModelWithEntity(requestEntity, requestModel, userEntity);
+
+        // update request stage
+        requestEntity.setStageType(transitStageEntity.getNextStageType());
+
+        //save request data
+        Request savedRequest = requestRepository.save(requestEntity);
+
+        // update request stage to complete
+        workflowService.updateRequestStages(savedRequest, transitStageEntity.getCurrentStageType(), transitStageEntity.getNextStageType(), userEntity);
+
+
+        //TODO
+        Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+        Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+
+        return RequestTransformer.entityToModel(requestEntity, uiInputFieldRules.orElse(null), uiTabRules.orElse(null));
+
+    }
+
 }

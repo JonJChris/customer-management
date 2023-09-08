@@ -7,7 +7,7 @@
 	height="600"
 	fill="white">
 
-  <title>Abstract user icon</title>
+  <titleType>Abstract user icon</titleType>
 
   <defs>
     <clipPath id="circular-border">

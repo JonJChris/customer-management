@@ -7,7 +7,8 @@ import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../store/master-data'
 import { actions as uiFieldActions } from './../../store/ui-field-store'
-import { updateRequestHeadDetails, updateAdditionalDetails, updateAddressDetails, updateBasicDetails } from './../functions/updateStateFromModel'
+import { updateRequestHeadDetails, updateAdditionalDetails, updateAddressDetails, updateBasicDetails, buildRequestBody } from '../utility/data-util'
+import {putRequestAndThenCallBack, getRequestAndThenCallBack } from './../utility/api-util'
 
 const RequestLayout = () => {
   const tabItems = [
@@ -19,11 +20,12 @@ const RequestLayout = () => {
   ]
   const dispatch = useDispatch();
   const masterData = useSelector(state => state.masterDataSlice);
+  const userStore = useSelector(state => state.UserStoreSlice);
   const params = useParams();
   const [requestHeadDetails, setRequestHeadDetails] = useState({ Field_100_request_id: 0, Field_102_request_type: { key: 0, value: '' }, Field_101_request_created: "", Field_103_request_status: {key: 0, value: ''} })
   const [basicDetails, setBasicDetails] = useState({
     Field_104_customer_id: 0, Field_105_customer_title: { key: 0, value: '' }, Field_106_customer_first_name: '', Field_107_customer_last_name: '', 
-    Field_108_customer_display_name: '', Field_109_customer_nationality: { key: 0, value: '' }, email: '', Field_110_customer_date_of_birth: '', 
+    Field_108_customer_display_name: '', Field_109_customer_nationality: { key: 0, value: '' }, Field_144_customer_email: '', Field_110_customer_date_of_birth: '', 
     Field_112_customer_marital_status: { key: 0, value: '' }, Field_113_customer_type: {}
   })
   const [addressDetails, setAddressDetails] = useState({ 
@@ -35,23 +37,27 @@ const RequestLayout = () => {
   const [additionalDetails, setAdditionalDetails] = useState({ 
     Field_126_educational_qualification: { key: 0, value: '' }, Field_127_occupation_type: { key: 0, value: '' }, 
     Field_128_organisation_name: "", Field_130_yearly_income: "", Field_142_home_ownership_type: { key: 0, value: '' }, 
-    Field_132_nominee_realtionship_type: { key: 0, value: '' }, Field_133_nominee_first_name: "", Field_134_nominee_last_name: "", 
+    Field_132_nominee_relationship_type: { key: 0, value: '' }, Field_133_nominee_first_name: "", Field_134_nominee_last_name: "", 
     Field_143_nominee_date_of_birth: "" })
+  const [tabState, setTabState] = useState({
+    tabs: [
+
+    ]
+  });
 
 
-
-  const fetchAndThenCallBack = async (url, callbackFunc) => {
-    try {
-      const resp = await fetch(url);
-      if (!resp.ok) {
-        throw new Error("Error while fetching from url " + url)
-      }
-      const data = await resp.json();
-      callbackFunc(data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  // const fetchAndThenCallBack = async (url, callbackFunc) => {
+  //   try {
+  //     const resp = await fetch(url);
+  //     if (!resp.ok) {
+  //       throw new Error("Error while fetching from url " + url)
+  //     }
+  //     const data = await resp.json();
+  //     callbackFunc(data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
 
   const updateMasterDataInStore = (masterData) => {
     dispatch(actions.refreshMasterData(masterData));
@@ -61,17 +67,18 @@ const RequestLayout = () => {
     updateBasicDetails(requestDetails, setBasicDetails);
     updateAddressDetails(requestDetails, setAddressDetails);
     updateAdditionalDetails(requestDetails, setAdditionalDetails);
-    dispatch(uiFieldActions.updateUIFields(requestDetails.uiFieldModelsList));
+    dispatch(uiFieldActions.updateUIFields(requestDetails.uiInputFieldModelsList));
+    dispatch(uiFieldActions.updateUITabs(requestDetails.uiTabModelsList));
   }
 
 
   useEffect(() => {
     if (!masterData.masterDataExists) {
-      fetchAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+      getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
     }
 
     if (params.requestId) {
-      fetchAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, updateRequestPageState);
+      getRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, updateRequestPageState);
     }
 
   }, []);
@@ -91,18 +98,24 @@ const RequestLayout = () => {
     })
   }
 
-  // }
 
   const updateStateForBasicDetailTab = (evt) => updateStateDetailsTab(evt, setBasicDetails);
   const updateStateForAddressTab = (evt) => updateStateDetailsTab(evt, setAddressDetails);
   const updateStateForAdditionalTab = (evt) => updateStateDetailsTab(evt, setAdditionalDetails);
+  
 
+  const submitRequest = (evt) => {
+    evt.preventDefault();
+    // console.log("**** "+JSON.stringify(userStore.userDetails));
+    const requestBody = buildRequestBody(requestHeadDetails, basicDetails, addressDetails, additionalDetails, userStore.userDetails);
+    putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
+  }
 
   return (
     <div>
 
       <TopNavigation />
-      <form>
+      <form onSubmit={submitRequest}>
         <RequestHead {...requestHeadDetails} />
 
         <div className='border border-rounded mt-2 p-2'>
@@ -112,7 +125,7 @@ const RequestLayout = () => {
           </div>
         </div>
 
-        <RequestButtons />
+        <RequestButtons fieldOnSubmit={submitRequest} />
       </form>
     </div>
   )
