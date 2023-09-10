@@ -20,6 +20,7 @@ public record RequestModel(
         UserModel requestLastUpdatedBy,
         List<UIFieldModel> uiInputFieldModelsList,
         List<UIFieldModel> uiTabModelsList,
+        List<UIFieldModel> uiButtonModelsList,
         UserModel requestSubmittedBy
 
 ) {

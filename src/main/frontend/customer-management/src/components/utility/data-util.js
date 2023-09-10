@@ -25,10 +25,10 @@ export const updateBasicDetails = (requestDetails, setStateFunc) => {
         Field_107_customer_last_name: model.lastName,
         Field_108_customer_display_name: model.displayName,
         Field_109_customer_nationality: model.nationality && { key: model.nationality.countryId, value: model.nationality.countryName },
-        Field_144_customer_email: model.email,
         Field_110_customer_date_of_birth: model.dateOfBirth,
         Field_112_customer_marital_status: model.maritalStatus && { key: model.maritalStatus.maritalStatusId, value: model.maritalStatus.maritalStatusName },
         Field_113_customer_type: model.customerType && { key: model.customerType.customerTypeId, value: model.customerType.customerTypeName },
+        Field_144_customer_email: model.email,
       }
     });
   }

@@ -2,7 +2,7 @@ package com.management.customer.repository.master;
 
 import com.management.customer.entity.master.StageType;
 import com.management.customer.entity.master.RequestType;
-import com.management.customer.entity.master.UiFieldRules;
+import com.management.customer.entity.workflow.UiFieldRules;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

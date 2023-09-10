@@ -1,9 +1,9 @@
 import React from 'react'
-import TextField from '../elements/TextField'
-import SelectField from '../elements/SelectField'
+import TextField from './../../elements/TextField'
+import SelectField from './../../elements/SelectField'
 import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
-import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../utility/generalUtil'
+import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
 const stages = [
   { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
   { stageId: '2', stageName: "Add Products", stageStatus: "COMPLETE" },

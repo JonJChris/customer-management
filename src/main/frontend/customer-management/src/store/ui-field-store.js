@@ -6,7 +6,7 @@ const UIFieldStoreSlice = createSlice({
         uiFields: {
             Field_100_request_id: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_101_request_created: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
-            Field_102_reuest_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            Field_102_request_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_103_request_status: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_104_customer_id: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_105_customer_title: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
@@ -47,6 +47,7 @@ const UIFieldStoreSlice = createSlice({
             // Field_141_document_details_tab: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_142_home_ownership_type: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
             Field_143_nominee_date_of_birth: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
+            Field_144_customer_email: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
         },
         uiTabs: [],
     },

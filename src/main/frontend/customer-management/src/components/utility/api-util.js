@@ -17,6 +17,26 @@ export const putRequestAndThenCallBack = async (url, requestBody, callbackFunc) 
     }
   }
 
+
+export const postRequestAndThenCallBack = async (url, requestBody, callbackFunc) => {
+  try {
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody)
+    });
+    if (!resp.ok) {
+      const errResp = await resp.json();
+      throw new Error("[POST] Error while fetching URL  " + JSON.stringify(errResp) )
+    }
+    const data = await resp.json();
+    callbackFunc(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+
   export const getRequestAndThenCallBack = async (url, callbackFunc) => {
     try {
       const resp = await fetch(url, {

@@ -1,5 +1,6 @@
 import React from 'react'
 import profileImg from './../assets/profile.svg'
+import { NavLink } from 'react-router-dom'
 const TopNavigation = () => {
 
 
@@ -12,9 +13,9 @@ const TopNavigation = () => {
         <div className="my-dropdown col-1">
           <button className="btn btn-primary">Action </button>
           <div className="dropdown-content">
-            <a href="#">Create Customer</a>
-            <a href="#">Search Customer</a>
-            <a href="#">Search Request</a>
+            <NavLink to="">Search Request</NavLink>
+            <NavLink to="/search/customer">Search Customer</NavLink>
+            <NavLink to="">Create Customer</NavLink>
 
           </div>
         </div>

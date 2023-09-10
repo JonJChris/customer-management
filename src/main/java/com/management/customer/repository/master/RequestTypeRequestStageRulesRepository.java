@@ -1,7 +1,7 @@
 package com.management.customer.repository.master;
 
 import com.management.customer.entity.master.RequestType;
-import com.management.customer.entity.master.RequestTypeRequestStageRules;
+import com.management.customer.entity.workflow.RequestTypeRequestStageRules;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

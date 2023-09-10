@@ -1,8 +1,7 @@
 package com.management.customer.service;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.master.StageType;
-import com.management.customer.entity.master.StageWorkflowRules;
+import com.management.customer.entity.workflow.StageWorkflowRules;
 import com.management.customer.model.master.RequestStageModel;
 import com.management.customer.enums.StageActionEnum;
 import com.management.customer.model.transaction.RequestModel;
@@ -41,7 +40,12 @@ public class RequestService {
             Request requestEntity = request.get();
             Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
             Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
-            return RequestTransformer.entityToModel(requestEntity, uiInputFieldRules.orElse(null), uiTabRules.orElse(null));
+            Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+            return RequestTransformer.entityToModel(requestEntity,
+                    uiInputFieldRules.orElse(null),
+                    uiTabRules.orElse(null),
+                    uiButtonRules.orElse(null)
+            );
         }
     }
 
@@ -89,8 +93,13 @@ public class RequestService {
         //TODO
         Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
         Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+        Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
 
-        return RequestTransformer.entityToModel(requestEntity, uiInputFieldRules.orElse(null), uiTabRules.orElse(null));
+        return RequestTransformer.entityToModel(requestEntity,
+                uiInputFieldRules.orElse(null),
+                uiTabRules.orElse(null),
+                uiButtonRules.orElse(null)
+        );
 
     }
 

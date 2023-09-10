@@ -8,9 +8,9 @@ import java.util.List;
 
 public class RequestTransformer {
     public static RequestModel entityToModel(Request request) {
-     return entityToModel(request, null, null);
+     return entityToModel(request, null, null, null);
     }
-    public static RequestModel entityToModel(Request request, List<UIFieldModel> uiInputFieldModelList, List<UIFieldModel> uiTabModelList) {
+    public static RequestModel entityToModel(Request request, List<UIFieldModel> uiInputFieldModelList, List<UIFieldModel> uiTabModelList, List<UIFieldModel> uiButtonModelList) {
         return new RequestModel(
                 request.getRequestId(),
                 RequestTypeTransformer.entityToModel(request.getRequestType()),
@@ -23,6 +23,7 @@ public class RequestTransformer {
                 UserTransformer.entityToModel(request.getUpdatedBy()),
                 uiInputFieldModelList,
                 uiTabModelList,
+                uiButtonModelList,
                 null
                 );
     }

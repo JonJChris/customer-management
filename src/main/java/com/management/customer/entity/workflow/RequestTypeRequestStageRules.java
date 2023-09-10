@@ -1,5 +1,8 @@
-package com.management.customer.entity.master;
+package com.management.customer.entity.workflow;
 
+import com.management.customer.entity.master.RequestType;
+import com.management.customer.entity.master.StageType;
+import com.management.customer.entity.transaction.RequestStage;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +23,7 @@ public class RequestTypeRequestStageRules {
     private RequestType requestType;
     @ManyToOne
     @JoinColumn(name="REQUEST_STAGE_ID")
-    private RequestType requestStage;
+    private StageType requestStage;
     @Column(name="STAGE_ORDER")
     private Integer stageOrder;
 

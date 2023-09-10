@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import RequestHead from '../contents/RequestHead'
-import TopNavigation from '../TopNavigation'
-import RequestButtons from '../contents/RequestButtons'
-import RequestTabs from './../layouts/RequestTabs'
+import RequestHead from './../../contents/Request/RequestHead'
+import TopNavigation from './../../TopNavigation'
+import RequestButtons from './../../contents/Request/RequestButtons'
+import RequestTabs from './../../layouts/request/RequestTabs'
 import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { actions } from './../../store/master-data'
-import { actions as uiFieldActions } from './../../store/ui-field-store'
-import { updateRequestHeadDetails, updateAdditionalDetails, updateAddressDetails, updateBasicDetails, buildRequestBody } from '../utility/data-util'
-import {putRequestAndThenCallBack, getRequestAndThenCallBack } from './../utility/api-util'
+import { actions } from './../../../store/master-data'
+import { actions as uiFieldActions } from './../../../store/ui-field-store'
+import { updateRequestHeadDetails, updateAdditionalDetails, updateAddressDetails, updateBasicDetails, buildRequestBody } from './../../utility/data-util'
+import {putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
 
 const RequestLayout = () => {
   const tabItems = [
@@ -106,7 +106,6 @@ const RequestLayout = () => {
 
   const submitRequest = (evt) => {
     evt.preventDefault();
-    // console.log("**** "+JSON.stringify(userStore.userDetails));
     const requestBody = buildRequestBody(requestHeadDetails, basicDetails, addressDetails, additionalDetails, userStore.userDetails);
     putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
   }

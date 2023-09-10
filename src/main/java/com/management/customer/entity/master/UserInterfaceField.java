@@ -24,6 +24,8 @@ public class UserInterfaceField {
     private String fieldDisplayName;
     @Column(name="FIELD_TYPE")
     private String fieldType;
+    @Column(name="FIELD_TAB")
+    private String fieldTab;
     @Column(name="FIELD_ORDER")
     private Integer fieldOrder;
     @Column(name="FIELD_LINK")

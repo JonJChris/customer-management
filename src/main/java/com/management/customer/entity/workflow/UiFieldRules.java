@@ -1,5 +1,8 @@
-package com.management.customer.entity.master;
+package com.management.customer.entity.workflow;
 
+import com.management.customer.entity.master.RequestType;
+import com.management.customer.entity.master.StageType;
+import com.management.customer.entity.master.UserInterfaceField;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,7 +2,7 @@ package com.management.customer.service;
 
 import com.management.customer.entity.master.StageType;
 import com.management.customer.entity.master.RequestType;
-import com.management.customer.entity.master.UiFieldRules;
+import com.management.customer.entity.workflow.UiFieldRules;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.enums.UIFieldTypeEnum;
 import com.management.customer.repository.master.UserInterfaceRulesRepository;
@@ -27,8 +27,20 @@ public class UserInterfaceService {
             return Optional.of(uiFieldRulesList.stream().map(UIFieldTransformer::entityToModel).toList());
         }
 
-    }    Optional<List<UIFieldModel>> getUITabFieldRules(RequestType requestTypeId, StageType stageTypeId){
+    }
+
+    Optional<List<UIFieldModel>> getUITabFieldRules(RequestType requestTypeId, StageType stageTypeId){
         List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldType(requestTypeId, stageTypeId, UIFieldTypeEnum.TAB.name());
+        if(uiFieldRulesList.isEmpty()){
+            return Optional.empty();
+        }else{
+            return Optional.of(uiFieldRulesList.stream().map(UIFieldTransformer::entityToModel).toList());
+        }
+
+    }
+
+    Optional<List<UIFieldModel>> getUIButtonFieldRules(RequestType requestTypeId, StageType stageTypeId){
+        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldType(requestTypeId, stageTypeId, UIFieldTypeEnum.BUTTON.name());
         if(uiFieldRulesList.isEmpty()){
             return Optional.empty();
         }else{

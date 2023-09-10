@@ -1,9 +1,9 @@
 import React from 'react'
-import TextField from '../elements/TextField'
-import SelectField from '../elements/SelectField'
+import TextField from './../../elements/TextField'
+import SelectField from './../../elements/SelectField'
 import {useSelector} from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
-import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../utility/generalUtil'
+import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../../utility/generalUtil'
 
 const AdditionalDetails = () => {
   const masterData = useSelector( state => state.masterDataSlice);

@@ -1,5 +1,7 @@
-package com.management.customer.entity.master;
+package com.management.customer.entity.workflow;
 
+import com.management.customer.entity.master.RequestType;
+import com.management.customer.entity.master.StageType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +21,12 @@ public class StageWorkflowRules {
     @JoinColumn(name="REQUEST_TYPE_ID")
     private RequestType requestType;
     @ManyToOne
-    @JoinColumn(name="CURRENT_REQUEST_STAGE_ID")
+    @JoinColumn(name="CURRENT_STAGE_ID")
     private StageType currentStageType;
     @Column(name="STAGE_ACTION")
     private String stageAction;
     @ManyToOne
-    @JoinColumn(name="NEXT_REQUEST_STAGE_ID")
+    @JoinColumn(name="NEXT_STAGE_ID")
     private StageType nextStageType;
 
 }

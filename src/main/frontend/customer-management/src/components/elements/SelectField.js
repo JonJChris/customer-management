@@ -12,6 +12,7 @@ const SelectField = (props) => {
           </div>
           {props.isEditable ?
           <select id={props.fieldId} className="form-select col" value={props.fieldValue.key} onChange={props.fieldOnChange} name={props.fieldId}>
+                <option key={"1"} value={""}>Select</option>
                 {props.fieldOptions && props.fieldOptions.map( option => (
                     <option key={option.optionKey} value={option.optionKey}>{option.optionValue}</option>
                 ))}

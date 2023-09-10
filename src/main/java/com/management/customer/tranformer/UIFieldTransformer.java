@@ -1,6 +1,6 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.entity.master.UiFieldRules;
+import com.management.customer.entity.workflow.UiFieldRules;
 import com.management.customer.model.userInterface.UIFieldModel;
 
 public class UIFieldTransformer {
