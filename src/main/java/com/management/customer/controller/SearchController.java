@@ -1,7 +1,9 @@
 package com.management.customer.controller;
 
-import com.management.customer.model.search.CustomerSearchRequest;
-import com.management.customer.model.search.CustomerSearchResult;
+import com.management.customer.model.search.customer.CustomerSearchRequest;
+import com.management.customer.model.search.customer.CustomerSearchResult;
+import com.management.customer.model.search.request.RequestSearchRequest;
+import com.management.customer.model.search.request.RequestSearchResult;
 import com.management.customer.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,5 +17,9 @@ public class SearchController {
     @PostMapping("customer")
     public CustomerSearchResult searchCustomer(@RequestBody CustomerSearchRequest customerSearchRequest){
         return searchService.searchCustomer(customerSearchRequest);
+    }
+    @PostMapping("request")
+    public RequestSearchResult searchRequest(@RequestBody RequestSearchRequest requestSearchRequest){
+        return searchService.searchRequest(requestSearchRequest);
     }
 }

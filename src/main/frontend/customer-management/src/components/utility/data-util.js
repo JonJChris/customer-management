@@ -13,7 +13,7 @@ export const updateRequestHeadDetails = (requestDetails, setStateFunc) => {
   }
 }
 
-export const updateBasicDetails = (requestDetails, setStateFunc) => {
+export const updateRequestBasicDetails = (requestDetails, setStateFunc) => {
   if (requestDetails && requestDetails.customerModel) {
     const model = requestDetails.customerModel
     setStateFunc((prevState) => {
@@ -34,7 +34,7 @@ export const updateBasicDetails = (requestDetails, setStateFunc) => {
   }
 }
 
-export const updateAddressDetails = (requestDetails, setStateFunc) => {
+export const updateRequestAddressDetails = (requestDetails, setStateFunc) => {
   if (requestDetails && requestDetails.addressModel) {
     const model = requestDetails.addressModel
     setStateFunc((prevState) => {
@@ -59,7 +59,7 @@ export const updateAddressDetails = (requestDetails, setStateFunc) => {
   }
 }
 
-export const updateAdditionalDetails = (requestDetails, setStateFunc) => {
+export const updateRequestAdditionalDetails = (requestDetails, setStateFunc) => {
   if (requestDetails && requestDetails.customerModel) {
     const model = requestDetails.customerModel
     setStateFunc((prevState) => {
@@ -128,8 +128,90 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
     userLastName: userDetail.userLastName
   }
 
-  console.log(JSON.stringify(requestBody));
-
+  
   return requestBody;
 
+}
+
+export const updateCustomerHeadDetails = (customerDetails, setStateFunc) => {
+  if (customerDetails) {
+    setStateFunc((prevState) => {
+      return {
+        ...prevState,
+        Field_197_customer_crated_date: customerDetails.customerId,
+        Field_198_customer_created_by: (customerDetails.createdBy.userFirstName + ' '+customerDetails.createdBy.userLastName),
+        Field_199_customer_last_updated_date: customerDetails.updatedDate,
+        Field_200_customer_last_updated_by: (customerDetails.updatedBy.userFirstName + ' '+customerDetails.updatedBy.userLastName),
+      }
+    });
+  }
+}
+
+export const updateCustomerBasicDetails = (customerDetails, setStateFunc) => {
+  if (customerDetails ) {
+    
+    setStateFunc((prevState) => {
+      return {
+        ...prevState,
+        Field_159_customer_id: customerDetails.customerId,
+        Field_160_customer_title: customerDetails.userTitle && { key: customerDetails.userTitle.titleId, value: customerDetails.userTitle.titleName },
+        Field_161_customer_first_name: customerDetails.firstName,
+        Field_162_customer_last_name: customerDetails.lastName,
+        Field_163_customer_display_name: customerDetails.displayName,
+        Field_164_customer_nationality: customerDetails.nationality && { key: customerDetails.nationality.countryId, value: customerDetails.nationality.countryName },
+        Field_165_customer_date_of_birth: customerDetails.dateOfBirth,
+        Field_166_customer_marital_status: customerDetails.maritalStatus && { key: customerDetails.maritalStatus.maritalStatusId, value: customerDetails.maritalStatus.maritalStatusName },
+        Field_167_customer_type: customerDetails.customerType && { key: customerDetails.customerType.customerTypeId, value: customerDetails.customerType.customerTypeName },
+        Field_196_customer_email: customerDetails.email,
+      }
+    });
+  }
+}
+
+
+export const updateCustomerAddressDetails = (customerDetails, setStateFunc) => {
+  if (customerDetails && customerDetails.addressStoreModel) {
+    const model = customerDetails.addressStoreModel
+    setStateFunc((prevState) => {
+      return {
+        ...prevState,
+
+        addressId: model.addressId,
+        Field_168_reg_address_line1: model.registeredAddressLine1,
+        Field_169_reg_address_line2: model.registeredAddressLine2,
+        Field_170_reg_address_city: model.registeredAddressCity,
+        Field_171_reg_address_state: model.registeredAddressState,
+        Field_172_reg_address_country: model.registeredAddressCountry && { key: model.registeredAddressCountry.countryId, value: model.registeredAddressCountry.countryName },
+        Field_173_reg_address_postal_code: model.registeredAddressPostalCode,
+        Field_174_com_address_line1: model.communicationAddressLine1,
+        Field_175_com_address_line2: model.communicationAddressLine2,
+        Field_176_com_address_city: model.communicationAddressCity,
+        Field_177_com_address_state: model.communicationAddressState,
+        Field_178_com_address_country: model.communicationAddressCountry && { key: model.communicationAddressCountry.countryId, value: model.communicationAddressCountry.countryName },
+        Field_179_com_address_postal_code: model.communicationAddressPostalCode,
+      }
+    });
+  }
+}
+
+
+export const updateCustomerAdditionalDetails = (customerDetails, setStateFunc) => {
+  if (customerDetails) {
+
+    setStateFunc((prevState) => {
+      return {
+        ...prevState,
+
+        Field_180_educational_qualification: customerDetails.customerEducationLevel && { key: customerDetails.customerEducationLevel.educationLevelId, value: customerDetails.customerEducationLevel.educationLevelName },
+        Field_181_occupation_type: customerDetails.customerProfession && { key: customerDetails.customerProfession.professionId, value: customerDetails.customerProfession.professionName },
+        Field_182_organisation_name: customerDetails.customerOrganisationName,
+        Field_183_yearly_income: customerDetails.customerYearlyIncome && { key: customerDetails.customerYearlyIncome.yearlyIncomeId, value: customerDetails.customerYearlyIncome.yearlyIncomeName },
+        Field_194_home_ownership_type: customerDetails.homeOwnershipType && { key: customerDetails.homeOwnershipType.homeOwnershipTypeId, value: customerDetails.homeOwnershipType.homeOwnershipTypeName },
+        Field_184_nominee_relationship_type: customerDetails.nomineeRelationshipType && { key: customerDetails.nomineeRelationshipType.relationshipTypeId, value: customerDetails.nomineeRelationshipType.relationshipTypeName },
+        Field_185_nominee_first_name: customerDetails.nomineeFirstName,
+        Field_186_nominee_last_name: customerDetails.nomineeLastName,
+        Field_195_nominee_date_of_birth: customerDetails.nomineeDateOfBirth
+      }
+    });
+  }
 }

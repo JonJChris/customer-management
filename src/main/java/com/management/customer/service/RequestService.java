@@ -4,7 +4,7 @@ import com.management.customer.entity.authrisation.User;
 import com.management.customer.entity.workflow.StageWorkflowRules;
 import com.management.customer.model.master.RequestStageModel;
 import com.management.customer.enums.StageActionEnum;
-import com.management.customer.model.transaction.RequestModel;
+import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.entity.transaction.Request;
 import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.userInterface.UIFieldModel;
@@ -38,9 +38,9 @@ public class RequestService {
             throw new NoDataFoundException("Request Not Found");
         } else {
             Request requestEntity = request.get();
-            Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
-            Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
-            Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+            Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+            Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+            Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
             return RequestTransformer.entityToModel(requestEntity,
                     uiInputFieldRules.orElse(null),
                     uiTabRules.orElse(null),
@@ -91,9 +91,9 @@ public class RequestService {
 
 
         //TODO
-        Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
-        Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
-        Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+        Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+        Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
+        Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
 
         return RequestTransformer.entityToModel(requestEntity,
                 uiInputFieldRules.orElse(null),

@@ -1,6 +1,6 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.model.transaction.CustomerModel;
+import com.management.customer.model.transaction.request.CustomerModel;
 import com.management.customer.entity.transaction.RequestCustomer;
 
 public class CustomerTransformer {

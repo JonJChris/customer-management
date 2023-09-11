@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import SearchHead from '../../../contents/search/CustomerSearchHead'
+import CustomerSearchHead from '../../../contents/search/customer/CustomerSearchHead'
 import { Outlet } from 'react-router-dom'
 import TopNavigation from '../../../TopNavigation'
-import CustomerSearchResult from '../../../contents/search/CustomerSearchResult'
+import CustomerSearchResult from '../../../contents/search/customer/CustomerSearchResult'
 import { postRequestAndThenCallBack, getRequestAndThenCallBack } from '../../../utility/api-util'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../../../store/master-data'
@@ -29,7 +29,6 @@ const CustomerSearchLayout = () => {
    
   }
   const onClickHandler = (evt) => {
-    console.log("Button Clicked");
     const url = "http://localhost:8080/api/search/customer";
     const requestBody = {
       customerId: customerSearchData.Field_147_search_customer_id,
@@ -40,7 +39,6 @@ const CustomerSearchLayout = () => {
     postRequestAndThenCallBack(url, requestBody, updateSearchResult);
   }
   const updateMasterDataInStore = (masterData) => {
-    console.log(masterData)
     dispatch(actions.refreshMasterData(masterData));
   }
 
@@ -48,22 +46,14 @@ const CustomerSearchLayout = () => {
     if (!masterData.masterDataExists) {
       getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
     }
-    // const url = "http://localhost:8080/api/search/customer";
-    // const requestBody = {
-    //   "customerId": "100001",
-    //   "firstName": "John",
-    //   "lastName": "Wick",
-    //   "Nationality": "Afghanistan"
-    // }
-    // console.log("URL : " + url);
-    // postRequestAndThenCallBack(url, requestBody, updateSearchResult);
+    
   }, []);
 
   return (
     <div>
 
       <TopNavigation />
-      <SearchHead changeHandler={onChangeHandler} clickHandler={onClickHandler} {...customerSearchData}/>
+      <CustomerSearchHead changeHandler={onChangeHandler} clickHandler={onClickHandler} {...customerSearchData}/>
       <CustomerSearchResult searchResult={customerSearchResult.customerItemList} />
     </div>
   )

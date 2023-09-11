@@ -13,7 +13,7 @@ const TopNavigation = () => {
         <div className="my-dropdown col-1">
           <button className="btn btn-primary">Action </button>
           <div className="dropdown-content">
-            <NavLink to="">Search Request</NavLink>
+            <NavLink to="/search/request">Search Request</NavLink>
             <NavLink to="/search/customer">Search Customer</NavLink>
             <NavLink to="">Create Customer</NavLink>
 

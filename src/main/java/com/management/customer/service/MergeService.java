@@ -4,9 +4,9 @@ import com.management.customer.entity.authrisation.User;
 import com.management.customer.entity.transaction.RequestAddress;
 import com.management.customer.entity.transaction.RequestCustomer;
 import com.management.customer.entity.transaction.Request;
-import com.management.customer.model.transaction.AddressModel;
-import com.management.customer.model.transaction.CustomerModel;
-import com.management.customer.model.transaction.RequestModel;
+import com.management.customer.model.transaction.request.AddressModel;
+import com.management.customer.model.transaction.request.CustomerModel;
+import com.management.customer.model.transaction.request.RequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

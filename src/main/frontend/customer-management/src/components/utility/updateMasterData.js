@@ -15,20 +15,20 @@ const updateUserInterativeRules = (res, dispatchFunc, actions) => dispatchFunc(a
 const updateRelationshipType = (res, dispatchFunc, actions) => dispatchFunc(actions.refreshRelationshipTypesList(res[0]));
 const updateHomeOwnershipType = (res, dispatchFunc, actions) => dispatchFunc(actions.refreshHomeOwnershipTypsList(res[0]));
 
-const fetchMasterData = async (url, callbackFunc) => {
+const fetchMasterData = async (url, callbackFunc, dispatch, actions) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Invalid Repsone");
       }
       const reqTypes = await response.json();
-      callbackFunc(dispatch, [reqTypes, null]);
+      callbackFunc([reqTypes, null], dispatch, actions);
     } catch (error) {
       callbackFunc([null, "Request Failed for " + url + ", " + error]);
     }
   }
 
-export const loadMasterData = (dispatch) => {
+export const loadMasterData = (dispatch, actions) => {
     fetchMasterData('http://localhost:8080/masterData/requestType', updateRequestType);
     fetchMasterData('http://localhost:8080/masterData/country', updateCountry);
     fetchMasterData('http://localhost:8080/masterData/customerStatus', updateCustomerStatus);

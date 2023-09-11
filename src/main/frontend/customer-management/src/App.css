@@ -146,10 +146,17 @@
   background-color: brown !important;
   border-color: brown !important;
 }
+.btn-primary:hover {
+  background-color: darkred !important;
+  border-color: darkred !important;
+}
 .nav-item a {
   color: brown;
   font-weight: bold;
 }
 .form-control{
   padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+a, a:visited, a:hover {
+  color: brown;
 }

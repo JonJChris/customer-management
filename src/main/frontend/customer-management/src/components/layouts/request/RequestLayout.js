@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import RequestHead from './../../contents/Request/RequestHead'
+import RequestHead from '../../contents/request/RequestHead'
 import TopNavigation from './../../TopNavigation'
-import RequestButtons from './../../contents/Request/RequestButtons'
+import RequestButtons from '../../contents/request/RequestButtons'
 import RequestTabs from './../../layouts/request/RequestTabs'
 import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../../store/master-data'
 import { actions as uiFieldActions } from './../../../store/ui-field-store'
-import { updateRequestHeadDetails, updateAdditionalDetails, updateAddressDetails, updateBasicDetails, buildRequestBody } from './../../utility/data-util'
+import { updateRequestHeadDetails, updateRequestAdditionalDetails, updateRequestAddressDetails, updateRequestBasicDetails, buildRequestBody } from './../../utility/data-util'
 import {putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
 
 const RequestLayout = () => {
@@ -46,27 +46,14 @@ const RequestLayout = () => {
   });
 
 
-  // const fetchAndThenCallBack = async (url, callbackFunc) => {
-  //   try {
-  //     const resp = await fetch(url);
-  //     if (!resp.ok) {
-  //       throw new Error("Error while fetching from url " + url)
-  //     }
-  //     const data = await resp.json();
-  //     callbackFunc(data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
   const updateMasterDataInStore = (masterData) => {
     dispatch(actions.refreshMasterData(masterData));
   }
   const updateRequestPageState = (requestDetails) => {
     updateRequestHeadDetails(requestDetails, setRequestHeadDetails);
-    updateBasicDetails(requestDetails, setBasicDetails);
-    updateAddressDetails(requestDetails, setAddressDetails);
-    updateAdditionalDetails(requestDetails, setAdditionalDetails);
+    updateRequestBasicDetails(requestDetails, setBasicDetails);
+    updateRequestAddressDetails(requestDetails, setAddressDetails);
+    updateRequestAdditionalDetails(requestDetails, setAdditionalDetails);
     dispatch(uiFieldActions.updateUIFields(requestDetails.uiInputFieldModelsList));
     dispatch(uiFieldActions.updateUITabs(requestDetails.uiTabModelsList));
   }
@@ -118,7 +105,7 @@ const RequestLayout = () => {
         <RequestHead {...requestHeadDetails} />
 
         <div className='border border-rounded mt-2 p-2'>
-          <RequestTabs tabItems={tabItems} />
+          <RequestTabs />
           <div className="tab-content" id="myTabContent">
             <Outlet context={ {basicDetails, addressDetails, additionalDetails, updateStateForBasicDetailTab, updateStateForAddressTab, updateStateForAdditionalTab }} />
           </div>

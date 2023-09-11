@@ -1,6 +1,6 @@
 package com.management.customer.tranformer;
 
-import com.management.customer.model.transaction.RequestModel;
+import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.entity.transaction.Request;
 import com.management.customer.model.userInterface.UIFieldModel;
 

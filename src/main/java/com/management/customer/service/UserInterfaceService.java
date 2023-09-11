@@ -2,7 +2,8 @@ package com.management.customer.service;
 
 import com.management.customer.entity.master.StageType;
 import com.management.customer.entity.master.RequestType;
-import com.management.customer.entity.workflow.UiFieldRules;
+import com.management.customer.entity.ui.UiFieldRules;
+import com.management.customer.enums.UIFieldArea;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.enums.UIFieldTypeEnum;
 import com.management.customer.repository.master.UserInterfaceRulesRepository;
@@ -19,8 +20,13 @@ public class UserInterfaceService {
 
 
 
-    Optional<List<UIFieldModel>> getUIInputFieldRules(RequestType requestTypeId, StageType stageTypeId){
-        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldType(requestTypeId, stageTypeId, UIFieldTypeEnum.INPUT.name());
+    Optional<List<UIFieldModel>> getRequestDetailsUIInputFieldRules(RequestType requestTypeId, StageType stageTypeId){
+        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldTypeAndUserInterfaceField_FieldArea(
+                requestTypeId,
+                stageTypeId,
+                UIFieldTypeEnum.INPUT.name(),
+                UIFieldArea.REQUEST_DETAILS.name()
+        );
         if(uiFieldRulesList.isEmpty()){
             return Optional.empty();
         }else{
@@ -29,8 +35,13 @@ public class UserInterfaceService {
 
     }
 
-    Optional<List<UIFieldModel>> getUITabFieldRules(RequestType requestTypeId, StageType stageTypeId){
-        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldType(requestTypeId, stageTypeId, UIFieldTypeEnum.TAB.name());
+    Optional<List<UIFieldModel>> getRequestDetailsUITabFieldRules(RequestType requestTypeId, StageType stageTypeId){
+        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldTypeAndUserInterfaceField_FieldArea(
+                requestTypeId,
+                stageTypeId,
+                UIFieldTypeEnum.TAB.name(),
+                UIFieldArea.REQUEST_DETAILS.name()
+        );
         if(uiFieldRulesList.isEmpty()){
             return Optional.empty();
         }else{
@@ -39,8 +50,12 @@ public class UserInterfaceService {
 
     }
 
-    Optional<List<UIFieldModel>> getUIButtonFieldRules(RequestType requestTypeId, StageType stageTypeId){
-        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldType(requestTypeId, stageTypeId, UIFieldTypeEnum.BUTTON.name());
+    Optional<List<UIFieldModel>> getRequestDetailsUIButtonFieldRules(RequestType requestTypeId, StageType stageTypeId){
+        List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldTypeAndUserInterfaceField_FieldArea(
+                requestTypeId,
+                stageTypeId,
+                UIFieldTypeEnum.BUTTON.name(),
+                UIFieldArea.REQUEST_DETAILS.name());
         if(uiFieldRulesList.isEmpty()){
             return Optional.empty();
         }else{

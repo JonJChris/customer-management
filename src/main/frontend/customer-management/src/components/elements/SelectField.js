@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const SelectField = (props) => {
   if (props.isVisible) {
-    
+
   return (
     <div className='text-field row'>
             <div className='col text-field-label'>
@@ -12,9 +12,11 @@ const SelectField = (props) => {
           </div>
           {props.isEditable ?
           <select id={props.fieldId} className="form-select col" value={props.fieldValue.key} onChange={props.fieldOnChange} name={props.fieldId}>
-                <option key={"1"} value={""}>Select</option>
+                <option key={1} value={""}>Select</option>
                 {props.fieldOptions && props.fieldOptions.map( option => (
-                    <option key={option.optionKey} value={option.optionKey}>{option.optionValue}</option>
+                  
+                    <option  key={option.optionKey}  value={option.optionKey}>{option.optionValue}</option>
+                  
                 ))}
           </select>
       : <label className='text-strong col'>{props.fieldValue.value}</label>}

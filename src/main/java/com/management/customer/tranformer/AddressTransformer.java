@@ -1,7 +1,7 @@
 package com.management.customer.tranformer;
 
 import com.management.customer.entity.transaction.RequestAddress;
-import com.management.customer.model.transaction.AddressModel;
+import com.management.customer.model.transaction.request.AddressModel;
 
 public class AddressTransformer {
     public static AddressModel entityToModel(RequestAddress requestAddress){

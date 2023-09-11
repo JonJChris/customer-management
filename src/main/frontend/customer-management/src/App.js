@@ -1,14 +1,25 @@
 import React from 'react';
-import RequestLayout from './components/layouts/request/RequestLayout.js'
+
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import BasicDetails from './components/contents/common/BasicDetails';
-import AddressDetails from './components/contents/common/AddressDetails';
-import AdditionalDetails from './components/contents/common/AdditionalDetails'
-import ProductDetails from './components/contents/common/ProductDetails';
-import AuditDetails from './components/contents/common/AuditDetails';
-import DocumentDetails from './components/contents/common/DocumentDetails';
+
+import RequestLayout from './components/layouts/request/RequestLayout.js'
+import RequestBasicDetails from './components/contents/request/RequestBasicDetails.js';
+import RequestAddressDetails from './components/contents/request/RequestAddressDetails.js';
+import RequestAdditionalDetails from './components/contents/request/RequestAdditionalDetails.js'
+import RequestProductDetails from './components/contents/request/RequestProductDetails.js';
+import RequestDocumentDetails from './components/contents/request/RequestDocumentDetails.js';
+
+import CustomerLayout from './components/layouts/customer/CustomerLayout.js';
+import CustomerBasicDetails from './components/contents/customer/CustomerBasicDetails.js';
+import CustomerAddressDetails from './components/contents/customer/CustomerAddressDetails.js';
+import CustomerAdditionalDetails from './components/contents/customer/CustomerAdditionalDetails.js'
+import CustomerProductDetails from './components/contents/customer/CustomerProductDetails.js';
+import CustomerDocumentDetails from './components/contents/customer/CustomerDocumentDetails.js';
+
 import CustomerSearchLayout from './components/layouts/search/customer/CustomerSearchLayout';
+import RequestSearchLayout from './components/layouts/search/request/RequestSearchLayout.js';
+
 
 
 const App = () => {
@@ -18,15 +29,22 @@ const App = () => {
         { <BrowserRouter>
           <Routes>
             <Route path="/request/:requestId" element={<RequestLayout />} >
-              <Route path="basic" element={<BasicDetails />} />
-              <Route path="Address" element={<AddressDetails />} />
-              <Route path="Additional" element={<AdditionalDetails />} />
-              <Route path="Document" element={<DocumentDetails />} />
-              <Route path="Product" element={<ProductDetails />} />
-              <Route path="Audit" element={<AuditDetails />} />
+              <Route path="basic" element={<RequestBasicDetails />} />
+              <Route path="Address" element={<RequestAddressDetails />} />
+              <Route path="Additional" element={<RequestAdditionalDetails />} />
+              <Route path="Document" element={<RequestDocumentDetails />} />
+              <Route path="Product" element={<RequestProductDetails />} />
             </Route>
-            <Route path="/search/customer" element={<CustomerSearchLayout />} >
-            </Route> 
+            <Route path="/customer/:customerId" element={<CustomerLayout />} >
+              <Route path="basic" element={<CustomerBasicDetails />} />
+              <Route path="Address" element={<CustomerAddressDetails />} />
+              <Route path="Additional" element={<CustomerAdditionalDetails />} />
+              <Route path="Document" element={<CustomerDocumentDetails />} />
+              <Route path="Product" element={<CustomerProductDetails />} />
+            </Route>
+            <Route path="/search/customer" element={<CustomerSearchLayout />} />
+            <Route path="/search/request" element={<RequestSearchLayout />} />
+            
           </Routes>
         </BrowserRouter> }
     </div>
