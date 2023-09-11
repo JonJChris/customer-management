@@ -5,8 +5,12 @@ const RequestButtons = (props) => {
     <div className='border border-rounded mt-3 p-3'>
         <div className='row'>
             <div className='col-8'></div>
-            <div className='col-2'><button className='btn btn-primary' name="Rework" onClick={props.submitRequest}>Reset Values</button></div>            
-            <div className='col-2'><button className='btn btn-primary' name="Submit" onClick={props.submitRequest}>Save and Submit</button></div>            
+            
+            <div className='col-2'><button className='btn btn-primary' 
+            name="Field_146_request_rework" onClick={props.fieldOnSubmit}>Reset Values</button></div>            
+            
+            <div className='col-2'><button className='btn btn-primary' 
+            name="Field_145_request_submit" onClick={props.fieldOnSubmit}>Save and Submit</button></div>            
         </div>
     </div>
   )

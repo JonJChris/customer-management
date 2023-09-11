@@ -92,16 +92,20 @@ const RequestLayout = () => {
   
 
   const submitRequest = (evt) => {
-    evt.preventDefault();
-    const requestBody = buildRequestBody(requestHeadDetails, basicDetails, addressDetails, additionalDetails, userStore.userDetails);
-    putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
+    if(evt.target.name === 'Field_145_request_submit'){
+      const requestBody = buildRequestBody(requestHeadDetails, basicDetails, addressDetails, additionalDetails, userStore.userDetails);
+      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
+    }else if(evt.target.name === 'Field_146_request_rework'){
+      console.log('Rework Triggered');
+    }
+    
   }
 
   return (
     <div>
 
       <TopNavigation />
-      <form onSubmit={submitRequest}>
+      <form onSubmit={(evt) => evt.preventDefault()}>
         <RequestHead {...requestHeadDetails} />
 
         <div className='border border-rounded mt-2 p-2'>
