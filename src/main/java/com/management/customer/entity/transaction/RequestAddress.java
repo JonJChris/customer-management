@@ -16,7 +16,7 @@ public class RequestAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id;
+    private Long Id;
     @Column(name="ADDRESS_ID")
     private Long addressId;
     @OneToOne

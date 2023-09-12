@@ -23,9 +23,9 @@ public class RequestStage {
     @JoinColumn(name = "REQUEST_ID")
     private Request request;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_STAGE_ID")
+    @JoinColumn(name = "REQUEST_STAGE_TYPE_ID")
     private StageType stageType;
-    @Column(name = "REQUEST_STATUS_ID")
+    @Column(name = "REQUEST_STATUS_TYPE_ID")
     private String requestStatusType;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;

@@ -1,9 +1,8 @@
-package com.management.customer.entity.transaction;
+package com.management.customer.entity.store;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.master.BranchType;
 import com.management.customer.entity.master.DocumentType;
-import com.management.customer.entity.master.ProductType;
+import com.management.customer.entity.transaction.Request;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,17 +12,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name="RQ_DOCUMENT")
-public class RequestDocument {
+@Table(name="DOCUMENT_STORE")
+public class DocumentStore {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID")
-    private Long Id;
     @Column(name="DOCUMENT_ID")
     private Long documentId;
-    @ManyToOne
-    @JoinColumn(name="REQUEST_ID")
-    private Request request;
+    @OneToOne
+    @JoinColumn(name="CUSTOMER_ID")
+    private CustomerStore customerId;
     @ManyToOne
     @JoinColumn(name="DOCUMENT_TYPE_ID")
     private DocumentType documentType;

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -62,8 +63,12 @@ public class CustomerStore {
     @ManyToOne
     @JoinColumn(name="HOME_OWNERSHIP_TYPE_ID")
     private HomeOwnershipType homeOwnershipType;
-    @OneToOne(mappedBy = "customerId", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "customerId", cascade = CascadeType.ALL, orphanRemoval = true)
     private AddressStore addressStore;
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductStore> productStoreList;
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DocumentStore> documentStoreList;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;
     @ManyToOne

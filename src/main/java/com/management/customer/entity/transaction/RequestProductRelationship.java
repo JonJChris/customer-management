@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 @Table(name="RQ_PRODUCT_RELATIONSHIP")
 public class RequestProductRelationship {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     @Column(name="PRODUCT_ID")
     private Long productId;
     @Column(name="ACCOUNT_ID")

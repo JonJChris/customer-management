@@ -16,7 +16,7 @@ public class RequestCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id;
+    private Long Od;
     @Column(name="CUSTOMER_ID")
     private Long customerId;
     @OneToOne
