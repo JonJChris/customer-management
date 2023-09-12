@@ -1,32 +1,37 @@
 package com.management.customer.entity.transaction;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.master.StageType;
+import com.management.customer.entity.master.BranchType;
+import com.management.customer.entity.master.CountryType;
+import com.management.customer.entity.master.ProductType;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-@Table(name = "REQUEST_STAGE")
-public class RequestStage {
+@Table(name="RQ_PRODUCT_RELATIONSHIP")
+public class RequestProductRelationship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name="ID")
     private Long id;
+    @Column(name="PRODUCT_ID")
+    private Long productId;
+    @Column(name="ACCOUNT_ID")
+    private String accountId;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_ID")
+    @JoinColumn(name="REQUEST_ID")
     private Request request;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_STAGE_ID")
-    private StageType stageType;
-    @Column(name = "REQUEST_STATUS_ID")
-    private String requestStatusType;
+    @JoinColumn(name="PRODUCT_TYPE_ID")
+    private ProductType productType;
+    @ManyToOne
+    @JoinColumn(name="BRANCH_TYPE_ID")
+    private BranchType branchType;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;
     @ManyToOne

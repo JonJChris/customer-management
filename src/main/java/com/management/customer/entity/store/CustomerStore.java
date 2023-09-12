@@ -65,14 +65,14 @@ public class CustomerStore {
     @OneToOne(mappedBy = "customerId", fetch = FetchType.LAZY)
     private AddressStore addressStore;
     @Column(name="CREATED_DATE")
-    private LocalDateTime createdOn;
+    private LocalDateTime createdDate;
     @ManyToOne
     @JoinColumn(name="CREATED_BY")
     private User createdBy;
-    @Column(name="LAST_UPDATED_DATE")
-    private LocalDateTime updatedOn;
+    @Column(name="UPDATED_DATE")
+    private LocalDateTime updatedDate;
     @ManyToOne
-    @JoinColumn(name="LAST_UPDATED_BY")
+    @JoinColumn(name="UPDATED_BY")
     private User updatedBy;
 
 }

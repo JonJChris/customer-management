@@ -11,7 +11,7 @@ const SelectField = (props) => {
           { props.isMandatory && <span className='field-mandatory-indicator'>*</span>}
           </div>
           {props.isEditable ?
-          <select id={props.fieldId} className="form-select col" value={props.fieldValue.key} onChange={props.fieldOnChange} name={props.fieldId}>
+          <select id={props.fieldId} className="form-select col" value={props.fieldValue && props.fieldValue.key} onChange={props.fieldOnChange} name={props.fieldId}>
                 <option key={1} value={""}>Select</option>
                 {props.fieldOptions && props.fieldOptions.map( option => (
                   

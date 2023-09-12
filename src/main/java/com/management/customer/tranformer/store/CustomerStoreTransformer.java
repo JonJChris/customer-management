@@ -1,9 +1,10 @@
-package com.management.customer.tranformer;
+package com.management.customer.tranformer.store;
 
 import com.management.customer.entity.store.CustomerStore;
 import com.management.customer.entity.transaction.Request;
-import com.management.customer.model.transaction.request.CustomerModel;
 import com.management.customer.model.transaction.store.CustomerStoreModel;
+import com.management.customer.tranformer.master.*;
+import com.management.customer.tranformer.transaction.UserTransformer;
 
 import java.util.List;
 
@@ -11,17 +12,17 @@ public class CustomerStoreTransformer {
     public static CustomerStoreModel entityToModel(CustomerStore customerStore, List<Request> requestList) {
         return new CustomerStoreModel(
                 customerStore.getCustomerId(),
-                TitleTransformer.entityToModel(customerStore.getTitleType()),
+                TitleTypeTransformer.entityToModel(customerStore.getTitleType()),
                 customerStore.getFirstname(),
                 customerStore.getLastName(),
                 customerStore.getDisplayName(),
-                CountryTransformer.entityToModel(customerStore.getNationality()),
+                CountryTypeTransformer.entityToModel(customerStore.getNationality()),
                 customerStore.getEmail(),
                 customerStore.getDateOfBirth(),
-                MaritalStatusTransformer.entityToModel(customerStore.getMaritalStatusType()),
+                MaritalStatusTypeTransformer.entityToModel(customerStore.getMaritalStatusType()),
                 CustomerTypeTransformer.entityToModel(customerStore.getCustomerType()),
-                EducationLevelTransformer.entityToModel(customerStore.getEducationLeveltype()),
-                ProfessionTransformer.entityToModel(customerStore.getProfessionType()),
+                EducationLevelTypeTransformer.entityToModel(customerStore.getEducationLeveltype()),
+                ProfessionTypeTransformer.entityToModel(customerStore.getProfessionType()),
                 customerStore.getOrganisationName(),
                 YearlyIncomeTransformer.entityToModel(customerStore.getYearlyIncome()),
                 RelationshipTypeTransformer.entityToModel(customerStore.getNomineeRelationshipType()),
@@ -29,9 +30,9 @@ public class CustomerStoreTransformer {
                 customerStore.getNomineeLastName(),
                 customerStore.getDateOfBirth(),
                 HomeOwnershipTypeTransformer.entityToModel(customerStore.getHomeOwnershipType()),
-                customerStore.getCreatedOn(),
+                customerStore.getCreatedDate(),
                 UserTransformer.entityToModel(customerStore.getCreatedBy()),
-                customerStore.getUpdatedOn(),
+                customerStore.getUpdatedDate(),
                 UserTransformer.entityToModel(customerStore.getAddressStore().getUpdatedBy()),
                 AddressStoreTransformer.entityToModel(customerStore.getAddressStore()),
                 requestList.stream().map(RequestStoreTransformer::entityToModel).toList()

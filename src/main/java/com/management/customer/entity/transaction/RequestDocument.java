@@ -1,32 +1,34 @@
 package com.management.customer.entity.transaction;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.master.StageType;
+import com.management.customer.entity.master.BranchType;
+import com.management.customer.entity.master.DocumentType;
+import com.management.customer.entity.master.ProductType;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-@Table(name = "REQUEST_STAGE")
-public class RequestStage {
+@Table(name="RQ_DOCUMENT")
+public class RequestDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name="ID")
     private Long id;
+    @Column(name="DOCUMENT_ID")
+    private Long documentId;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_ID")
+    @JoinColumn(name="REQUEST_ID")
     private Request request;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_STAGE_ID")
-    private StageType stageType;
-    @Column(name = "REQUEST_STATUS_ID")
-    private String requestStatusType;
+    @JoinColumn(name="DOCUMENT_TYPE_ID")
+    private DocumentType documentType;
+    @Column(name="DOCUMENT_LINK_PATH")
+    private String documentLinkPath;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;
     @ManyToOne

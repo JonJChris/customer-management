@@ -14,6 +14,8 @@ public record RequestModel(
         RequestStageModel requestStage,
         CustomerModel customerModel,
         AddressModel addressModel,
+        List<ProductRelationshipModel> productRelationshipModelList,
+        List<DocumentModel> documentModelList,
         LocalDateTime requestCreateDate,
         UserModel requestCreatedBy,
         LocalDateTime requestLastUpdatedDate,

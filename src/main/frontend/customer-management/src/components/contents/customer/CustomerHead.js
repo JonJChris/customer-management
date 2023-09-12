@@ -36,7 +36,7 @@ console.log(props)
 
       <div className='row mt-3'>
         <div className='col-5'>
-          <TextField fieldId="Field_199_customer_last_updated_date" fieldName="Updated By" fieldValue={props.Field_199_customer_last_updated_date}
+          <TextField fieldId="Field_199_customer_last_updated_date" fieldName="UPDATED_BY" fieldValue={props.Field_199_customer_last_updated_date}
             isMandatory={false} isVisible={true} isEditable={false} />
         </div>
         <div className='col-1'></div>

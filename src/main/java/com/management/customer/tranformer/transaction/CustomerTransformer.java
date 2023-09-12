@@ -1,23 +1,24 @@
-package com.management.customer.tranformer;
+package com.management.customer.tranformer.transaction;
 
 import com.management.customer.model.transaction.request.CustomerModel;
 import com.management.customer.entity.transaction.RequestCustomer;
+import com.management.customer.tranformer.master.*;
 
 public class CustomerTransformer {
     public static CustomerModel entityToModel(RequestCustomer requestCustomer){
         return new CustomerModel(
                 requestCustomer.getCustomerId(),
-                TitleTransformer.entityToModel(requestCustomer.getTitleType()),
+                TitleTypeTransformer.entityToModel(requestCustomer.getTitleType()),
                 requestCustomer.getFirstname(),
                 requestCustomer.getLastName(),
                 requestCustomer.getDisplayName(),
-                CountryTransformer.entityToModel(requestCustomer.getNationality()),
+                CountryTypeTransformer.entityToModel(requestCustomer.getNationality()),
                 requestCustomer.getEmail(),
                 requestCustomer.getDateOfBirth(),
-                MaritalStatusTransformer.entityToModel(requestCustomer.getMaritalStatusType()),
+                MaritalStatusTypeTransformer.entityToModel(requestCustomer.getMaritalStatusType()),
                 CustomerTypeTransformer.entityToModel(requestCustomer.getCustomerType()),
-                EducationLevelTransformer.entityToModel(requestCustomer.getEducationLeveltype()),
-                ProfessionTransformer.entityToModel(requestCustomer.getProfessionType()),
+                EducationLevelTypeTransformer.entityToModel(requestCustomer.getEducationLeveltype()),
+                ProfessionTypeTransformer.entityToModel(requestCustomer.getProfessionType()),
                 requestCustomer.getOrganisationName(),
                 YearlyIncomeTransformer.entityToModel(requestCustomer.getYearlyIncome()),
                 RelationshipTypeTransformer.entityToModel(requestCustomer.getNomineeRelationshipType()),

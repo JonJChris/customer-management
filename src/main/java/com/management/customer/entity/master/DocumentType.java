@@ -17,6 +17,8 @@ public class DocumentType {
     @Id
     @Column(name="ID")
     private Integer id;
+    @Column(name="DOCUMENT_TYPE_CODE")
+    private String documentTypeCode;
     @Column(name="DOCUMENT_TYPE_NAME")
     private String documentTypeName;
 

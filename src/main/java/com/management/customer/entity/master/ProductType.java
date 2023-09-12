@@ -22,7 +22,4 @@ public class ProductType {
     private String productName;
     @Column(name="PRODUCT_DESCRIPTION")
     private String productDescription;
-    @ManyToMany(mappedBy = "productsList")
-    private List<BranchType> branchList;
-
 }

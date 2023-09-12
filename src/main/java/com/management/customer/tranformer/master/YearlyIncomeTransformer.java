@@ -1,4 +1,4 @@
-package com.management.customer.tranformer;
+package com.management.customer.tranformer.master;
 
 import com.management.customer.model.master.YearlyIncomeModel;
 import com.management.customer.entity.master.YearlyIncomeType;

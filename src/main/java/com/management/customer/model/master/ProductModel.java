@@ -1,4 +1,6 @@
 package com.management.customer.model.master;
 
-public record ProductModel(Integer productId, String productCode, String productName, String productDescription) {
+import java.util.List;
+
+public record ProductModel(Integer productTypeId, String productTypeCode, String productTypeName, String productTypeDescription) {
 }

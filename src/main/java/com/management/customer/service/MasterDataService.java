@@ -3,7 +3,7 @@ package com.management.customer.service;
 import com.management.customer.model.master.*;
 import com.management.customer.entity.master.*;
 import com.management.customer.repository.master.*;
-import com.management.customer.tranformer.*;
+import com.management.customer.tranformer.master.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +54,7 @@ public class MasterDataService {
     public MasterDataModel getMasterData(){
         return new MasterDataModel(getRequestTypeList(), getCountryList(), getCustomerStatusList(), getCustomerTypeList(), getEducationLevelList(),
                 getEmploymentStatusList(), getMaritalStatusList(), getProfessionsList(), getRequestStageList(), getTitlesList(), getYearlyIncomesList(),
-                getRelationshipTypesList(), getHomeOwnershipTypesList());
+                getRelationshipTypesList(), getHomeOwnershipTypesList(), getProductsList(), getBranchList(), getDocumentTypesList());
 
     }
     public List<RequestTypeModel> getRequestTypeList(){
@@ -63,16 +63,16 @@ public class MasterDataService {
     }
     public List<RequestStageModel> getRequestStageList(){
         List<StageType> stageTypeEntityList = requestStageRepository.findAll();
-        return stageTypeEntityList.stream().map(RequestStageTransformer::entityToModel).toList();
+        return stageTypeEntityList.stream().map(RequestStageTypeTransformer::entityToModel).toList();
     }
     public List<CountryModel> getCountryList(){
         List<CountryType> countryTypeEntityList = countryRepository.findAll();
-        return countryTypeEntityList.stream().map(CountryTransformer::entityToModel).toList();
+        return countryTypeEntityList.stream().map(CountryTypeTransformer::entityToModel).toList();
     }
 
     public List<CustomerStatusModel> getCustomerStatusList(){
         List<CustomerStatusType> customerStatusTypeEntityList = customerStatusRepository.findAll();
-        return customerStatusTypeEntityList.stream().map(CustomerStatusTransformer::entityToModel).toList();
+        return customerStatusTypeEntityList.stream().map(CustomerStatusTypeTransformer::entityToModel).toList();
     }
     public List<CustomerTypeModel> getCustomerTypeList(){
         List<CustomerType> customerTypeEntityList = customerTypeRepository.findAll();
@@ -81,23 +81,23 @@ public class MasterDataService {
 
     public List<EducationLevelModel> getEducationLevelList(){
         List<EducationLevelType> educationLevelTypeREntityList = educationLevelRepository.findAll();
-        return educationLevelTypeREntityList.stream().map(EducationLevelTransformer::entityToModel).toList();
+        return educationLevelTypeREntityList.stream().map(EducationLevelTypeTransformer::entityToModel).toList();
     }
     public List<EmploymentStatusModel> getEmploymentStatusList(){
         List<EmploymentStatusType> employmentStatusTypeEntityList = employmentStatusRepository.findAll();
-        return employmentStatusTypeEntityList.stream().map(EmploymentStatusTransformer::entityToModel).toList();
+        return employmentStatusTypeEntityList.stream().map(EmploymentStatusTypeTransformer::entityToModel).toList();
     }
     public List<MaritalStatusModel> getMaritalStatusList(){
         List<MaritalStatusType> martialStatusntityList = maritalStatusRepository.findAll();
-        return martialStatusntityList.stream().map(MaritalStatusTransformer::entityToModel).toList();
+        return martialStatusntityList.stream().map(MaritalStatusTypeTransformer::entityToModel).toList();
     }
     public List<ProfessionModel> getProfessionsList(){
         List<ProfessionType> professionTypeEntityList = professionRepository.findAll();
-        return professionTypeEntityList.stream().map(ProfessionTransformer::entityToModel).toList();
+        return professionTypeEntityList.stream().map(ProfessionTypeTransformer::entityToModel).toList();
     }
     public List<TitleModel> getTitlesList(){
         List<TitleType> titleTypeEntityList = titleRepository.findAll();
-        return titleTypeEntityList.stream().map(TitleTransformer::entityToModel).toList();
+        return titleTypeEntityList.stream().map(TitleTypeTransformer::entityToModel).toList();
     }
     public List<YearlyIncomeModel> getYearlyIncomesList(){
         List<YearlyIncomeType> yearlyIncomeEntityList = yearlyIncomeRepository.findAll();
@@ -118,17 +118,17 @@ public class MasterDataService {
 
     public List<ProductModel> getProductsList(){
         List<ProductType> productsEntityList = productRepository.findAll();
-        return productsEntityList.stream().map(ProductTransformer::entityToModel).toList();
+        return productsEntityList.stream().map(ProductTypeTransformer::entityToModel).toList();
     }
 
     public List<BranchModel> getBranchList(){
         List<BranchType> branchEntityList = branchRepository.findAll();
-        return branchEntityList.stream().map(BranchTransformer::entityToModel).toList();
+        return branchEntityList.stream().map(BranchTypeTransformer::entityToModel).toList();
     }
 
     public List<DocumentTypeModel> getDocumentTypesList(){
         List<DocumentType> documentTypeEntityList = documentTypeRepository.findAll();
-        return documentTypeEntityList.stream().map(DocumentTransformer::entityToModel).toList();
+        return documentTypeEntityList.stream().map(DocumentTypeTransformer::entityToModel).toList();
     }
 
     public Optional<CustomerType> getCustomerTypeEntity(CustomerTypeModel customerTypeModel){
@@ -141,7 +141,7 @@ public class MasterDataService {
         return customerStatusRepository.findById(customerStatusModel.customerStatusId());
     }
     public Optional<DocumentType> getDocumentTypeEntity(DocumentTypeModel documentTypeModel){
-        return documentTypeRepository.findById(documentTypeModel.documentId());
+        return documentTypeRepository.findById(documentTypeModel.documentTypeId());
     }
     public Optional<EducationLevelType> getEducationLevelEntity(EducationLevelModel educationLevelModel){
         return educationLevelRepository.findById(educationLevelModel.educationLevelId());
@@ -156,7 +156,7 @@ public class MasterDataService {
         return maritalStatusRepository.findById(maritalStatusModel.maritalStatusId());
     }
     public Optional<ProductType> getProductEntity(ProductModel productModel){
-        return productRepository.findById(productModel.productId());
+        return productRepository.findById(productModel.productTypeId());
     }
     public Optional<ProfessionType> getProfessionEntity(ProfessionModel professionModel){
         return professionRepository.findById(professionModel.professionId());

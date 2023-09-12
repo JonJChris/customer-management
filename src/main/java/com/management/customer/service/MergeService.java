@@ -1,16 +1,20 @@
 package com.management.customer.service;
 
 import com.management.customer.entity.authrisation.User;
-import com.management.customer.entity.transaction.RequestAddress;
-import com.management.customer.entity.transaction.RequestCustomer;
-import com.management.customer.entity.transaction.Request;
-import com.management.customer.model.transaction.request.AddressModel;
-import com.management.customer.model.transaction.request.CustomerModel;
-import com.management.customer.model.transaction.request.RequestModel;
+import com.management.customer.entity.master.BranchType;
+import com.management.customer.entity.master.DocumentType;
+import com.management.customer.entity.master.ProductType;
+import com.management.customer.entity.transaction.*;
+import com.management.customer.model.transaction.request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 @Service
 public class MergeService {
     @Autowired
@@ -20,6 +24,8 @@ public class MergeService {
     void mergeRequestModelWithEntity(Request requestEntity, RequestModel requestModel, User userEntity){
         mergeCustomerModelWithEntity(requestEntity.getRequestCustomer(), requestModel.customerModel(), userEntity);
         mergeAddressModelWithEntity(requestEntity.getRequestAddress(), requestModel.addressModel(), userEntity);
+        mergeProductModelWithEntity(requestEntity, requestEntity.getProductRelationshipList(), requestModel.productRelationshipModelList(), userEntity);
+        mergeDocumentModelWithEntity(requestEntity, requestEntity.getDocumentListList(), requestModel.documentModelList(), userEntity);
     }
     void mergeAddressModelWithEntity(RequestAddress requestAddressEntity, AddressModel addressModel, User userEntity){
         if(addressModel.registeredAddressCountry() != null)
@@ -38,8 +44,85 @@ public class MergeService {
         requestAddressEntity.setCommunicationAddressCity(addressModel.communicationAddressCity());
         requestAddressEntity.setCommunicationAddressState(addressModel.communicationAddressState());
         requestAddressEntity.setCommunicationAddressPostalCode(addressModel.communicationAddressPostalCode());
-        requestAddressEntity.setUpdatedOn(LocalDateTime.now());
+        requestAddressEntity.setUpdatedDate(LocalDateTime.now());
         requestAddressEntity.setUpdatedBy(userEntity);
+
+    }
+
+    void mergeProductModelWithEntity(Request request, List<RequestProductRelationship> productRelationship, List<ProductRelationshipModel> productRelationshipModel, User userEntity){
+        Random rand = new Random();
+        List<RequestProductRelationship> itemsToAdd = new ArrayList<>();
+        List<RequestProductRelationship> itemsToRemove = new ArrayList<>();
+
+        for(RequestProductRelationship relationship: productRelationship){
+            boolean missing = productRelationshipModel.stream().filter(item -> item.productId().equals(relationship.getProductId())).findAny().isEmpty();
+            if(missing){
+                itemsToRemove.add(relationship);
+            }
+        }
+        for(ProductRelationshipModel relationshipModel: productRelationshipModel){
+            boolean missing = productRelationship.stream().filter(item ->
+                    item.getProductType().getId().equals(relationshipModel.productType().productTypeId())
+                    && item.getBranchType().getId().equals(relationshipModel.productBranch().branchTypeId()
+                    )).findAny().isEmpty();
+            if(missing){
+                RequestProductRelationship newRelationship = new RequestProductRelationship();
+                ProductType newProducttype = new ProductType();
+                newProducttype.setId(relationshipModel.productType().productTypeId());
+                BranchType newBranchtype = new BranchType();
+                newBranchtype.setId(relationshipModel.productBranch().branchTypeId());
+                newRelationship.setProductType(newProducttype);
+                newRelationship.setBranchType(newBranchtype);
+                String newAccNumber = String.valueOf(rand.nextLong(9000000) + 10000000);
+                newRelationship.setAccountId(newAccNumber);
+                newRelationship.setCreatedDate(LocalDateTime.now());
+                newRelationship.setUpdatedDate(LocalDateTime.now());
+                newRelationship.setCreatedBy(userEntity);
+                newRelationship.setUpdatedBy(userEntity);
+                newRelationship.setRequest(request);
+                itemsToAdd.add(newRelationship);
+            }
+        }
+        productRelationship.removeAll(itemsToRemove);
+        productRelationship.addAll(itemsToAdd);
+
+
+    }
+
+    void mergeDocumentModelWithEntity(Request request, List<RequestDocument> requestDocuments, List<DocumentModel> documentModelList, User userEntity){
+        Random rand = new Random();
+        List<RequestDocument> itemsToAdd = new ArrayList<>();
+        List<RequestDocument> itemsToRemove = new ArrayList<>();
+        //loop entity compare model
+        for(RequestDocument documentEntity: requestDocuments){
+            boolean missing = documentModelList.stream().filter(item -> item.documentId().equals(documentEntity.getDocumentId())).findAny().isEmpty();
+            if(missing){
+                itemsToRemove.add(documentEntity);
+            }
+        }
+        //loop model compare entity
+        for(DocumentModel documentModel: documentModelList){
+            boolean missing = requestDocuments.stream().filter(item ->
+                    item.getDocumentType().getId().equals(documentModel.documentType().documentTypeId())
+                    ).findAny().isEmpty();
+            if(missing){
+
+                RequestDocument newDocument = new RequestDocument();
+                DocumentType newDocumentType = new DocumentType();
+                newDocumentType.setId(documentModel.documentType().documentTypeId());
+                newDocument.setDocumentLinkPath(documentModel.documentLinkPath());
+                newDocument.setDocumentType(newDocumentType);
+                newDocument.setRequest(request);
+                newDocument.setCreatedDate(LocalDateTime.now());
+                newDocument.setUpdatedDate(LocalDateTime.now());
+                newDocument.setCreatedBy(userEntity);
+                newDocument.setUpdatedBy(userEntity);
+                itemsToAdd.add(newDocument);
+            }
+        }
+        requestDocuments.removeAll(itemsToRemove);
+        requestDocuments.addAll(itemsToAdd);
+
 
     }
     void mergeCustomerModelWithEntity(RequestCustomer requestCustomerEntity, CustomerModel customerModel, User userEntity){
@@ -79,7 +162,7 @@ public class MergeService {
         requestCustomerEntity.setNomineeFirstName(customerModel.nomineeFirstName());
         requestCustomerEntity.setNomineeLastName(customerModel.nomineeLastName());
         requestCustomerEntity.setNomineeDateOfBirth(customerModel.nomineeDateOfBirth());
-        requestCustomerEntity.setUpdatedOn(LocalDateTime.now());
+        requestCustomerEntity.setUpdatedDate(LocalDateTime.now());
         requestCustomerEntity.setUpdatedBy(userEntity);
 
 

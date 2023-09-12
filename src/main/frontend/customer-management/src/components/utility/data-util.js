@@ -79,8 +79,51 @@ export const updateRequestAdditionalDetails = (requestDetails, setStateFunc) => 
     });
   }
 }
+export const updateProductDetails = (requestDetails, setStateFunc) => {
+  if (requestDetails) {
+    setStateFunc((prevState) => {
+      return {
+        productsList: requestDetails.productRelationshipModelList.map(item => {
+          return {
+            productId: item.productId,
+            accountId: item.accountId,
+            createdDate: item.createdDate,
+            productType: {
+              productTypeId: item.productType.productTypeId,
+              productTypeName: item.productType.productTypeName,
+            },
+            productBranch:{
+              branchTypeId: item.productBranch.branchTypeId,
+              branchTypeName:  item.productBranch.branchTypeName,
+            }
+          }
+        })
+      }
+    });
+  }
+}
+export const updateDocumentDetails = (requestDetails, setStateFunc) => {
+  if (requestDetails) {
+    setStateFunc((prevState) => {
+      return {
+        documentsList: requestDetails.documentModelList.map(item => {
+          return {
+            documentId: item.documentId,
+            documentLinkPath: item.documentLinkPath,
+            createdDate: item.createdDate,
+            documentType: {
+              documentTypeId: item.documentType.documentTypeId,
+              documentTypeName: item.documentType.documentTypeName,
+            }
+          }
+        })
+      }
+    });
+  }
+}
 
-export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetails, additionalDetails, userDetail) => {
+
+export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetails, additionalDetails, productDetails, documentDetails, userDetail) => {
   const requestBody = { customerModel: {}, addressModel: {} }
 
   requestBody['requestId'] = requestHeadDetails.Field_100_request_id;
@@ -121,6 +164,10 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
   requestBody.addressModel['communicationAddressState'] = addressDetails.Field_123_com_address_state;
   requestBody.addressModel['communicationAddressCountry'] = { countryId: addressDetails.Field_124_com_address_country.key, countryName: addressDetails.Field_124_com_address_country.value };
   requestBody.addressModel['communicationAddressPostalCode'] = addressDetails.Field_125_com_address_postal_code;
+  
+  requestBody.productRelationshipModelList = productDetails.productsList;
+  requestBody.documentModelList = documentDetails.documentsList;
+  
   requestBody['requestSubmittedBy'] = {
     userId: userDetail.userId,
     username: userDetail.username,
@@ -128,7 +175,7 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
     userLastName: userDetail.userLastName
   }
 
-  
+
   return requestBody;
 
 }
@@ -139,17 +186,17 @@ export const updateCustomerHeadDetails = (customerDetails, setStateFunc) => {
       return {
         ...prevState,
         Field_197_customer_crated_date: customerDetails.customerId,
-        Field_198_customer_created_by: (customerDetails.createdBy.userFirstName + ' '+customerDetails.createdBy.userLastName),
+        Field_198_customer_created_by: (customerDetails.createdBy.userFirstName + ' ' + customerDetails.createdBy.userLastName),
         Field_199_customer_last_updated_date: customerDetails.updatedDate,
-        Field_200_customer_last_updated_by: (customerDetails.updatedBy.userFirstName + ' '+customerDetails.updatedBy.userLastName),
+        Field_200_customer_last_updated_by: (customerDetails.updatedBy.userFirstName + ' ' + customerDetails.updatedBy.userLastName),
       }
     });
   }
 }
 
 export const updateCustomerBasicDetails = (customerDetails, setStateFunc) => {
-  if (customerDetails ) {
-    
+  if (customerDetails) {
+
     setStateFunc((prevState) => {
       return {
         ...prevState,

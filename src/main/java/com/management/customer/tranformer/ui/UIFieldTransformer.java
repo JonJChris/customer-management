@@ -1,4 +1,4 @@
-package com.management.customer.tranformer;
+package com.management.customer.tranformer.ui;
 
 import com.management.customer.entity.ui.UiFieldRules;
 import com.management.customer.model.userInterface.UIFieldModel;

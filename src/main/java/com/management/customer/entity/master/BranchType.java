@@ -22,11 +22,4 @@ public class BranchType {
     private String branchName;
     @Column(name="BRANCH_DESCRIPTION")
     private String branchDescription;
-    @ManyToMany
-    @JoinTable(name="BRANCH_PRODUCT",
-            joinColumns = @JoinColumn(name="BRANCH_ID"),
-            inverseJoinColumns = @JoinColumn(name="PRODUCT_ID"))
-    private List<ProductType> productsList;
-
-
 }

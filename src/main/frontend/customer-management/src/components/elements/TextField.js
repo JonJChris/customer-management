@@ -14,7 +14,9 @@ const TextField = (props) => {
         {props.isEditable
           ? <input type="text" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} 
             value={props.fieldValue}
-          onChange={props.fieldOnChange}/>
+          onChange={props.fieldOnChange}
+          
+          />
           : <label className='text-strong col'>{props.fieldValue}</label>
         }
 

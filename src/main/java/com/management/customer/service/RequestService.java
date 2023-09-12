@@ -9,7 +9,7 @@ import com.management.customer.entity.transaction.Request;
 import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.repository.request.RequestRepository;
-import com.management.customer.tranformer.RequestTransformer;
+import com.management.customer.tranformer.transaction.RequestTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +95,7 @@ public class RequestService {
         Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
         Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
 
-        return RequestTransformer.entityToModel(requestEntity,
+        return RequestTransformer.entityToModel(savedRequest,
                 uiInputFieldRules.orElse(null),
                 uiTabRules.orElse(null),
                 uiButtonRules.orElse(null)

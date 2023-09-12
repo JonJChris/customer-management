@@ -7,7 +7,13 @@ import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../../store/master-data'
 import { actions as uiFieldActions } from './../../../store/ui-field-store'
-import { updateRequestHeadDetails, updateRequestAdditionalDetails, updateRequestAddressDetails, updateRequestBasicDetails, buildRequestBody } from './../../utility/data-util'
+import { updateRequestHeadDetails, 
+  updateRequestAdditionalDetails, 
+  updateRequestAddressDetails, 
+  updateRequestBasicDetails, 
+  updateProductDetails,
+  updateDocumentDetails,
+  buildRequestBody } from './../../utility/data-util'
 import {putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
 
 const RequestLayout = () => {
@@ -39,6 +45,8 @@ const RequestLayout = () => {
     Field_128_organisation_name: "", Field_130_yearly_income: "", Field_142_home_ownership_type: { key: 0, value: '' }, 
     Field_132_nominee_relationship_type: { key: 0, value: '' }, Field_133_nominee_first_name: "", Field_134_nominee_last_name: "", 
     Field_143_nominee_date_of_birth: "" })
+  const [productDetails, setProductDetails]  = useState({productsList:[]});
+  const [documentDetails, setDocumentDetails]  = useState({documentsList:[]});
   const [tabState, setTabState] = useState({
     tabs: [
 
@@ -54,6 +62,8 @@ const RequestLayout = () => {
     updateRequestBasicDetails(requestDetails, setBasicDetails);
     updateRequestAddressDetails(requestDetails, setAddressDetails);
     updateRequestAdditionalDetails(requestDetails, setAdditionalDetails);
+    updateProductDetails(requestDetails, setProductDetails);
+    updateDocumentDetails(requestDetails, setDocumentDetails);
     dispatch(uiFieldActions.updateUIFields(requestDetails.uiInputFieldModelsList));
     dispatch(uiFieldActions.updateUITabs(requestDetails.uiTabModelsList));
   }
@@ -93,7 +103,14 @@ const RequestLayout = () => {
 
   const submitRequest = (evt) => {
     if(evt.target.name === 'Field_145_request_submit'){
-      const requestBody = buildRequestBody(requestHeadDetails, basicDetails, addressDetails, additionalDetails, userStore.userDetails);
+      const requestBody = buildRequestBody(
+        requestHeadDetails, 
+        basicDetails, 
+        addressDetails, 
+        additionalDetails, 
+        productDetails,
+        documentDetails,
+        userStore.userDetails);
       putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
     }else if(evt.target.name === 'Field_146_request_rework'){
       console.log('Rework Triggered');
@@ -111,7 +128,10 @@ const RequestLayout = () => {
         <div className='border border-rounded mt-2 p-2'>
           <RequestTabs />
           <div className="tab-content" id="myTabContent">
-            <Outlet context={ {basicDetails, addressDetails, additionalDetails, updateStateForBasicDetailTab, updateStateForAddressTab, updateStateForAdditionalTab }} />
+            <Outlet context={ {basicDetails, addressDetails, additionalDetails, productDetails, documentDetails, 
+              updateStateForBasicDetailTab, updateStateForAddressTab, updateStateForAdditionalTab,
+              setProductDetails, setDocumentDetails 
+              }} />
           </div>
         </div>
 

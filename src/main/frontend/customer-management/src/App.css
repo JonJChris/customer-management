@@ -160,9 +160,13 @@
 a, a:visited, a:hover {
   color: brown;
 }
- 
-.product-modal {
-  display: none; /* Hidden by default */
+.text-header-strong{
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: brown;
+}
+.popup-modal {
+  display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */

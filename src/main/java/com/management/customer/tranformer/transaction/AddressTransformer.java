@@ -1,7 +1,8 @@
-package com.management.customer.tranformer;
+package com.management.customer.tranformer.transaction;
 
 import com.management.customer.entity.transaction.RequestAddress;
 import com.management.customer.model.transaction.request.AddressModel;
+import com.management.customer.tranformer.master.CountryTypeTransformer;
 
 public class AddressTransformer {
     public static AddressModel entityToModel(RequestAddress requestAddress){
@@ -11,13 +12,13 @@ public class AddressTransformer {
                 requestAddress.getRegisteredAddressLine2(),
                 requestAddress.getRegisteredAddressCity(),
                 requestAddress.getRegisteredAddressState(),
-                CountryTransformer.entityToModel(requestAddress.getRegisteredAddressCountryType()),
+                CountryTypeTransformer.entityToModel(requestAddress.getRegisteredAddressCountryType()),
                 requestAddress.getRegisteredAddressPostalCode(),
                 requestAddress.getCommunicationAddressLine1(),
                 requestAddress.getCommunicationAddressLine2(),
                 requestAddress.getCommunicationAddressCity(),
                 requestAddress.getCommunicationAddressState(),
-                CountryTransformer.entityToModel(requestAddress.getCommunicationAddressCountryType()),
+                CountryTypeTransformer.entityToModel(requestAddress.getCommunicationAddressCountryType()),
                 requestAddress.getCommunicationAddressPostalCode()
                 );
     }

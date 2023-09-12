@@ -11,7 +11,7 @@ import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.master.RequestStageModel;
 import com.management.customer.repository.master.StageWorkflowRulesRepository;
 import com.management.customer.repository.request.StageRepository;
-import com.management.customer.tranformer.RequestStageTransformer;
+import com.management.customer.tranformer.master.RequestStageTypeTransformer;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class WorkflowService {
         if(stageWorkflowRulesEntity.isEmpty()){
             throw new NoDataFoundException("Next Request Stage not found");
         }
-        return RequestStageTransformer.entityToModel(stageWorkflowRulesEntity.get().getNextStageType());
+        return RequestStageTypeTransformer.entityToModel(stageWorkflowRulesEntity.get().getNextStageType());
     }
     public Optional<StageWorkflowRules> getNextStageEntity(RequestType requestType, StageType currentStageType, String stageAction){
         return stageWorkflowRulesRepository.findByRequestTypeAndCurrentStageTypeAndStageAction(requestType, currentStageType, stageAction);
@@ -46,7 +46,7 @@ public class WorkflowService {
         Optional<RequestStage> currentRequestStage = stageRepository.findByRequestAndStageType(request, currentStageType);
         if(currentRequestStage.isPresent()){
             currentRequestStage.get().setRequestStatusType(StatusTypeEnum.COMPLETE.name());
-            currentRequestStage.get().setUpdatedOn(LocalDateTime.now());
+            currentRequestStage.get().setUpdatedDate(LocalDateTime.now());
             currentRequestStage.get().setUpdatedBy(user);
             stageRepository.save(currentRequestStage.get());
         }
@@ -54,7 +54,7 @@ public class WorkflowService {
         Optional<RequestStage> nextRequestStage = stageRepository.findByRequestAndStageType(request, nextStageType);
         if(nextRequestStage.isPresent()){
             nextRequestStage.get().setRequestStatusType(StatusTypeEnum.PENDING.name());
-            nextRequestStage.get().setUpdatedOn(LocalDateTime.now());
+            nextRequestStage.get().setUpdatedDate(LocalDateTime.now());
             nextRequestStage.get().setUpdatedBy(user);
             stageRepository.save(nextRequestStage.get());
         }

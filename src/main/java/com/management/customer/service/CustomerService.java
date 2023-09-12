@@ -1,19 +1,12 @@
 package com.management.customer.service;
 
-import com.management.customer.entity.authrisation.User;
 import com.management.customer.entity.store.CustomerStore;
 import com.management.customer.entity.transaction.Request;
-import com.management.customer.entity.workflow.StageWorkflowRules;
-import com.management.customer.enums.StageActionEnum;
 import com.management.customer.exceptions.NoDataFoundException;
-import com.management.customer.model.master.RequestStageModel;
-import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.model.transaction.store.CustomerStoreModel;
-import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.repository.request.RequestRepository;
 import com.management.customer.repository.store.CustomerStoreRepository;
-import com.management.customer.tranformer.CustomerStoreTransformer;
-import com.management.customer.tranformer.RequestTransformer;
+import com.management.customer.tranformer.store.CustomerStoreTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

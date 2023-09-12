@@ -25,21 +25,25 @@ public class Request {
     @ManyToOne
     @JoinColumn(name="REQUEST_STAGE")
     private StageType stageType;
-    @Column(name="CREATED_DATE")
-    private LocalDateTime createdOn;
-    @ManyToOne
-    @JoinColumn(name="CREATED_BY")
-    private User createdBy;
-    @Column(name="LAST_UPDATED_DATE")
-    private LocalDateTime updatedOn;
-    @ManyToOne
-    @JoinColumn(name="LAST_UPDATED_BY")
-    private User updatedBy;
     @OneToOne(mappedBy = "request")
     private RequestCustomer requestCustomer;
     @OneToOne(mappedBy = "request")
     private RequestAddress requestAddress;
+    @OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RequestProductRelationship> productRelationshipList;
+    @OneToMany(mappedBy = "request", cascade =  CascadeType.ALL, orphanRemoval = true)
+    private List<RequestDocument> documentListList;
     @OneToMany(mappedBy = "request")
     private List<RequestStage> requestRequestStages;
+    @Column(name="CREATED_DATE")
+    private LocalDateTime createdDate;
+    @ManyToOne
+    @JoinColumn(name="CREATED_BY")
+    private User createdBy;
+    @Column(name="UPDATED_DATE")
+    private LocalDateTime updatedDate;
+    @ManyToOne
+    @JoinColumn(name="UPDATED_BY")
+    private User updatedBy;
 
 }

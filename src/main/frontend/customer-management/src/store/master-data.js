@@ -17,6 +17,8 @@ const masterDataSlice = createSlice(
             relationshipTypeModelList: [],
             homeOwnershipTypeModelList: [],
             customerTypeModelList:[],
+            productModelList:[],
+            branchModelList:[]
         },
         reducers: {
 
@@ -35,54 +37,56 @@ const masterDataSlice = createSlice(
                     state.relationshipTypeModelList = masterData.relationshipTypeModelList && masterData.relationshipTypeModelList.map( item => ({optionKey:item.relationshipTypeId, optionValue:item.relationshipTypeName}));
                     state.homeOwnershipTypeModelList = masterData.homeOwnershipTypeModelList && masterData.homeOwnershipTypeModelList.map( item => ({optionKey:item.homeOwnershipTypeId, optionValue:item.homeOwnershipTypeName}));
                     state.customerTypeModelList = masterData.customerTypeModelList && masterData.customerTypeModelList.map( item => ({optionKey:item.customerTypeId, optionValue:item.customerTypeName}));
+                    state.productModelList = masterData.productModelList && masterData.productModelList.map( item => ({optionKey:item.productTypeId, optionValue:item.productTypeName}));
+                    state.branchModelList = masterData.branchModelList && masterData.branchModelList.map( item => ({optionKey:item.branchTypeId, optionValue:item.branchTypeName}));
+                    state.documentTypeModelList = masterData.documentTypeModelList && masterData.documentTypeModelList.map( item => ({optionKey:item.documentTypeId, optionValue:item.documentTypeName}));
+                    
                     state.masterDataExists = true;
                 }
             },
             updateMasterDataExistsFlag: (state, action) => {
                 state.masterDataExists = action.payload;
             },
-            refreshRequesTypesList: (state, action) => {
-                state.requestTypesList = action.payload && action.payload.map( item => ({optionKey:item.requestTypeId, optionValue:item.requestTypeName}));
+            refreshRequestTypeModelList: (state, action) => {
+                state.requestTypeModelList = action.payload && action.payload.map( item => ({optionKey:item.requestTypeId, optionValue:item.requestTypeName}));
             },
-            refreshRequestStageList: (state, action) => {
-                state.requestStageList =  action.payload && action.payload.map( item => ({optionKey:item.requestStageId, optionValue:item.requestStageName}));
+            refreshRequestStageModelList: (state, action) => {
+                state.requestStageModelList =  action.payload && action.payload.map( item => ({optionKey:item.requestStageId, optionValue:item.requestStageName}));
             },
-            refreshCustomertypeList: (state, action) => {
-                state.customerTypeList =  action.payload && action.payload.map( item => ({optionKey:item.customerTypeId, optionValue:item.customerTypeName}));
+            refreshCustomerTypeModelList: (state, action) => {
+                state.customerTypeModelList =  action.payload && action.payload.map( item => ({optionKey:item.customerTypeId, optionValue:item.customerTypeName}));
             },
             refreshCustomerStatusList: (state, action) => {
                 state.customerStatusList = action.payload && action.payload.map( item => ({optionKey:item.customerStatusId, optionValue:item.customerStatusName}));
             },
-            refreshCountryList: (state, action) => {
-                state.countryList =  action.payload && action.payload.map( item => ({optionKey:item.countryId, optionValue:item.countryName}));
+            refreshCountryModelList: (state, action) => {
+                state.countryModelList =  action.payload && action.payload.map( item => ({optionKey:item.countryId, optionValue:item.countryName}));
             },
-            refreshEducationLevelList: (state, action) => {
-                state.educationLevelList =  action.payload && action.payload.map( item => ({optionKey:item.educationLevelId, optionValue:item.educationLevelName}));
+            refreshEducationLevelsList: (state, action) => {
+                state.educationLevelsList =  action.payload && action.payload.map( item => ({optionKey:item.educationLevelId, optionValue:item.educationLevelName}));
             },
-            refreshEmploymentStatusList: (state, action) => {
-                state.employmentStatusList =  action.payload && action.payload.map( item => ({optionKey:item.employmentStatusId, optionValue:item.employmentStatusName}));
+            refreshEmploymentStatusModelList: (state, action) => {
+                state.employmentStatusModelList =  action.payload && action.payload.map( item => ({optionKey:item.employmentStatusId, optionValue:item.employmentStatusName}));
             },
-            refreshMartialStatusList: (state, action) => {
-                state.maritalStatusList =  action.payload && action.payload.map( item => ({optionKey:item.maritalStatusId, optionValue:item.maritalStatusName}));
+            refreshMaritalStatusModelList: (state, action) => {
+                state.maritalStatusModelList =  action.payload && action.payload.map( item => ({optionKey:item.maritalStatusId, optionValue:item.maritalStatusName}));
             },
-            refreshProfessionList: (state, action) => {
-                state.professionList =  action.payload && action.payload.map( item => ({optionKey:item.professionId, optionValue:item.professionName}));
+            refreshProfessionModelList: (state, action) => {
+                state.professionModelList =  action.payload && action.payload.map( item => ({optionKey:item.professionId, optionValue:item.professionName}));
             },
-            refreshYearlyIncomeList: (state, action) => {
-                state.yearlyIncomeList =  action.payload && action.payload.map( item => ({optionKey:item.yearlyIncomeId, optionValue:item.yearlyIncomeName}));
+            refreshYearlyIncomeModelList: (state, action) => {
+                state.yearlyIncomeModelList =  action.payload && action.payload.map( item => ({optionKey:item.yearlyIncomeId, optionValue:item.yearlyIncomeName}));
             },
-            refreshTitleList: (state, action) => {
-                state.titleList =  action.payload && action.payload.map( item => ({optionKey:item.titleId, optionValue:item.titleName}));
+            refreshTitleModelList: (state, action) => {
+                state.titleModelList =  action.payload && action.payload.map( item => ({optionKey:item.titleId, optionValue:item.titleName}));
             },
-             refreshHomeOwnershipTypsList: (state, action) => {
-                state.homeOwnershipTypesList =  action.payload && action.payload.map( item => ({optionKey:item.homeOwnershipTypeId, optionValue:item.homeOwnershipTypeName}));
+            refreshHomeOwnershipTypeModelList: (state, action) => {
+                state.homeOwnershipTypeModelList =  action.payload && action.payload.map( item => ({optionKey:item.homeOwnershipTypeId, optionValue:item.homeOwnershipTypeName}));
             },
-             refreshRelationshipTypesList: (state, action) => {
-                state.relationshipTypesList =  action.payload && action.payload.map( item => ({optionKey:item.relationshipTypeId, optionValue:item.relationshipTypeName}));
+            refreshRelationshipTypeModelList: (state, action) => {
+                state.relationshipTypeModelList =  action.payload && action.payload.map( item => ({optionKey:item.relationshipTypeId, optionValue:item.relationshipTypeName}));
             },
-            refreshUserInterfaceRulesList: (state, action) => {
-                state.userInterfaceRulesList = action.payload;
-            },
+     
         }
     }
 )
