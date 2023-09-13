@@ -6,7 +6,7 @@ import com.management.customer.entity.ui.UiFieldRules;
 import com.management.customer.enums.UIFieldArea;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.enums.UIFieldTypeEnum;
-import com.management.customer.repository.master.UserInterfaceRulesRepository;
+import com.management.customer.repository.workflow.UserInterfaceRulesRepository;
 import com.management.customer.tranformer.ui.UIFieldTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

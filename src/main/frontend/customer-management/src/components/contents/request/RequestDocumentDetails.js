@@ -8,7 +8,7 @@ import SelectField from '../../elements/SelectField';
 const RequestDocumentDetails = () => {
     const context = useOutletContext();
 
-
+    const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
     const [showPopup, setShowPopup] = useState(false);
     const [newDocument, setNewDocument] = useState({ Field_205_document_popup_document_type: { key: '', value: '' }, Field_206_document_popup_document_path: '' })
 
@@ -130,31 +130,40 @@ const RequestDocumentDetails = () => {
         <div className="tab-pane fade show active" id="home" role="tabpanel"  >
             <div className='m-2' >
 
+            
                 <div className=''>
+                {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
+
                     <div className='w-100'>
-                        <button id='136_add_new_document_button' name="addDocument" className='btn btn-primary'
+                        <button id='Field_136_add_new_document_button' name="addDocument" className='btn btn-primary'
                             style={{ float: 'right', padding: '10px 20px ' }} onClick={() => setShowPopup(true)}><strong>+</strong></button></div>
+                }
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Document Id</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Document Store Id</th>
                                 <th scope="col">Document Type</th>
                                 <th scope="col">Document Link Path</th>
                                 <th scope="col">Document Created</th>
+                                {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
                                 <th scope="col">Action</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 context.documentDetails && context.documentDetails.documentsList.map(document => (
 
-                                    <tr key={document.documentId}>
-                                        <th scope="row">{document.documentId}</th>
+                                    <tr key={document.id}>
+                                        <th scope="row">{document.id}</th>
+                                        <td>{document.documentStoreId}</td>
                                         <td>{document.documentType.documentTypeName}</td>
                                         <td>{document.documentLinkPath}</td>
                                         <td>{document.createdDate}</td>
+                                        {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
                                         <td><button name="remove_document" className='btn btn-primary btn-sm'  onClick={() => removeDocument(document.documentId)}>Remove</button></td>
-
+                                        }
                                     </tr>
                                 ))
                             }

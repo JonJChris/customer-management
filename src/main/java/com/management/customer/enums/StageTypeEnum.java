@@ -1,5 +1,8 @@
 package com.management.customer.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum StageTypeEnum {
     COLLECT_KYC(19000, "Collect KYC"),
     UPDATE_PRODUCTS(19001, "Update Products"),
@@ -9,7 +12,7 @@ public enum StageTypeEnum {
     MANAGER_APPROVAL(19005, "Manager Approval"),
 
     CLOSED(19006, "Closed"),
-    UPDATE_CUSTOMER_STATUS(19006, "Update Customer Status");
+    UPDATE_CUSTOMER_STATUS(19007, "Update Customer Status");
 
 
     private int statusTypeCode;

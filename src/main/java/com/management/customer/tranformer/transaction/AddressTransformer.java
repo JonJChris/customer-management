@@ -3,6 +3,9 @@ package com.management.customer.tranformer.transaction;
 import com.management.customer.entity.transaction.RequestAddress;
 import com.management.customer.model.transaction.request.AddressModel;
 import com.management.customer.tranformer.master.CountryTypeTransformer;
+import com.management.customer.tranformer.master.TitleTypeTransformer;
+
+import java.util.Objects;
 
 public class AddressTransformer {
     public static AddressModel entityToModel(RequestAddress requestAddress){
@@ -12,13 +15,13 @@ public class AddressTransformer {
                 requestAddress.getRegisteredAddressLine2(),
                 requestAddress.getRegisteredAddressCity(),
                 requestAddress.getRegisteredAddressState(),
-                CountryTypeTransformer.entityToModel(requestAddress.getRegisteredAddressCountryType()),
+                Objects.isNull(requestAddress.getRegisteredAddressCountryType()) ? null : CountryTypeTransformer.entityToModel(requestAddress.getRegisteredAddressCountryType()),
                 requestAddress.getRegisteredAddressPostalCode(),
                 requestAddress.getCommunicationAddressLine1(),
                 requestAddress.getCommunicationAddressLine2(),
                 requestAddress.getCommunicationAddressCity(),
                 requestAddress.getCommunicationAddressState(),
-                CountryTypeTransformer.entityToModel(requestAddress.getCommunicationAddressCountryType()),
+                Objects.isNull(requestAddress.getCommunicationAddressCountryType()) ? null : CountryTypeTransformer.entityToModel(requestAddress.getCommunicationAddressCountryType()),
                 requestAddress.getCommunicationAddressPostalCode()
                 );
     }

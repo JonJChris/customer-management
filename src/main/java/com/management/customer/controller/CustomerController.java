@@ -1,10 +1,7 @@
 package com.management.customer.controller;
 
-import com.management.customer.model.master.RequestStageModel;
-import com.management.customer.model.transaction.request.RequestModel;
-import com.management.customer.model.transaction.store.CustomerStoreModel;
+import com.management.customer.model.store.CustomerStoreModel;
 import com.management.customer.service.CustomerService;
-import com.management.customer.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

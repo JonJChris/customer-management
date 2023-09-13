@@ -15,13 +15,14 @@ import java.time.LocalDateTime;
 @Table(name="DOCUMENT_STORE")
 public class DocumentStore {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="DOCUMENT_ID")
     private Long documentId;
-    @OneToOne
-    @JoinColumn(name="CUSTOMER_ID")
+    @ManyToOne
+    @JoinColumn(name="CUSTOMER")
     private CustomerStore customerId;
     @ManyToOne
-    @JoinColumn(name="DOCUMENT_TYPE_ID")
+    @JoinColumn(name="DOCUMENT_TYPE")
     private DocumentType documentType;
     @Column(name="DOCUMENT_LINK_PATH")
     private String documentLinkPath;

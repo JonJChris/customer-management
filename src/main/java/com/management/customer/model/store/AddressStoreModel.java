@@ -1,4 +1,4 @@
-package com.management.customer.model.transaction.store;
+package com.management.customer.model.store;
 
 import com.management.customer.model.master.CountryModel;
 

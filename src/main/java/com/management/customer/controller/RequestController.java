@@ -1,6 +1,7 @@
 package com.management.customer.controller;
 
-import com.management.customer.model.master.RequestStageModel;
+import com.management.customer.model.master.StageTypeModel;
+import com.management.customer.model.transaction.request.NewRequestModel;
 import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,20 @@ public class RequestController {
     }
 
     @GetMapping("{requestId}/nextStage")
-    public RequestStageModel getNextRequestStage(@PathVariable("requestId") Long requestId){
+    public StageTypeModel getNextRequestStage(@PathVariable("requestId") Long requestId){
         return requestService.getNextRequestStage(requestId);
 
     }
-    @PutMapping("{requestId}")
+    @PutMapping("{requestId}/submit")
     public RequestModel submitRequest(@PathVariable Long requestId, @RequestBody RequestModel requestModel){
-      return  requestService.submitRequest(requestModel);
+      return  requestService.submitRequest(requestModel, true);
+    }
+    @PutMapping("{requestId}/save")
+    public RequestModel saveRequest(@PathVariable Long requestId, @RequestBody RequestModel requestModel){
+        return  requestService.submitRequest(requestModel, false);
+    }
+    @PostMapping("new")
+    public RequestModel createRequest(@RequestBody NewRequestModel newRequestModel){
+        return  requestService.createRequest(newRequestModel.customerId(), newRequestModel.requestType());
     }
 }

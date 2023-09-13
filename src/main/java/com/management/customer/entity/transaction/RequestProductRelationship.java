@@ -24,13 +24,13 @@ public class RequestProductRelationship {
     @Column(name="ACCOUNT_ID")
     private String accountId;
     @ManyToOne
-    @JoinColumn(name="REQUEST_ID")
+    @JoinColumn(name="REQUEST")
     private Request request;
     @ManyToOne
-    @JoinColumn(name="PRODUCT_TYPE_ID")
+    @JoinColumn(name="PRODUCT_TYPE")
     private ProductType productType;
     @ManyToOne
-    @JoinColumn(name="BRANCH_TYPE_ID")
+    @JoinColumn(name="BRANCH_TYPE")
     private BranchType branchType;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;

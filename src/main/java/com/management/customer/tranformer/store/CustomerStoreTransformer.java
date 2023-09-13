@@ -2,7 +2,7 @@ package com.management.customer.tranformer.store;
 
 import com.management.customer.entity.store.CustomerStore;
 import com.management.customer.entity.transaction.Request;
-import com.management.customer.model.transaction.store.CustomerStoreModel;
+import com.management.customer.model.store.CustomerStoreModel;
 import com.management.customer.tranformer.master.*;
 import com.management.customer.tranformer.transaction.UserTransformer;
 
@@ -30,12 +30,15 @@ public class CustomerStoreTransformer {
                 customerStore.getNomineeLastName(),
                 customerStore.getDateOfBirth(),
                 HomeOwnershipTypeTransformer.entityToModel(customerStore.getHomeOwnershipType()),
+                AddressStoreTransformer.entityToModel(customerStore.getAddressStore()),
+                customerStore.getProductStoreList().stream().map(ProductStoreTransformer::entityToModel).toList(),
+                customerStore.getDocumentStoreList().stream().map(DocumentStoreTransformer::entityToModel).toList(),
+                requestList.stream().map(RequestStoreTransformer::entityToModel).toList(),
                 customerStore.getCreatedDate(),
                 UserTransformer.entityToModel(customerStore.getCreatedBy()),
                 customerStore.getUpdatedDate(),
-                UserTransformer.entityToModel(customerStore.getAddressStore().getUpdatedBy()),
-                AddressStoreTransformer.entityToModel(customerStore.getAddressStore()),
-                requestList.stream().map(RequestStoreTransformer::entityToModel).toList()
+                UserTransformer.entityToModel(customerStore.getAddressStore().getUpdatedBy())
+
         );
     }
 }

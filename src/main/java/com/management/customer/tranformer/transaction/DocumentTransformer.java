@@ -10,7 +10,7 @@ import com.management.customer.tranformer.master.ProductTypeTransformer;
 
 public class DocumentTransformer {
     public static DocumentModel entityToModel(RequestDocument requestDocument){
-        return new DocumentModel(requestDocument.getDocumentId(),
+        return new DocumentModel(requestDocument.getId(), requestDocument.getDocumentId(),
                 DocumentTypeTransformer.entityToModel(requestDocument.getDocumentType()),
                 requestDocument.getDocumentLinkPath(),
                 requestDocument.getCreatedDate(),

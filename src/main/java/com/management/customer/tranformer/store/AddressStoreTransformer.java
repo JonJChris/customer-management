@@ -1,7 +1,7 @@
 package com.management.customer.tranformer.store;
 
 import com.management.customer.entity.store.AddressStore;
-import com.management.customer.model.transaction.store.AddressStoreModel;
+import com.management.customer.model.store.AddressStoreModel;
 import com.management.customer.tranformer.master.CountryTypeTransformer;
 
 public class AddressStoreTransformer {

@@ -7,27 +7,23 @@ import { useOutletContext } from 'react-router-dom';
 
 
 const RequestProductDetails = (props) => {
-  const productsList = [
-    { accountId: 10001, accountNumber: '1256858', productName: "Fixed Deposit", productBranch: "Singapore" },
-    { accountId: 10002, accountNumber: '536552', productName: "Savings Account", productBranch: "India" },
-    { accountId: 10004, accountNumber: '985475', productName: "Current Account", productBranch: "Thailand" },
-    { accountId: 10005, accountNumber: '00656855', productName: "Credit Card", productBranch: "Hongkong" },
-    { accountId: 10006, accountNumber: '65854585', productName: "Personal Load", productBranch: "India" },
-    { accountId: 10007, accountNumber: '65854585', productName: "Vechicle Load", productBranch: "Malaysia" },
-    { accountId: 10008, accountNumber: '65854585', productName: "House Mortgage", productBranch: "Singapore" },
-  ];
   const [showPopup, setShowPopup] = useState(false);
   const [newProduct, setNewProduct] = useState({ Field_201_product_popup_product_type: { key: '', value: '' }, Field_202_product_popup_branch_type: { key: '', value: '' } })
   const productModalRef = useRef();
   const context = useOutletContext();
+  const [newProductCounter, setNewProductCounter] = useState({counter:100});
+  const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
   const onClickHandler = (evt) => {
     if (evt.target.name === 'Field_203_product_popup_add_button') {
       context.setProductDetails((prevState) => {
+        setNewProductCounter((prev) => ({counter: (prev.counter+1)}))
+        const tempId = 'TEMP_'+newProductCounter.counter;
         const retVal = {
           productsList: [
             ...prevState.productsList,
             {
-              productId: 0,
+              id: tempId,
+              productStoreId: '',
               accountId: 'NEW',
               createdDate: '',
               productType: {
@@ -50,7 +46,7 @@ const RequestProductDetails = (props) => {
       setNewProduct({ Field_201_product_popup_product_type: { key: '', value: '' }, Field_202_product_popup_branch_type: { key: '', value: '' } });
       setShowPopup(false);
     }
-   
+
   }
   const onChangeHandler = (evt) => {
     console.log(evt.target.name)
@@ -65,14 +61,14 @@ const RequestProductDetails = (props) => {
     })
   }
 
-const removeProduct = (removeProductId)  => {
-  console.log("removeProductId: "+removeProductId)
-  const result = context.productDetails.productsList.filter(item => item.productId !== removeProductId)
-  console.log("TTT "+ JSON.stringify(result));
-  context.setProductDetails({productsList: result})
- 
-}
-  
+  const removeProduct = (removeProductId) => {
+    console.log("removeProductId: " + removeProductId)
+    const result = context.productDetails.productsList.filter(item => item.id !== removeProductId)
+    console.log("TTT " + JSON.stringify(result));
+    context.setProductDetails({ productsList: result })
+
+  }
+
 
   const ProductPopup = (props) => {
 
@@ -112,11 +108,11 @@ const removeProduct = (removeProductId)  => {
             <div className='col-2 mx-auto'></div>
             <div className='col-2 mx-auto'>
               <button name="Field_203_product_popup_add_button" className='btn btn-primary px-5' onClick={props.clickHandler} disabled={
-                !(props.newProduct.Field_201_product_popup_product_type 
-                  && props.newProduct.Field_202_product_popup_branch_type 
+                !(props.newProduct.Field_201_product_popup_product_type
+                  && props.newProduct.Field_202_product_popup_branch_type
                   && props.newProduct.Field_201_product_popup_product_type.key !== ''
                   && props.newProduct.Field_202_product_popup_branch_type.key !== ''
-                  )
+                )
               } >Add</button>
             </div>
             <div className='col-2 mx-auto'>
@@ -133,33 +129,42 @@ const removeProduct = (removeProductId)  => {
       <div className='m-2' >
         <h6 className='tab-section-title'></h6>
         <div className=''>
-          <div className='w-100'>
 
-            <button id='135_add_new_product_button' name="addProduct" data-toggle="modal" data-target="#exampleModal"
+        {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
+          <div className='w-100'>
+            <button id='Field_135_add_new_product_button' name="addProduct" data-toggle="modal" data-target="#exampleModal"
               className='btn btn-primary' style={{ float: 'right', padding: '10px 20px ' }} onClick={() => setShowPopup(true)}>
               <strong>+</strong>
             </button></div>
+        }
+
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Product Id</th>
+                <th scope="col">Id</th>
+                <th scope="col">Store Id</th>
                 <th scope="col">Account Number</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Branch</th>
                 <th scope="col">Product Created</th>
+                {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
                 <th scope="col">Action</th>
+                }
               </tr>
             </thead>
             <tbody>
               {
                 context.productDetails && context.productDetails.productsList.map(product => (
-                  <tr key={product.productId}>
-                    <td>{product.productId}</td>
+                  <tr key={product.id}>
+                    <th>{product.id}</th>
+                    <td>{product.productStoreId}</td>
                     <td>{product.accountId}</td>
                     <td>{product.productType.productTypeName}</td>
                     <td>{product.productBranch.branchTypeName}</td>
                     <td>{product.createdDate}</td>
-                    <td><button name="remove_product" className='btn btn-primary btn-sm' onClick={() => removeProduct(product.productId)}>Remove</button></td>
+                    {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
+                    <td><button name="remove_product" className='btn btn-primary btn-sm' onClick={() => removeProduct(product.id)}>Remove</button></td>
+                    }
                   </tr>
                 ))
               }

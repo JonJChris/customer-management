@@ -6,8 +6,8 @@ export const updateRequestHeadDetails = (requestDetails, setStateFunc) => {
         ...prevState,
         Field_100_request_id: requestDetails.requestId,
         Field_102_request_type: requestDetails.requestType && { key: requestDetails.requestType.requestTypeId, value: requestDetails.requestType.requestTypeName },
-        Field_101_request_created: requestDetails.requestCreateDate,
-        Field_103_request_status: requestDetails.requestStage && { key: requestDetails.requestStage.requestStageId, value: requestDetails.requestStage.requestStageName },
+        Field_101_request_created: requestDetails.createdDate,
+        Field_103_request_status: requestDetails.currentRequestStage && { key: requestDetails.currentRequestStage.stageId, value: requestDetails.currentRequestStage.stageName },
       }
     });
   }
@@ -85,16 +85,17 @@ export const updateProductDetails = (requestDetails, setStateFunc) => {
       return {
         productsList: requestDetails.productRelationshipModelList.map(item => {
           return {
-            productId: item.productId,
+            id: item.id,
+            productStoreId: item.productStoreId,
             accountId: item.accountId,
             createdDate: item.createdDate,
             productType: {
               productTypeId: item.productType.productTypeId,
               productTypeName: item.productType.productTypeName,
             },
-            productBranch:{
+            productBranch: {
               branchTypeId: item.productBranch.branchTypeId,
-              branchTypeName:  item.productBranch.branchTypeName,
+              branchTypeName: item.productBranch.branchTypeName,
             }
           }
         })
@@ -108,12 +109,34 @@ export const updateDocumentDetails = (requestDetails, setStateFunc) => {
       return {
         documentsList: requestDetails.documentModelList.map(item => {
           return {
-            documentId: item.documentId,
+            id: item.id,
+            documentStoreId: item.documentStoreId,
             documentLinkPath: item.documentLinkPath,
             createdDate: item.createdDate,
             documentType: {
               documentTypeId: item.documentType.documentTypeId,
               documentTypeName: item.documentType.documentTypeName,
+            }
+          }
+        })
+      }
+    });
+  }
+}
+export const updateStageRibbonDetails = (requestDetails, setStateFunc) => {
+  if (requestDetails) {
+    setStateFunc((prevState) => {
+      return {
+        stagesList: requestDetails.allRequestStagesList.map(item => {
+          return {
+            id: item.id,
+            stageTypeModel: {
+              stageId: item.stageTypeModel.stageId,
+              stageName: item.stageTypeModel.stageName,
+            },
+            statusTypeModel: {
+              statusTypeId: item.statusTypeModel.statusTypeId,
+              statusTypeName: item.statusTypeModel.statusTypeName,
             }
           }
         })
@@ -164,10 +187,18 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
   requestBody.addressModel['communicationAddressState'] = addressDetails.Field_123_com_address_state;
   requestBody.addressModel['communicationAddressCountry'] = { countryId: addressDetails.Field_124_com_address_country.key, countryName: addressDetails.Field_124_com_address_country.value };
   requestBody.addressModel['communicationAddressPostalCode'] = addressDetails.Field_125_com_address_postal_code;
-  
-  requestBody.productRelationshipModelList = productDetails.productsList;
+
+  console.log(JSON.stringify(productDetails.productsList))
+  requestBody.productRelationshipModelList = productDetails.productsList.map(item => (
+    {
+      ...item,
+      id: item.id && String(item.id).includes('TEMP_') ? 0 : item.id
+    }
+  ));
+
+
   requestBody.documentModelList = documentDetails.documentsList;
-  
+
   requestBody['requestSubmittedBy'] = {
     userId: userDetail.userId,
     username: userDetail.username,
@@ -258,6 +289,48 @@ export const updateCustomerAdditionalDetails = (customerDetails, setStateFunc) =
         Field_185_nominee_first_name: customerDetails.nomineeFirstName,
         Field_186_nominee_last_name: customerDetails.nomineeLastName,
         Field_195_nominee_date_of_birth: customerDetails.nomineeDateOfBirth
+      }
+    });
+  }
+}
+export const updateCustomerProductDetails = (customerDetails, setStateFunc) => {
+  if (customerDetails) {
+    setStateFunc((prevState) => {
+      return {
+        productsList: customerDetails.productStoreModelList.map(item => {
+          return {
+            productId: item.productId,
+            accountId: item.accountId,
+            createdDate: item.createdDate,
+            productType: {
+              productTypeId: item.productType.productTypeId,
+              productTypeName: item.productType.productTypeName,
+            },
+            productBranch: {
+              branchTypeId: item.productBranch.branchTypeId,
+              branchTypeName: item.productBranch.branchTypeName,
+            }
+          }
+        })
+      }
+    });
+  }
+}
+export const updateCustomerDocumentDetails = (customerDetails, setStateFunc) => {
+  if (customerDetails) {
+    setStateFunc((prevState) => {
+      return {
+        documentsList: customerDetails.documentStoreModelsList.map(item => {
+          return {
+            documentId: item.documentId,
+            documentLinkPath: item.documentLinkPath,
+            createdDate: item.createdDate,
+            documentType: {
+              documentTypeId: item.documentType.documentTypeId,
+              documentTypeName: item.documentType.documentTypeName,
+            }
+          }
+        })
       }
     });
   }

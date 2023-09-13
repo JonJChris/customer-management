@@ -53,9 +53,9 @@ public class MasterDataController {
     public List<ProfessionModel> getProfessionsList(){
         return masterDataService.getProfessionsList();
     }
-    @GetMapping("/requestStage")
-    public List<RequestStageModel> getRequestStagesList(){
-        return masterDataService.getRequestStageList();
+    @GetMapping("/Stage")
+    public List<StageTypeModel> getStagesList(){
+        return masterDataService.getStageTypeList();
     }
     @GetMapping("/title")
     public List<TitleModel> getTitleList(){

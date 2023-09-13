@@ -1,5 +1,7 @@
 package com.management.customer.utils;
 
+import java.util.Objects;
+
 public class StringUtils {
 
     public static boolean isNullOrEmptyString(String stringVal){
@@ -11,4 +13,6 @@ public class StringUtils {
     public static boolean isNullOrEmptyLong(Long longVal){
         return  longVal == null || longVal <= 0;
     }
+
+
 }

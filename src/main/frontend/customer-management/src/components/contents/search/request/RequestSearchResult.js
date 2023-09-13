@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const RequestSearchResult = (props) => {
     return (
@@ -17,7 +18,7 @@ const RequestSearchResult = (props) => {
                     {props.searchResult.length === 0 ? <tr><td colSpan="4"><h4 className='text-center mx-auto'>No Result Found</h4></td></tr>:""}
                     {props.searchResult && props.searchResult.map(item => (
                         <tr key={item.requestId}>
-                            <th scope="row">{item.requestId}</th>
+                            <th scope="row"><NavLink to={`/request/${item.requestId}/basic`}>{item.requestId}</NavLink></th>
                             <td>{item.customerFirstName}</td>
                             <td>{item.customerLastName}</td>
                             <td>{item.requestType}</td>

@@ -2,7 +2,9 @@ package com.management.customer.entity.transaction;
 
 import com.management.customer.entity.authrisation.User;
 import com.management.customer.entity.master.StageType;
+import com.management.customer.entity.master.StatusType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "REQUEST_STAGE")
 public class RequestStage {
@@ -20,13 +23,14 @@ public class RequestStage {
     @Column(name = "ID")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_ID")
+    @JoinColumn(name = "REQUEST")
     private Request request;
     @ManyToOne
-    @JoinColumn(name = "REQUEST_STAGE_TYPE_ID")
+    @JoinColumn(name = "STAGE_TYPE")
     private StageType stageType;
-    @Column(name = "REQUEST_STATUS_TYPE_ID")
-    private String requestStatusType;
+    @ManyToOne
+    @JoinColumn(name = "STATUS_TYPE")
+    private StatusType statusType;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;
     @ManyToOne

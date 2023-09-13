@@ -3,6 +3,7 @@ package com.management.customer.service;
 import com.management.customer.model.master.*;
 import com.management.customer.entity.master.*;
 import com.management.customer.repository.master.*;
+import com.management.customer.repository.workflow.UserInterfaceRulesRepository;
 import com.management.customer.tranformer.master.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class MasterDataService {
     @Autowired
     RequestTypeRepository requestTypeRepository;
     @Autowired
-    RequestStageRepository requestStageRepository;
+    StageTypeRepository stageTypeRepository;
     @Autowired
     CustomerTypeRepository customerTypeRepository;
     @Autowired
@@ -51,9 +52,11 @@ public class MasterDataService {
     @Autowired
     DocumentTypeRepository documentTypeRepository;
 
+
+
     public MasterDataModel getMasterData(){
         return new MasterDataModel(getRequestTypeList(), getCountryList(), getCustomerStatusList(), getCustomerTypeList(), getEducationLevelList(),
-                getEmploymentStatusList(), getMaritalStatusList(), getProfessionsList(), getRequestStageList(), getTitlesList(), getYearlyIncomesList(),
+                getEmploymentStatusList(), getMaritalStatusList(), getProfessionsList(), getStageTypeList(), getTitlesList(), getYearlyIncomesList(),
                 getRelationshipTypesList(), getHomeOwnershipTypesList(), getProductsList(), getBranchList(), getDocumentTypesList());
 
     }
@@ -61,10 +64,14 @@ public class MasterDataService {
         List<RequestType> requestTypesEntityList = requestTypeRepository.findAll();
         return requestTypesEntityList.stream().map(RequestTypeTransformer::entityToModel).toList();
     }
-    public List<RequestStageModel> getRequestStageList(){
-        List<StageType> stageTypeEntityList = requestStageRepository.findAll();
-        return stageTypeEntityList.stream().map(RequestStageTypeTransformer::entityToModel).toList();
+    public List<StageTypeModel> getStageTypeList(){
+        List<StageType> requestTypesEntityList = stageTypeRepository.findAll();
+        return requestTypesEntityList.stream().map(StageTypeTransformer::entityToModel).toList();
     }
+//    public List<StageTypeModel> getRequestStageList(){
+//        List<StageType> stageTypeEntityList = stageTypeRepository.findAll();
+//        return stageTypeEntityList.stream().map(StageTypeTransformer::entityToModel).toList();
+//    }
     public List<CountryModel> getCountryList(){
         List<CountryType> countryTypeEntityList = countryRepository.findAll();
         return countryTypeEntityList.stream().map(CountryTypeTransformer::entityToModel).toList();
@@ -164,8 +171,8 @@ public class MasterDataService {
     public Optional<RelationshipType> getRelationshipTypeEntity(RelationshipTypeModel relationshipTypeModel){
         return relationshipTypeRepository.findById(relationshipTypeModel.relationshipTypeId());
     }
-    public Optional<StageType> getRequestStageEntity(RequestStageModel requestStageModel){
-        return requestStageRepository.findById(requestStageModel.requestStageId());
+    public Optional<StageType> getStageEntity(StageTypeModel stageTypeModel){
+        return stageTypeRepository.findById(stageTypeModel.stageId());
     }
     public Optional<RequestType> getRequestTypeEntity(RequestTypeModel requestTypeModel){
         return requestTypeRepository.findById(requestTypeModel.requestTypeId());

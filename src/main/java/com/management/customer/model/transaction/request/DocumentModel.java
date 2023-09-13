@@ -9,7 +9,8 @@ import com.management.customer.model.master.ProductModel;
 import java.time.LocalDateTime;
 
 public record DocumentModel(
-        Long documentId,
+        Long id,
+        Long documentStoreId,
         DocumentTypeModel documentType,
         String documentLinkPath,
         LocalDateTime createdDate,

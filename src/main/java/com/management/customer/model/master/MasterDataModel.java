@@ -1,8 +1,5 @@
 package com.management.customer.model.master;
 
-import com.management.customer.entity.master.BranchType;
-import com.management.customer.entity.master.DocumentType;
-
 import java.util.List;
 
 public record MasterDataModel(List<RequestTypeModel> requestTypeModelList,
@@ -13,7 +10,7 @@ public record MasterDataModel(List<RequestTypeModel> requestTypeModelList,
                               List<EmploymentStatusModel> employmentStatusModelList,
                               List<MaritalStatusModel> maritalStatusModelList,
                               List<ProfessionModel> professionModelList,
-                              List<RequestStageModel> requestStageModelList,
+                              List<StageTypeModel> stageTypeModelList,
                               List<TitleModel> titleModelList,
                               List<YearlyIncomeModel> yearlyIncomeModelList,
                               List<RelationshipTypeModel> relationshipTypeModelList,

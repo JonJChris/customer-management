@@ -8,7 +8,8 @@ import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../../../store/master-data'
 import { actions as uiFieldActions } from '../../../store/ui-field-store'
-import { updateCustomerHeadDetails, updateCustomerAdditionalDetails, updateCustomerAddressDetails, updateCustomerBasicDetails } from '../../utility/data-util'
+import { updateCustomerHeadDetails, updateCustomerAdditionalDetails, updateCustomerAddressDetails,
+        updateCustomerBasicDetails, updateCustomerProductDetails, updateCustomerDocumentDetails } from '../../utility/data-util'
 import {putRequestAndThenCallBack, getRequestAndThenCallBack } from '../../utility/api-util'
 import CustomerHead from '../../contents/customer/CustomerHead'
 
@@ -41,7 +42,11 @@ const CustomerLayout = () => {
     Field_180_educational_qualification: { key: 0, value: '' }, Field_181_occupation_type: { key: 0, value: '' }, 
     Field_182_organisation_name: "", Field_183_yearly_income: "", Field_194_home_ownership_type: { key: 0, value: '' }, 
     Field_184_nominee_relationship_type: { key: 0, value: '' }, Field_185_nominee_first_name: "", Field_186_nominee_last_name: "", 
-    Field_195_nominee_date_of_birth: "" })
+    Field_195_nominee_date_of_birth: "" });
+    
+    const [productDetails, setProductDetails]  = useState({productsList:[]});
+    const [documentDetails, setDocumentDetails]  = useState({documentsList:[]});
+
   const [tabState, setTabState] = useState({
     tabs: [
 
@@ -58,6 +63,8 @@ const CustomerLayout = () => {
     updateCustomerBasicDetails(customerDetails, setBasicDetails);
     updateCustomerAddressDetails(customerDetails, setAddressDetails);
     updateCustomerAdditionalDetails(customerDetails, setAdditionalDetails);
+    updateCustomerProductDetails(customerDetails, setProductDetails);
+    updateCustomerDocumentDetails(customerDetails, setDocumentDetails);
   }
 
 
@@ -110,7 +117,7 @@ const CustomerLayout = () => {
         <div className='border border-rounded mt-2 p-2'>
           <CustomerTabs tabItems={tabItems} />
           <div className="tab-content" id="myTabContent">
-            <Outlet context={ {basicDetails, addressDetails, additionalDetails,
+            <Outlet context={ {basicDetails, addressDetails, additionalDetails, productDetails, documentDetails
               //  updateStateForBasicDetailTab, updateStateForAddressTab, updateStateForAdditionalTab 
                }} />
           </div>

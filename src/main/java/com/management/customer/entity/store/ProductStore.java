@@ -16,18 +16,19 @@ import java.time.LocalDateTime;
 @Table(name="PRODUCT_STORE")
 public class ProductStore {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PRODUCT_ID")
     private Long productId;
-    @OneToOne
-    @JoinColumn(name="CUSTOMER_ID")
+    @ManyToOne
+    @JoinColumn(name="CUSTOMER")
     private CustomerStore customerId;
     @Column(name="ACCOUNT_ID")
     private String accountId;
     @ManyToOne
-    @JoinColumn(name="PRODUCT_TYPE_ID")
+    @JoinColumn(name="PRODUCT_TYPE")
     private ProductType productType;
     @ManyToOne
-    @JoinColumn(name="BRANCH_TYPE_ID")
+    @JoinColumn(name="BRANCH_TYPE")
     private BranchType branchType;
     @Column(name="CREATED_DATE")
     private LocalDateTime createdDate;

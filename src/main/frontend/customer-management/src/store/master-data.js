@@ -5,7 +5,8 @@ const masterDataSlice = createSlice(
         name: "MasterData",
         initialState: {
             masterDataExists:false,
-            requestTypeModelList: ["one", "two"],
+            requestTypeModelList: [],
+            stageTypeModelList: [],
             countryModelList: [],
             educationLevelsList: [],
             employmentStatusModelList: [],
@@ -17,6 +18,7 @@ const masterDataSlice = createSlice(
             relationshipTypeModelList: [],
             homeOwnershipTypeModelList: [],
             customerTypeModelList:[],
+            documentTypeModelList:[],
             productModelList:[],
             branchModelList:[]
         },
@@ -26,6 +28,7 @@ const masterDataSlice = createSlice(
                 if(action.payload){
                     const masterData = action.payload;
                     state.requestTypeModelList = masterData.requestTypeModelList && masterData.requestTypeModelList.map( item => ({optionKey:item.requestTypeId, optionValue:item.requestTypeName}));
+                    state.stageTypeModelList = masterData.stageTypeModelList && masterData.stageTypeModelList.map( item => ({optionKey:item.stageId, optionValue:item.stageName}));
                     state.countryModelList = masterData.countryModelList && masterData.countryModelList.map( item => ({optionKey:item.countryId, optionValue:item.countryName}));
                     state.educationLevelsList = masterData.educationLevelsList && masterData.educationLevelsList.map( item => ({optionKey:item.educationLevelId, optionValue:item.educationLevelName}));
                     state.employmentStatusModelList = masterData.employmentStatusModelList && masterData.employmentStatusModelList.map( item => ({optionKey:item.employmentStatusId, optionValue:item.employmentStatusName}));

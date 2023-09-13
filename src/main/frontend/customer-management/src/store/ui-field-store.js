@@ -50,6 +50,7 @@ const UIFieldStoreSlice = createSlice({
             Field_144_customer_email: { isVisible: 'true', isEditable: 'false', isMandatory: 'false' },
         },
         uiTabs: [],
+        uiButtons:[],
     },
     reducers: {
         updateUIFields: (state, action) => {
@@ -64,6 +65,11 @@ const UIFieldStoreSlice = createSlice({
         },
         updateUITabs:(state, action) => {
             state.uiTabs = action.payload
+        },
+        updateUIButtons:(state, action) => {
+            const retVal = {}
+            action.payload && action.payload.map(item => retVal[item.fieldName] =item)
+            state.uiButtons = retVal
         }
     }
 

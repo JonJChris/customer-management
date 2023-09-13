@@ -16,9 +16,10 @@ import java.time.LocalDateTime;
 public class AddressStore {
     @Id
     @Column(name="ADDRESS_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;
     @OneToOne
-    @JoinColumn(name="CUSTOMER_ID")
+    @JoinColumn(name="CUSTOMER")
     private CustomerStore customerId;
     @Column(name="REGISTERED_ADDRESS_LINE1")
     private String registeredAddressLine1;
@@ -29,7 +30,7 @@ public class AddressStore {
     @Column(name="REGISTERED_ADDRESS_STATE")
     private String registeredAddressState;
     @ManyToOne
-    @JoinColumn(name="REGISTERED_ADDRESS_COUNTRY")
+    @JoinColumn(name="REGISTERED_ADDRESS_COUNTRY_TYPE")
     private CountryType registeredAddressCountryType;
     @Column(name="REGISTERED_ADDRESS_POSTAL_CODE")
     private String registeredAddressPostalCode;
@@ -42,7 +43,7 @@ public class AddressStore {
     @Column(name="COMMUNICATION_ADDRESS_STATE")
     private String communicationAddressState;
     @ManyToOne
-    @JoinColumn(name="COMMUNICATION_ADDRESS_COUNTRY")
+    @JoinColumn(name="COMMUNICATION_ADDRESS_COUNTRY_TYPE")
     private CountryType communicationAddressCountryType;
     @Column(name="COMMUNICATION_ADDRESS_POSTAL_CODE")
     private String communicationAddressPostalCode;

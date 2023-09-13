@@ -20,7 +20,7 @@ public class RequestAddress {
     @Column(name="ADDRESS_ID")
     private Long addressId;
     @OneToOne
-    @JoinColumn(name="REQUEST_ID")
+    @JoinColumn(name="REQUEST")
     private Request request;
     @Column(name="REGISTERED_ADDRESS_LINE1")
     private String registeredAddressLine1;
@@ -31,7 +31,7 @@ public class RequestAddress {
     @Column(name="REGISTERED_ADDRESS_STATE")
     private String registeredAddressState;
     @ManyToOne
-    @JoinColumn(name="REGISTERED_ADDRESS_COUNTRY")
+    @JoinColumn(name="REGISTERED_ADDRESS_COUNTRY_TYPE")
     private CountryType registeredAddressCountryType;
     @Column(name="REGISTERED_ADDRESS_POSTAL_CODE")
     private String registeredAddressPostalCode;
@@ -44,7 +44,7 @@ public class RequestAddress {
     @Column(name="COMMUNICATION_ADDRESS_STATE")
     private String communicationAddressState;
     @ManyToOne
-    @JoinColumn(name="COMMUNICATION_ADDRESS_COUNTRY")
+    @JoinColumn(name="COMMUNICATION_ADDRESS_COUNTRY_TYPE")
     private CountryType communicationAddressCountryType;
     @Column(name="COMMUNICATION_ADDRESS_POSTAL_CODE")
     private String communicationAddressPostalCode;

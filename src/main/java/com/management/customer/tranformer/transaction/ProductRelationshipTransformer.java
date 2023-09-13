@@ -7,7 +7,7 @@ import com.management.customer.tranformer.master.ProductTypeTransformer;
 
 public class ProductRelationshipTransformer {
     public static ProductRelationshipModel entityToModel(RequestProductRelationship requestProductRelationship){
-        return new ProductRelationshipModel(requestProductRelationship.getProductId(), requestProductRelationship.getAccountId(),
+        return new ProductRelationshipModel(requestProductRelationship.getId(), requestProductRelationship.getProductId(), requestProductRelationship.getAccountId(),
                 ProductTypeTransformer.entityToModel(requestProductRelationship.getProductType()),
                 BranchTypeTransformer.entityToModel(requestProductRelationship.getBranchType()),
                 requestProductRelationship.getCreatedDate(),

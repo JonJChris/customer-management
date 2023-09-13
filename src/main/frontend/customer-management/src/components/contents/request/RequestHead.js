@@ -4,21 +4,13 @@ import SelectField from '../../elements/SelectField'
 import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
 import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
-const stages = [
-  { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
-  { stageId: '2', stageName: "Add Products", stageStatus: "COMPLETE" },
-  { stageId: '3', stageName: "Update Documents", stageStatus: "INPROGRESS" },
-  { stageId: '4', stageName: "Review and Submit", stageStatus: "PENDING" },
-  { stageId: '5', stageName: "Approval", stageStatus: "PENDING" },
-  { stageId: '6', stageName: "Closed", stageStatus: "PENDING" },
 
-]
 
 const RequestHead = (props) => {
 
   const masterData = useSelector(state => state.masterDataSlice);
   const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
-
+console.log("<<<<>>>>>> "+JSON.stringify(props));
   return (
     <div className='mt-3 border border-rounded p-3'>
       <div className='row'>
@@ -27,7 +19,7 @@ const RequestHead = (props) => {
             isMandatory={isFieldMandatory(uiFieldStore, 'Field_100_request_id')} isVisible={isFieldVisible(uiFieldStore, 'Field_100_request_id')} isEditable={isFieldEditable(uiFieldStore, 'Field_100_request_id')}
           />
         </div>
-        <div className='col-1'></div>
+         <div className='col-1'></div>
         <div className='col-5'>
           <SelectField fieldId="Field_102_request_type" fieldName="Request Type" fieldValue={props.Field_102_request_type} fieldOptions={masterData.requestTypeModelList}
             isMandatory={isFieldMandatory(uiFieldStore, 'Field_102_request_type')} isVisible={isFieldVisible(uiFieldStore, 'Field_102_request_type')} isEditable={isFieldEditable(uiFieldStore, 'Field_102_request_type')} />
@@ -42,13 +34,11 @@ const RequestHead = (props) => {
         <div className='col-1'></div>
         <div className='col-5'>
           
-          <SelectField fieldId="Field_103_request_stage" fieldName="Request Stage" fieldValue={props.Field_103_request_status} fieldOptions={masterData.requestStageModelList}
+          <SelectField fieldId="Field_103_request_stage" fieldName="Request Stage" fieldValue={props.Field_103_request_status} fieldOptions={masterData.stageTypeModelList}
            isMandatory={isFieldMandatory(uiFieldStore, 'Field_103_request_stage')} isVisible={isFieldVisible(uiFieldStore, 'Field_103_request_stage')} isEditable={isFieldEditable(uiFieldStore, 'Field_103_request_stage')} />
         </div>
+      </div> 
       </div>
-      <WorkflowRibbon items={stages} />
-
-    </div>
   )
 }
 

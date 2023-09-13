@@ -1,4 +1,4 @@
-package com.management.customer.repository.master;
+package com.management.customer.repository.workflow;
 
 import com.management.customer.entity.master.RequestType;
 import com.management.customer.entity.workflow.RequestTypeRequestStageRules;

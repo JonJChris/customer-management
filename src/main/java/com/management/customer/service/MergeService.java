@@ -55,7 +55,7 @@ public class MergeService {
         List<RequestProductRelationship> itemsToRemove = new ArrayList<>();
 
         for(RequestProductRelationship relationship: productRelationship){
-            boolean missing = productRelationshipModel.stream().filter(item -> item.productId().equals(relationship.getProductId())).findAny().isEmpty();
+            boolean missing = productRelationshipModel.stream().filter(item -> relationship.getId().equals(item.id())).findAny().isEmpty();
             if(missing){
                 itemsToRemove.add(relationship);
             }
@@ -95,7 +95,7 @@ public class MergeService {
         List<RequestDocument> itemsToRemove = new ArrayList<>();
         //loop entity compare model
         for(RequestDocument documentEntity: requestDocuments){
-            boolean missing = documentModelList.stream().filter(item -> item.documentId().equals(documentEntity.getDocumentId())).findAny().isEmpty();
+            boolean missing = documentModelList.stream().filter(item -> documentEntity.getId().equals(item.id())).findAny().isEmpty();
             if(missing){
                 itemsToRemove.add(documentEntity);
             }

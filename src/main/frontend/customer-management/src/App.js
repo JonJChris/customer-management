@@ -19,6 +19,7 @@ import CustomerDocumentDetails from './components/contents/customer/CustomerDocu
 
 import CustomerSearchLayout from './components/layouts/search/customer/CustomerSearchLayout';
 import RequestSearchLayout from './components/layouts/search/request/RequestSearchLayout.js';
+import ErrorPage from './components/contents/common/ErrorPage';
 
 
 
@@ -28,23 +29,23 @@ const App = () => {
     <div className="App container">
         { <BrowserRouter>
           <Routes>
-            <Route path="/request/:requestId" element={<RequestLayout />} >
-              <Route path="basic" element={<RequestBasicDetails />} />
-              <Route path="Address" element={<RequestAddressDetails />} />
-              <Route path="Additional" element={<RequestAdditionalDetails />} />
-              <Route path="Document" element={<RequestDocumentDetails />} />
-              <Route path="Product" element={<RequestProductDetails />} />
+            <Route exact path="/request/:requestId" element={<RequestLayout />} >
+              <Route exact path="basic" element={<RequestBasicDetails />} />
+              <Route exact path="Address" element={<RequestAddressDetails />} />
+              <Route exact path="Additional" element={<RequestAdditionalDetails />} />
+              <Route exact path="Document" element={<RequestDocumentDetails />} />
+              <Route exact path="Product" element={<RequestProductDetails />} />
             </Route>
-            <Route path="/customer/:customerId" element={<CustomerLayout />} >
-              <Route path="basic" element={<CustomerBasicDetails />} />
-              <Route path="Address" element={<CustomerAddressDetails />} />
-              <Route path="Additional" element={<CustomerAdditionalDetails />} />
-              <Route path="Document" element={<CustomerDocumentDetails />} />
-              <Route path="Product" element={<CustomerProductDetails />} />
+            <Route exact path="/customer/:customerId" element={<CustomerLayout />} >
+              <Route exact path="basic" element={<CustomerBasicDetails />} />
+              <Route exact path="Address" element={<CustomerAddressDetails />} />
+              <Route exact path="Additional" element={<CustomerAdditionalDetails />} />
+              <Route exact path="Document" element={<CustomerDocumentDetails />} />
+              <Route exact path="Product" element={<CustomerProductDetails />} />
             </Route>
-            <Route path="/search/customer" element={<CustomerSearchLayout />} />
-            <Route path="/search/request" element={<RequestSearchLayout />} />
-            
+            <Route exact path="/search/customer" element={<CustomerSearchLayout />} />
+            <Route exact path="/search/request" element={<RequestSearchLayout />} />
+            <Route exact path="*" element={<ErrorPage />} />
           </Routes>
         </BrowserRouter> }
     </div>

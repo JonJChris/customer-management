@@ -13,10 +13,21 @@ import { updateRequestHeadDetails,
   updateRequestBasicDetails, 
   updateProductDetails,
   updateDocumentDetails,
+  updateStageRibbonDetails,
   buildRequestBody } from './../../utility/data-util'
 import {putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
+import WorkflowRibbon from '../../contents/request/WorkflowRibbon'
 
 const RequestLayout = () => {
+  const stages = [
+    { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
+    { stageId: '2', stageName: "Add Products", stageStatus: "COMPLETE" },
+    { stageId: '3', stageName: "Update Documents", stageStatus: "INPROGRESS" },
+    { stageId: '4', stageName: "Review and Submit", stageStatus: "PENDING" },
+    { stageId: '5', stageName: "Approval", stageStatus: "PENDING" },
+    { stageId: '6', stageName: "Closed", stageStatus: "PENDING" },
+  
+  ]
   const tabItems = [
     { tabId: '137_basic_details_tab', tabName: "Basic Details", tabErrors: 0, isActive: true, tabLink: './basic' },
     { tabId: '138_address_details_tab', tabName: "Address Details", tabErrors: 0, isActive: false, tabLink: 'Address' },
@@ -47,6 +58,7 @@ const RequestLayout = () => {
     Field_143_nominee_date_of_birth: "" })
   const [productDetails, setProductDetails]  = useState({productsList:[]});
   const [documentDetails, setDocumentDetails]  = useState({documentsList:[]});
+  const [allRequestStagesList, setAllRequestStagesList] = useState({stagesList:[]});
   const [tabState, setTabState] = useState({
     tabs: [
 
@@ -64,8 +76,10 @@ const RequestLayout = () => {
     updateRequestAdditionalDetails(requestDetails, setAdditionalDetails);
     updateProductDetails(requestDetails, setProductDetails);
     updateDocumentDetails(requestDetails, setDocumentDetails);
+    updateStageRibbonDetails(requestDetails, setAllRequestStagesList);
     dispatch(uiFieldActions.updateUIFields(requestDetails.uiInputFieldModelsList));
     dispatch(uiFieldActions.updateUITabs(requestDetails.uiTabModelsList));
+    dispatch(uiFieldActions.updateUIButtons(requestDetails.uiButtonModelsList));
   }
 
 
@@ -111,12 +125,24 @@ const RequestLayout = () => {
         productDetails,
         documentDetails,
         userStore.userDetails);
-      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
+      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/submit`, requestBody ,updateRequestPageState);
+    }else if(evt.target.name === 'Field_209_request_save'){
+      const requestBody = buildRequestBody(
+        requestHeadDetails, 
+        basicDetails, 
+        addressDetails, 
+        additionalDetails, 
+        productDetails,
+        documentDetails,
+        userStore.userDetails);
+      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/save`, requestBody ,updateRequestPageState);
     }else if(evt.target.name === 'Field_146_request_rework'){
       console.log('Rework Triggered');
     }
+   
     
   }
+
 
   return (
     <div>
@@ -124,7 +150,7 @@ const RequestLayout = () => {
       <TopNavigation />
       <form onSubmit={(evt) => evt.preventDefault()}>
         <RequestHead {...requestHeadDetails} />
-
+        <WorkflowRibbon stages={allRequestStagesList} />
         <div className='border border-rounded mt-2 p-2'>
           <RequestTabs />
           <div className="tab-content" id="myTabContent">
@@ -135,7 +161,7 @@ const RequestLayout = () => {
           </div>
         </div>
 
-        <RequestButtons fieldOnSubmit={submitRequest} />
+        <RequestButtons fieldOnSubmit={submitRequest} /> 
       </form>
     </div>
   )

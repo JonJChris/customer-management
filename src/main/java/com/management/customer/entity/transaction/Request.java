@@ -25,9 +25,9 @@ public class Request {
     @ManyToOne
     @JoinColumn(name="REQUEST_STAGE")
     private StageType stageType;
-    @OneToOne(mappedBy = "request")
+    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
     private RequestCustomer requestCustomer;
-    @OneToOne(mappedBy = "request")
+    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
     private RequestAddress requestAddress;
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RequestProductRelationship> productRelationshipList;
