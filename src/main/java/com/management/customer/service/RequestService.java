@@ -17,6 +17,7 @@ import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.repository.request.RequestRepository;
+import com.management.customer.repository.request.StageRepository;
 import com.management.customer.repository.workflow.RequestTypeRequestStageRulesRepository;
 import com.management.customer.tranformer.transaction.RequestTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class RequestService {
     CustomerService customerService;
     @Autowired
     RequestTypeRequestStageRulesRepository requestTypeRequestStageRulesRepository;
+    @Autowired
+    StageRepository requestStageRepository;
 
     public RequestModel getRequestDetails(Long requestId) {
         Optional<Request> request = requestRepository.findById(requestId);
@@ -113,6 +116,8 @@ public class RequestService {
         Request request = new Request();
         RequestCustomer requestCustomer = new RequestCustomer();
         RequestAddress requestAddress = new RequestAddress();
+        requestCustomer.setRequest(request);
+        requestAddress.setRequest(request);
         request.setRequestType(reqType);
         request.setRequestCustomer(requestCustomer);
         request.setRequestAddress(requestAddress);
@@ -126,6 +131,7 @@ public class RequestService {
                         UserService.GENERAL_USER
                         )
                 ).toList();
+        System.out.println("stagesList > "+stagesList );
         stagesList.get(0).setStatusType( new StatusType(StatusTypeEnum.IN_PROGRESS.getStageId(), StatusTypeEnum.IN_PROGRESS.getStageTypeName()));
         request.setStageType(stagesList.get(0).getStageType());
         request.setRequestRequestStages(stagesList);
@@ -134,7 +140,11 @@ public class RequestService {
         request.setUpdatedBy(UserService.GENERAL_USER);
         request.setUpdatedDate(LocalDateTime.now());
 
-        Request savedRequest = requestRepository.save(request);
+        Request savedRequestOld = requestRepository.save(request);
+        List<RequestStage> stages = requestStageRepository.saveAll(stagesList);
+
+        Optional<Request> savedRequestOptional = requestRepository.findById(savedRequestOld.getRequestId());
+        Request savedRequest = savedRequestOptional.get();
         Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());

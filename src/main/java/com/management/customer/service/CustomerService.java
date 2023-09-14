@@ -41,11 +41,13 @@ public class CustomerService {
     public void persistDataCustomerStore(Request request) {
         if (request.getStageType().getStageName().equals("Closed")) {
             Long customerId = request.getRequestCustomer().getCustomerId();
-            Optional<CustomerStore> customerStoreOptional = customerStoreRepository.findById(customerId);
 
+            Optional<CustomerStore> customerStoreOptional = Optional.empty();
+            if(customerId != null){
+                customerStoreOptional = customerStoreRepository.findById(customerId);
+            }
 
-            CustomerStore customerStore = null;
-            customerStore = customerStoreOptional.orElseGet(() -> {
+           CustomerStore customerStore = customerStoreOptional.orElseGet(() -> {
                 CustomerStore store = new CustomerStore();
                 store.setCustomerId(request.getRequestCustomer().getCustomerId());
                 store.setAddressStore(new AddressStore());

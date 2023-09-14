@@ -150,25 +150,25 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
   const requestBody = { customerModel: {}, addressModel: {} }
 
   requestBody['requestId'] = requestHeadDetails.Field_100_request_id;
-  requestBody['requestType'] = { requestTypeId: requestHeadDetails.Field_102_request_type.key, requestTypeName: requestHeadDetails.Field_102_request_type.value };
-  requestBody['requestStage'] = { requestStageId: requestHeadDetails.Field_103_request_status.key, requestStageName: requestHeadDetails.Field_103_request_status.value };
+  requestBody['requestType'] = requestHeadDetails.Field_102_request_type && { requestTypeId: requestHeadDetails.Field_102_request_type.key, requestTypeName: requestHeadDetails.Field_102_request_type.value };
+  requestBody['requestStage'] = requestHeadDetails.Field_103_request_status && { requestStageId: requestHeadDetails.Field_103_request_status.key, requestStageName: requestHeadDetails.Field_103_request_status.value };
   requestBody['requestCreateDate'] = requestHeadDetails.Field_101_request_created;
 
   requestBody.customerModel['customerId'] = basicDetails.Field_104_customer_id;
-  requestBody.customerModel['userTitle'] = { titleId: basicDetails.Field_105_customer_title.key, titleName: basicDetails.Field_105_customer_title.value };
+  requestBody.customerModel['userTitle'] = basicDetails.Field_105_customer_title && { titleId: basicDetails.Field_105_customer_title.key, titleName: basicDetails.Field_105_customer_title.value };
   requestBody.customerModel['firstName'] = basicDetails.Field_106_customer_first_name;
   requestBody.customerModel['lastName'] = basicDetails.Field_107_customer_last_name;
   requestBody.customerModel['displayName'] = basicDetails.Field_108_customer_display_name;
-  requestBody.customerModel['nationality'] = { countryId: basicDetails.Field_109_customer_nationality.key, countryName: basicDetails.Field_109_customer_nationality.value };
+  requestBody.customerModel['nationality'] = basicDetails.Field_109_customer_nationality && { countryId: basicDetails.Field_109_customer_nationality.key, countryName: basicDetails.Field_109_customer_nationality.value };
   requestBody.customerModel['email'] = basicDetails.Field_144_customer_email;
   requestBody.customerModel['dateOfBirth'] = basicDetails.Field_110_customer_date_of_birth;
-  requestBody.customerModel['maritalStatus'] = { maritalStatusId: basicDetails.Field_112_customer_marital_status.key, maritalStatusName: basicDetails.Field_112_customer_marital_status.value };
-  requestBody.customerModel['customerType'] = { customerTypeId: basicDetails.Field_113_customer_type.key, customerTypeName: basicDetails.Field_113_customer_type.value };
-  requestBody.customerModel['customerEducationLevel'] = { educationLevelId: additionalDetails.Field_126_educational_qualification.key, educationLevelName: additionalDetails.Field_126_educational_qualification.value };
-  requestBody.customerModel['customerProfession'] = { professionId: additionalDetails.Field_127_occupation_type.key, professionName: additionalDetails.Field_127_occupation_type.value };
+  requestBody.customerModel['maritalStatus'] = basicDetails.Field_112_customer_marital_status && { maritalStatusId: basicDetails.Field_112_customer_marital_status.key, maritalStatusName: basicDetails.Field_112_customer_marital_status.value };
+  requestBody.customerModel['customerType'] = basicDetails.Field_113_customer_type && { customerTypeId: basicDetails.Field_113_customer_type.key, customerTypeName: basicDetails.Field_113_customer_type.value };
+  requestBody.customerModel['customerEducationLevel'] = additionalDetails.Field_126_educational_qualification && { educationLevelId: additionalDetails.Field_126_educational_qualification.key, educationLevelName: additionalDetails.Field_126_educational_qualification.value };
+  requestBody.customerModel['customerProfession'] = additionalDetails.Field_127_occupation_type && { professionId: additionalDetails.Field_127_occupation_type.key, professionName: additionalDetails.Field_127_occupation_type.value };
   requestBody.customerModel['customerOrganisationName'] = additionalDetails.Field_128_organisation_name;
-  requestBody.customerModel['customerYearlyIncome'] = { yearlyIncomeId: additionalDetails.Field_130_yearly_income.key, yearlyIncomeName: additionalDetails.Field_130_yearly_income.value };
-  requestBody.customerModel['nomineeRelationshipType'] = { relationshipTypeId: additionalDetails.Field_132_nominee_relationship_type.key, relationshipTypeName: additionalDetails.Field_132_nominee_relationship_type.value };
+  requestBody.customerModel['customerYearlyIncome'] = additionalDetails.Field_130_yearly_income && { yearlyIncomeId: additionalDetails.Field_130_yearly_income.key, yearlyIncomeName: additionalDetails.Field_130_yearly_income.value };
+  requestBody.customerModel['nomineeRelationshipType'] = additionalDetails.Field_132_nominee_relationship_type && { relationshipTypeId: additionalDetails.Field_132_nominee_relationship_type.key, relationshipTypeName: additionalDetails.Field_132_nominee_relationship_type.value };
   requestBody.customerModel['nomineeFirstName'] = additionalDetails.Field_133_nominee_first_name;
   requestBody.customerModel['nomineeLastName'] = additionalDetails.Field_134_nominee_last_name;
   requestBody.customerModel['nomineeDateOfBirth'] = additionalDetails.Field_143_nominee_date_of_birth;
@@ -178,14 +178,14 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
   requestBody.addressModel['registeredAddressLine2'] = addressDetails.Field_115_reg_address_line2;
   requestBody.addressModel['registeredAddressCity'] = addressDetails.Field_116_reg_address_city;
   requestBody.addressModel['registeredAddressState'] = addressDetails.Field_117_reg_address_state;
-  requestBody.addressModel['registeredAddressCountry'] = { countryId: addressDetails.Field_118_reg_address_country.key, countryName: addressDetails.Field_118_reg_address_country.value };
+  requestBody.addressModel['registeredAddressCountry'] = addressDetails.Field_118_reg_address_country && { countryId: addressDetails.Field_118_reg_address_country.key, countryName: addressDetails.Field_118_reg_address_country.value };
   requestBody.addressModel['registeredAddressPostalCode'] = addressDetails.Field_119_reg_address_postal_code;
 
   requestBody.addressModel['communicationAddressLine1'] = addressDetails.Field_120_com_address_line1;
   requestBody.addressModel['communicationAddressLine2'] = addressDetails.Field_121_com_address_line2;
   requestBody.addressModel['communicationAddressCity'] = addressDetails.Field_122_com_address_city;
   requestBody.addressModel['communicationAddressState'] = addressDetails.Field_123_com_address_state;
-  requestBody.addressModel['communicationAddressCountry'] = { countryId: addressDetails.Field_124_com_address_country.key, countryName: addressDetails.Field_124_com_address_country.value };
+  requestBody.addressModel['communicationAddressCountry'] = addressDetails.Field_124_com_address_country && { countryId: addressDetails.Field_124_com_address_country.key, countryName: addressDetails.Field_124_com_address_country.value };
   requestBody.addressModel['communicationAddressPostalCode'] = addressDetails.Field_125_com_address_postal_code;
 
   console.log(JSON.stringify(productDetails.productsList))

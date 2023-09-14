@@ -18,9 +18,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "REQUEST_STAGE")
 public class RequestStage {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "STAGE_ID")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "REQUEST")

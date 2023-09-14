@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name="CUSTOMER_STORE")
 public class CustomerStore {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CUSTOMER_ID")
     private Long customerId;
     @ManyToOne
