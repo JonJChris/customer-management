@@ -4,6 +4,7 @@ import SelectField from '../../elements/SelectField'
 import {useSelector} from 'react-redux';
 import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../../utility/generalUtil'
 import { useOutletContext } from "react-router-dom";
+import DateField from '../../elements/DateField';
 
 const RequestBasicDetails = () => {
 
@@ -62,7 +63,7 @@ const RequestBasicDetails = () => {
    
     <div className='row'>
         <div className='col'>
-        <TextField fieldId="Field_110_customer_date_of_birth" fieldName="Customer Date of Birth"  fieldValue={basicDetail && basicDetail.Field_110_customer_date_of_birth} 
+        <DateField fieldId="Field_110_customer_date_of_birth" fieldName="Customer Date of Birth"  fieldValue={basicDetail && basicDetail.Field_110_customer_date_of_birth} 
         isMandatory={isFieldMandatory(uiFieldStore, 'Field_108_customer_display_name')} isVisible={isFieldVisible(uiFieldStore, 'Field_108_customer_display_name')} isEditable={isFieldEditable(uiFieldStore, 'Field_108_customer_display_name')} 
         fieldOnChange={context.updateStateForBasicDetailTab}/>
         </div>

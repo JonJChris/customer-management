@@ -4,6 +4,7 @@ import SelectField from '../../elements/SelectField'
 import {useSelector} from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
 import {isFieldEditable, isFieldMandatory, isFieldVisible} from '../../utility/generalUtil'
+import DateField from '../../elements/DateField';
 
 const RequestAdditionalDetails = () => {
   const masterData = useSelector( state => state.masterDataSlice);
@@ -62,7 +63,7 @@ const RequestAdditionalDetails = () => {
         </div>
         
         <div className='col'>
-        <TextField fieldId="Field_143_nominee_date_of_birth" fieldName="Date of Birth" fieldValue={additionalDetail.Field_143_nominee_date_of_birth} fieldPlaceholder="" 
+        <DateField fieldId="Field_143_nominee_date_of_birth" fieldName="Date of Birth" fieldValue={additionalDetail.Field_143_nominee_date_of_birth} fieldPlaceholder="" 
         isMandatory={isFieldMandatory(uiFieldStore, 'Field_143_nominee_date_of_birth')} isVisible={isFieldVisible(uiFieldStore, 'Field_143_nominee_date_of_birth')} isEditable={isFieldEditable(uiFieldStore, 'Field_143_nominee_date_of_birth')} 
         fieldOnChange={context.updateStateForAdditionalTab}/>
         </div>

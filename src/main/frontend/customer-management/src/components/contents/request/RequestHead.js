@@ -4,13 +4,14 @@ import SelectField from '../../elements/SelectField'
 import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
 import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
+import DateField from '../../elements/DateField'
 
 
 const RequestHead = (props) => {
 
   const masterData = useSelector(state => state.masterDataSlice);
   const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
-console.log("<<<<>>>>>> "+JSON.stringify(props));
+
   return (
     <div className='mt-3 border border-rounded p-3'>
       <div className='row'>
@@ -28,7 +29,7 @@ console.log("<<<<>>>>>> "+JSON.stringify(props));
 
       <div className='row mt-3'>
         <div className='col-5'>
-          <TextField fieldId="Field_101_request_created" fieldName="Request Created" fieldValue={props.Field_101_request_created}
+          <DateField fieldId="Field_101_request_created" fieldName="Request Created" fieldValue={props.Field_101_request_created}
             isMandatory={isFieldMandatory(uiFieldStore, 'Field_101_request_created')} isVisible={isFieldVisible(uiFieldStore, 'Field_101_request_created')} isEditable={isFieldEditable(uiFieldStore, 'Field_101_request_created')} />
         </div>
         <div className='col-1'></div>

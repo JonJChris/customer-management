@@ -3,6 +3,7 @@ package com.management.customer.model.store;
 import com.management.customer.model.authorisation.UserModel;
 import com.management.customer.model.master.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public record CustomerStoreModel(
         String displayName,
         CountryModel nationality,
         String email,
-        LocalDateTime dateOfBirth,
+        LocalDate dateOfBirth,
         MaritalStatusModel maritalStatus,
         CustomerTypeModel customerType,
         EducationLevelModel customerEducationLevel,
@@ -24,7 +25,7 @@ public record CustomerStoreModel(
         RelationshipTypeModel nomineeRelationshipType,
         String nomineeFirstName,
         String nomineeLastName,
-        LocalDateTime nomineeDateOfBirth,
+        LocalDate nomineeDateOfBirth,
         HomeOwnershipTypeModel homeOwnershipType,
         AddressStoreModel addressStoreModel,
         List<ProductStoreModel> productStoreModelList,

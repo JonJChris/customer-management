@@ -114,10 +114,22 @@ public class RequestService {
 
         List<RequestTypeRequestStageRules> StageList = requestTypeRequestStageRulesRepository.findByRequestType(reqType);
         Request request = new Request();
+
         RequestCustomer requestCustomer = new RequestCustomer();
-        RequestAddress requestAddress = new RequestAddress();
         requestCustomer.setRequest(request);
+        requestCustomer.setCreatedBy(UserService.GENERAL_USER);
+        requestCustomer.setUpdatedBy(UserService.GENERAL_USER);
+        requestCustomer.setCreatedDate(LocalDateTime.now());
+        requestCustomer.setUpdatedDate(LocalDateTime.now());
+
+        RequestAddress requestAddress = new RequestAddress();
+        requestAddress.setCreatedBy(UserService.GENERAL_USER);
+        requestAddress.setUpdatedBy(UserService.GENERAL_USER);
+        requestAddress.setCreatedDate(LocalDateTime.now());
+        requestAddress.setUpdatedDate(LocalDateTime.now());
+
         requestAddress.setRequest(request);
+
         request.setRequestType(reqType);
         request.setRequestCustomer(requestCustomer);
         request.setRequestAddress(requestAddress);

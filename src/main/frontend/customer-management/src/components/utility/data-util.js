@@ -216,10 +216,10 @@ export const updateCustomerHeadDetails = (customerDetails, setStateFunc) => {
     setStateFunc((prevState) => {
       return {
         ...prevState,
-        Field_197_customer_crated_date: customerDetails.customerId,
-        Field_198_customer_created_by: (customerDetails.createdBy.userFirstName + ' ' + customerDetails.createdBy.userLastName),
+        Field_197_customer_crated_date: customerDetails.createdDate,
+        Field_198_customer_created_by: customerDetails.createdBy && (customerDetails.createdBy.userFirstName + ' ' + customerDetails.createdBy.userLastName),
         Field_199_customer_last_updated_date: customerDetails.updatedDate,
-        Field_200_customer_last_updated_by: (customerDetails.updatedBy.userFirstName + ' ' + customerDetails.updatedBy.userLastName),
+        Field_200_customer_last_updated_by: customerDetails.updatedBy && (customerDetails.updatedBy.userFirstName + ' ' + customerDetails.updatedBy.userLastName),
       }
     });
   }

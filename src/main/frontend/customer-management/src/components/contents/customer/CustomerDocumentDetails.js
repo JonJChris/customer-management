@@ -20,6 +20,7 @@ const CustomerDocumentDetails = () => {
                             </tr>
                         </thead>
                         <tbody>
+                        { context.documentDetails.documentsList.length === 0 ? <tr><td colSpan="8"><h4 className='text-center mx-auto'>No Result Found</h4></td></tr>:""}
                             {
                                 context.documentDetails && context.documentDetails.documentsList.map(document => (
                                     <tr key={document.documentId}>

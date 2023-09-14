@@ -34,7 +34,9 @@ public class SearchService {
 //        Page<CustomerStore> customerStoreList = customerStoreRepository.findAll(topTenRecords);
         Page<CustomerStore> customerStoreList = customerStoreRepository.findAll(Example.of(customerStore), topTenRecords);
         List<CustomerItem> customerItemList = customerStoreList.stream()
-                .map(item -> new CustomerItem(item.getCustomerId(), item.getFirstname(), item.getLastName(), item.getNationality().getCountryName()))
+                .map(item -> new CustomerItem(item.getCustomerId(), item.getFirstname(), item.getLastName(),
+                        item.getNationality() != null ? item.getNationality().getCountryName() : null
+                ))
                 .toList();
         return new CustomerSearchResult("Fetching only top 10 results", customerItemList);
     }

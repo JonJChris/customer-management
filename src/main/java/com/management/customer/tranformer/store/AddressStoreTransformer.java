@@ -12,13 +12,13 @@ public class AddressStoreTransformer {
                 addressStore.getRegisteredAddressLine2(),
                 addressStore.getRegisteredAddressCity(),
                 addressStore.getRegisteredAddressState(),
-                CountryTypeTransformer.entityToModel(addressStore.getRegisteredAddressCountryType()),
+                addressStore.getRegisteredAddressCountryType() != null ? CountryTypeTransformer.entityToModel(addressStore.getRegisteredAddressCountryType()) :null,
                 addressStore.getRegisteredAddressPostalCode(),
                 addressStore.getCommunicationAddressLine1(),
                 addressStore.getCommunicationAddressLine2(),
                 addressStore.getCommunicationAddressCity(),
                 addressStore.getCommunicationAddressState(),
-                CountryTypeTransformer.entityToModel(addressStore.getCommunicationAddressCountryType()),
+                addressStore.getCommunicationAddressCountryType() != null ? CountryTypeTransformer.entityToModel(addressStore.getCommunicationAddressCountryType()) : null,
                 addressStore.getCommunicationAddressPostalCode()
                 );
     }

@@ -12,6 +12,7 @@ import { updateCustomerHeadDetails, updateCustomerAdditionalDetails, updateCusto
         updateCustomerBasicDetails, updateCustomerProductDetails, updateCustomerDocumentDetails } from '../../utility/data-util'
 import {putRequestAndThenCallBack, getRequestAndThenCallBack } from '../../utility/api-util'
 import CustomerHead from '../../contents/customer/CustomerHead'
+import ActionBar from '../../contents/customer/ActionBar'
 
 const CustomerLayout = () => {
 
@@ -111,6 +112,7 @@ const CustomerLayout = () => {
     <div>
 
       <TopNavigation />
+      
       {/* <form onSubmit={submitRequest}> */}
         <CustomerHead {...customerHeadDetails} />
 

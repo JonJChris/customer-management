@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CustomerStore {
     @Column(name="EMAIL")
     private String email;
     @Column(name="DATE_OF_BIRTH")
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     @ManyToOne
     @JoinColumn(name="MARITAL_STATUS_TYPE")
     private MaritalStatusType maritalStatusType;
@@ -60,7 +61,7 @@ public class CustomerStore {
     @Column(name="NOMINEE_LAST_NAME")
     private String nomineeLastName;
     @Column(name="NOMINEE_DATE_OF_BIRTH")
-    private LocalDateTime nomineeDateOfBirth;
+    private LocalDate nomineeDateOfBirth;
     @ManyToOne
     @JoinColumn(name="HOME_OWNERSHIP_TYPE")
     private HomeOwnershipType homeOwnershipType;

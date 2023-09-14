@@ -4,6 +4,8 @@ import SelectField from '../../elements/SelectField'
 // import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
 import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
+import DateField from '../../elements/DateField'
+import ActionBar from './ActionBar'
 const stages = [
   { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
   { stageId: '2', stageName: "Add Products", stageStatus: "COMPLETE" },
@@ -20,10 +22,12 @@ console.log(props)
   // const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
 
   return (
+    
     <div className='mt-3 border border-rounded p-3'>
+      <ActionBar />
       <div className='row'>
         <div className='col-5'>
-          <TextField fieldId="Field_197_customer_crated_date" fieldName="Created Date" fieldValue={props.Field_197_customer_crated_date}
+          <DateField fieldId="Field_197_customer_crated_date" fieldName="Created Date" fieldValue={props.Field_197_customer_crated_date}
             isMandatory={false} isVisible={true} isEditable={false} />
           
         </div>
@@ -36,13 +40,13 @@ console.log(props)
 
       <div className='row mt-3'>
         <div className='col-5'>
-          <TextField fieldId="Field_199_customer_last_updated_date" fieldName="UPDATED_BY" fieldValue={props.Field_199_customer_last_updated_date}
+          <TextField fieldId="Field_200_customer_last_updated_by" fieldName="Updated By" fieldValue={props.Field_200_customer_last_updated_by}
             isMandatory={false} isVisible={true} isEditable={false} />
         </div>
         <div className='col-1'></div>
         <div className='col-5'>
           
-          <TextField fieldId="Field_200_customer_last_updated_by" fieldName="Updated Date" fieldValue={props.Field_200_customer_last_updated_by} 
+          <DateField fieldId="Field_199_customer_last_updated_date" fieldName="Updated Date" fieldValue={props.Field_199_customer_last_updated_date} 
            isMandatory={false} isVisible={true} isEditable={false} />
         </div>
       </div>
