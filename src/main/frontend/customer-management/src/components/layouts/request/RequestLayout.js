@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import RequestHead from '../../contents/request/RequestHead'
-// import TopNavigation from './../../TopNavigation'
 import RequestButtons from '../../contents/request/RequestButtons'
 import RequestTabs from './../../layouts/request/RequestTabs'
 import { Outlet, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { actions } from './../../../store/master-data'
+// import { actions } from './../../../store/master-data'
 import { actions as uiFieldActions } from './../../../store/ui-field-store'
 import {
   updateRequestHeadDetails,
@@ -19,27 +18,12 @@ import {
 } from './../../utility/data-util'
 import { putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
 import WorkflowRibbon from '../../contents/request/WorkflowRibbon'
-import NavBar from '../../contents/common/NavBar'
+
 
 const RequestLayout = () => {
-  const stages = [
-    { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
-    { stageId: '2', stageName: "Add Products", stageStatus: "COMPLETE" },
-    { stageId: '3', stageName: "Update Documents", stageStatus: "INPROGRESS" },
-    { stageId: '4', stageName: "Review and Submit", stageStatus: "PENDING" },
-    { stageId: '5', stageName: "Approval", stageStatus: "PENDING" },
-    { stageId: '6', stageName: "Closed", stageStatus: "PENDING" },
 
-  ]
-  const tabItems = [
-    { tabId: '137_basic_details_tab', tabName: "Basic Details", tabErrors: 0, isActive: true, tabLink: './basic' },
-    { tabId: '138_address_details_tab', tabName: "Address Details", tabErrors: 0, isActive: false, tabLink: 'Address' },
-    { tabId: '139_additional_details_tab', tabName: "Additional Details", tabErrors: 0, isActive: false, tabLink: 'Additional' },
-    { tabId: '140_product_details_tab', tabName: "Product Details", tabErrors: 0, isActive: false, tabLink: 'Product' },
-    { tabId: '141_document_details_tab', tabName: "Document Details", tabErrors: 0, isActive: false, tabLink: 'Document' },
-  ]
   const dispatch = useDispatch();
-  const masterData = useSelector(state => state.masterDataSlice);
+  // const masterData = useSelector(state => state.masterDataSlice);
   const userStore = useSelector(state => state.UserStoreSlice);
   const params = useParams();
   const [requestHeadDetails, setRequestHeadDetails] = useState({ Field_100_request_id: 0, Field_102_request_type: { key: 0, value: '' }, Field_101_request_created: "", Field_103_request_status: { key: 0, value: '' } })
@@ -71,9 +55,7 @@ const RequestLayout = () => {
   });
 
 
-  const updateMasterDataInStore = (masterData) => {
-    dispatch(actions.refreshMasterData(masterData));
-  }
+
   const updateRequestPageState = (requestDetails) => {
     updateRequestHeadDetails(requestDetails, setRequestHeadDetails);
     updateRequestBasicDetails(requestDetails, setBasicDetails);
@@ -89,9 +71,9 @@ const RequestLayout = () => {
 
 
   useEffect(() => {
-    if (!masterData.masterDataExists) {
-      getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
-    }
+    // if (!masterData.masterDataExists) {
+    //   getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+    // }
 
     if (params.requestId) {
       getRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, updateRequestPageState);
@@ -144,8 +126,7 @@ const RequestLayout = () => {
 
   return (
     <div>
-      <NavBar />
-      {/* <TopNavigation /> */}
+      
       <form onSubmit={(evt) => evt.preventDefault()}>
         <RequestHead {...requestHeadDetails} />
         <WorkflowRibbon stages={allRequestStagesList} />

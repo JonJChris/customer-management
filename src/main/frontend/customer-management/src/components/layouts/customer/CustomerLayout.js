@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RequestHead from '../../contents/request/RequestHead'
-import TopNavigation from '../../TopNavigation'
+
 import RequestButtons from '../../contents/request/RequestButtons'
 import RequestTabs from '../request/RequestTabs'
 import CustomerTabs from '../customer/CustomerTabs'
@@ -111,7 +111,7 @@ const CustomerLayout = () => {
   return (
     <div>
 
-      <TopNavigation />
+  
       
       {/* <form onSubmit={submitRequest}> */}
         <CustomerHead {...customerHeadDetails} />

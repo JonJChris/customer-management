@@ -1,7 +1,7 @@
 package com.management.customer.controller;
 
 import com.management.customer.model.master.StageTypeModel;
-import com.management.customer.model.transaction.request.NewRequestModel;
+import com.management.customer.model.transaction.request.CreateNewRequestModel;
 import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class RequestController {
         return  requestService.submitRequest(requestModel, false);
     }
     @PostMapping("new")
-    public RequestModel createRequest(@RequestBody NewRequestModel newRequestModel){
-        return  requestService.createRequest(newRequestModel.customerId(), newRequestModel.requestType());
+    public RequestModel createRequest(@RequestBody CreateNewRequestModel createNewRequestModel){
+        return  requestService.createRequest(createNewRequestModel.customerId(), createNewRequestModel.requestType());
     }
 }

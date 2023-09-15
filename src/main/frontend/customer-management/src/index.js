@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import '@popperjs/core/dist/umd/popper.js'
-import './index.css';
+
 import App from './App';
 import {Provider} from 'react-redux'
 import store from './store/store';
-
+import './index.css';
 ReactDOM.render(
   
   <Provider store={store}>

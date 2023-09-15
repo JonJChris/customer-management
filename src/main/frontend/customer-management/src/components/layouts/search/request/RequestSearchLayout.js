@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import RequestSearchHead from '../../../contents/search/request/RequestSearchHead'
-import TopNavigation from '../../../TopNavigation'
 import RequestSearchResult from '../../../contents/search/request/RequestSearchResult'
 import { postRequestAndThenCallBack, getRequestAndThenCallBack } from '../../../utility/api-util'
 import { useDispatch, useSelector } from 'react-redux'
@@ -52,7 +51,7 @@ const RequestSearchLayout = () => {
   return (
     <div>
 
-      <TopNavigation />
+
       <RequestSearchHead changeHandler={onChangeHandler} clickHandler={onClickHandler} {...requestSearchData}/>
       <RequestSearchResult searchResult={requestSearchResult.requestItemList} />
     </div>

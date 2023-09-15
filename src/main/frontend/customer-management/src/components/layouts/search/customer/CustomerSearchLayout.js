@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import CustomerSearchHead from '../../../contents/search/customer/CustomerSearchHead'
 import { Outlet } from 'react-router-dom'
-import TopNavigation from '../../../TopNavigation'
 import CustomerSearchResult from '../../../contents/search/customer/CustomerSearchResult'
 import { postRequestAndThenCallBack, getRequestAndThenCallBack } from '../../../utility/api-util'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../../../store/master-data'
+
 const CustomerSearchLayout = () => {
  
   const masterData = useSelector(state => state.masterDataSlice);
@@ -52,7 +52,7 @@ const CustomerSearchLayout = () => {
   return (
     <div>
 
-      <TopNavigation />
+     
       <CustomerSearchHead changeHandler={onChangeHandler} clickHandler={onClickHandler} {...customerSearchData}/>
       <CustomerSearchResult searchResult={customerSearchResult.customerItemList} />
     </div>
