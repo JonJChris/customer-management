@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Table(name="RQ_ADDRESS")
 public class RequestAddress {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "rq_address_sequence", allocationSize = 5, initialValue = 3000, sequenceName = "RQ_ADDRESS_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rq_address_sequence" )
     @Column(name="ID")
     private Long Id;
     @Column(name="ADDRESS_ID")

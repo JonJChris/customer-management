@@ -5,7 +5,9 @@ import com.management.customer.entity.master.BranchType;
 import com.management.customer.entity.master.CountryType;
 import com.management.customer.entity.master.ProductType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,10 +16,13 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name="RQ_PRODUCT_RELATIONSHIP")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RequestProductRelationship {
     @Id
     @Column(name="ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "rq_product_sequence", allocationSize = 5, initialValue = 4000, sequenceName = "RQ_PRODUCT_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rq_product_sequence" )
     private Long Id;
     @Column(name="PRODUCT_ID")
     private Long productId;

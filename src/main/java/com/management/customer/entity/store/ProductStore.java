@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @Table(name="PRODUCT_STORE")
 public class ProductStore {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "product_store_sequence", allocationSize = 5, initialValue = 30000, sequenceName = "PRODUCT_STORE_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_store_sequence" )
     @Column(name="PRODUCT_ID")
     private Long productId;
     @ManyToOne

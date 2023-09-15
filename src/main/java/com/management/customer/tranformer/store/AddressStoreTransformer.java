@@ -1,6 +1,7 @@
 package com.management.customer.tranformer.store;
 
 import com.management.customer.entity.store.AddressStore;
+import com.management.customer.model.authorisation.UserModel;
 import com.management.customer.model.store.AddressStoreModel;
 import com.management.customer.tranformer.master.CountryTypeTransformer;
 
@@ -19,7 +20,11 @@ public class AddressStoreTransformer {
                 addressStore.getCommunicationAddressCity(),
                 addressStore.getCommunicationAddressState(),
                 addressStore.getCommunicationAddressCountryType() != null ? CountryTypeTransformer.entityToModel(addressStore.getCommunicationAddressCountryType()) : null,
-                addressStore.getCommunicationAddressPostalCode()
+                addressStore.getCommunicationAddressPostalCode(),
+                addressStore.getCreatedDate(),
+                addressStore.getCreatedBy() != null ? new UserModel(addressStore.getCreatedBy().getId(), addressStore.getCreatedBy().getUserName(), addressStore.getCreatedBy().getUserFirstName(), addressStore.getCreatedBy().getUserLastName()) :null,
+                addressStore.getUpdatedDate(),
+                addressStore.getUpdatedBy() != null ? new UserModel(addressStore.getUpdatedBy().getId(), addressStore.getUpdatedBy().getUserName(), addressStore.getUpdatedBy().getUserFirstName(), addressStore.getUpdatedBy().getUserLastName()) :null
                 );
     }
 

@@ -34,6 +34,6 @@ public class RequestController {
     }
     @PostMapping("new")
     public RequestModel createRequest(@RequestBody CreateNewRequestModel createNewRequestModel){
-        return  requestService.createRequest(createNewRequestModel.customerId(), createNewRequestModel.requestType());
+        return  requestService.createRequest(createNewRequestModel);
     }
 }

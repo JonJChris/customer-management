@@ -24,7 +24,7 @@ console.log(props)
   return (
     
     <div className='mt-3 border border-rounded p-3'>
-      <ActionBar />
+       
       <div className='row'>
         <div className='col-5'>
           <DateField fieldId="Field_197_customer_crated_date" fieldName="Created Date" fieldValue={props.Field_197_customer_crated_date}
@@ -36,6 +36,8 @@ console.log(props)
           <TextField fieldId="Field_198_customer_created_by" fieldName="Created By" fieldValue={props.Field_198_customer_created_by}
             isMandatory={false} isVisible={true} isEditable={false} />
         </div>
+        <div className='col-1'><button className='btn btn-primary' >Maintain</button></div>
+        
       </div>
 
       <div className='row mt-3'>

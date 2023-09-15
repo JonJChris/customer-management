@@ -13,6 +13,8 @@ import com.management.customer.enums.StatusTypeEnum;
 import com.management.customer.model.master.RequestTypeModel;
 import com.management.customer.model.master.StageTypeModel;
 import com.management.customer.enums.StageActionEnum;
+import com.management.customer.model.store.CustomerStoreModel;
+import com.management.customer.model.transaction.request.CreateNewRequestModel;
 import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.userInterface.UIFieldModel;
@@ -20,6 +22,7 @@ import com.management.customer.repository.request.RequestRepository;
 import com.management.customer.repository.request.StageRepository;
 import com.management.customer.repository.workflow.RequestTypeRequestStageRulesRepository;
 import com.management.customer.tranformer.transaction.RequestTransformer;
+import com.management.customer.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,7 +78,8 @@ public class RequestService {
 
     }
 
-    public RequestModel createRequest(Long customerId, String requestType){
+
+    private RequestType getRequestTypeFromString(String requestType){
         boolean validRequest = false;
         RequestTypeEnum requestTypeEnum = null;
         if(requestType != null){
@@ -103,36 +107,31 @@ public class RequestService {
             }
         }
         if(validRequest){
-            return createRequest(requestTypeEnum, customerId);
+            return new RequestType(requestTypeEnum.getRequestTypeCode(), requestTypeEnum.getRequestTypeName());
         }else{
             throw new NoDataFoundException("Invalid Request Type");
         }
     }
 
-    public RequestModel createRequest(RequestTypeEnum requestType, Long customerId){
-        RequestType reqType = new RequestType(requestType.getRequestTypeCode(), requestType.getRequestTypeName());
 
-        List<RequestTypeRequestStageRules> StageList = requestTypeRequestStageRulesRepository.findByRequestType(reqType);
+    public RequestModel createRequest(CreateNewRequestModel createNewRequestModel){
+        RequestType requestType = getRequestTypeFromString(createNewRequestModel.requestType());
+
+        CustomerStoreModel customerStoreModel = null;
+        if(!RequestTypeEnum.CREATE_NEW_CUSTOMER.getRequestTypeName().equals(requestType.getRequestType())){
+            if(createNewRequestModel.customerId() != null){
+                customerStoreModel = customerService.getCustomerDetails(createNewRequestModel.customerId());
+            }else{
+                throw new NoDataFoundException("Invalid Customer ID");
+            }
+        }
+        // prepare
         Request request = new Request();
-
         RequestCustomer requestCustomer = new RequestCustomer();
-        requestCustomer.setRequest(request);
-        requestCustomer.setCreatedBy(UserService.GENERAL_USER);
-        requestCustomer.setUpdatedBy(UserService.GENERAL_USER);
-        requestCustomer.setCreatedDate(LocalDateTime.now());
-        requestCustomer.setUpdatedDate(LocalDateTime.now());
-
         RequestAddress requestAddress = new RequestAddress();
-        requestAddress.setCreatedBy(UserService.GENERAL_USER);
-        requestAddress.setUpdatedBy(UserService.GENERAL_USER);
-        requestAddress.setCreatedDate(LocalDateTime.now());
-        requestAddress.setUpdatedDate(LocalDateTime.now());
-
-        requestAddress.setRequest(request);
-
-        request.setRequestType(reqType);
-        request.setRequestCustomer(requestCustomer);
-        request.setRequestAddress(requestAddress);
+        List<RequestProductRelationship> requestProductRelationshipList = new ArrayList<>();
+        List<RequestDocument> requestDocumentList = new ArrayList<>();
+        List<RequestTypeRequestStageRules> StageList = requestTypeRequestStageRulesRepository.findByRequestType(requestType);
         List<RequestStage> stagesList = StageList.stream().map(item ->
                 new RequestStage(null, request,
                         item.getRequestStage(),
@@ -141,22 +140,30 @@ public class RequestService {
                         UserService.GENERAL_USER,
                         LocalDateTime.now(),
                         UserService.GENERAL_USER
-                        )
-                ).toList();
-        System.out.println("stagesList > "+stagesList );
+                )
+        ).toList();
         stagesList.get(0).setStatusType( new StatusType(StatusTypeEnum.IN_PROGRESS.getStageId(), StatusTypeEnum.IN_PROGRESS.getStageTypeName()));
-        request.setStageType(stagesList.get(0).getStageType());
-        request.setRequestRequestStages(stagesList);
+
+        // update request details
+        request.setRequestType(requestType);
         request.setCreatedBy(UserService.GENERAL_USER);
         request.setCreatedDate(LocalDateTime.now());
         request.setUpdatedBy(UserService.GENERAL_USER);
         request.setUpdatedDate(LocalDateTime.now());
+        request.setStageType(stagesList.get(0).getStageType());
+        request.setRequestRequestStages(stagesList);
+        request.setRequestCustomer(requestCustomer);
+        request.setRequestAddress(requestAddress);
 
-        Request savedRequestOld = requestRepository.save(request);
+        mergeService.mergeCustomerStoreToRequestCustomer(customerStoreModel, requestCustomer, request, UserService.GENERAL_USER);
+        mergeService.mergeAddressStoreToRequestCustomer(customerStoreModel != null ? customerStoreModel.addressStoreModel() : null, requestAddress, request, UserService.GENERAL_USER);
+        mergeService.mergeProductStoreListToRequestProductsList(customerStoreModel != null ? customerStoreModel.productStoreModelList():null, requestProductRelationshipList, request, UserService.GENERAL_USER);
+        mergeService.mergeDocumentStoreListToRequestDocumentsList(customerStoreModel != null ? customerStoreModel.documentStoreModelsList():null,requestDocumentList, request, UserService.GENERAL_USER);
+
+
+        Request savedRequest = requestRepository.save(request);
         List<RequestStage> stages = requestStageRepository.saveAll(stagesList);
 
-        Optional<Request> savedRequestOptional = requestRepository.findById(savedRequestOld.getRequestId());
-        Request savedRequest = savedRequestOptional.get();
         Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
@@ -166,7 +173,6 @@ public class RequestService {
                 uiButtonRules.orElse(null)
         );
     }
-
 
 
     public RequestModel submitRequest(RequestModel requestModel, boolean submitToNextStage) {

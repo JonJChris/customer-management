@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "LOOKUP_COUNTRY_TYPE")
 public class CountryType {
+    public CountryType(Integer id, String countryName){
+        this.id = id;
+        this.countryName = countryName;
+    }
     @Id
     @Column(name="ID")
     private Integer id;

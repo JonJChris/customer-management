@@ -17,7 +17,8 @@ import java.util.List;
 @Table(name="CUSTOMER_STORE")
 public class CustomerStore {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "customer_store_sequence", allocationSize = 5, initialValue = 10000, sequenceName = "CUSTOMER_STORE_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_store_sequence" )
     @Column(name="CUSTOMER_ID")
     private Long customerId;
     @ManyToOne

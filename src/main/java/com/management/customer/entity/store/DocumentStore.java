@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @Table(name="DOCUMENT_STORE")
 public class DocumentStore {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "document_store_sequence", allocationSize = 5, initialValue = 40000, sequenceName = "DOCUMENT_STORE_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_store_sequence" )
     @Column(name="DOCUMENT_ID")
     private Long documentId;
     @ManyToOne

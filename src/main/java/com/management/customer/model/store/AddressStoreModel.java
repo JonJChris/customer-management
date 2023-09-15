@@ -1,6 +1,9 @@
 package com.management.customer.model.store;
 
+import com.management.customer.model.authorisation.UserModel;
 import com.management.customer.model.master.CountryModel;
+
+import java.time.LocalDateTime;
 
 public record AddressStoreModel(
         Long addressId,
@@ -15,6 +18,10 @@ public record AddressStoreModel(
         String communicationAddressCity,
         String communicationAddressState,
         CountryModel communicationAddressCountry,
-        String  communicationAddressPostalCode
+        String  communicationAddressPostalCode,
+        LocalDateTime createdDate,
+        UserModel createdBy,
+        LocalDateTime updatedDate,
+        UserModel updatedBy
 ) {
 }

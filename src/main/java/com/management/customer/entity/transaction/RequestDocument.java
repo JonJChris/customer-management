@@ -5,7 +5,9 @@ import com.management.customer.entity.master.BranchType;
 import com.management.customer.entity.master.DocumentType;
 import com.management.customer.entity.master.ProductType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,9 +16,12 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name="RQ_DOCUMENT")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RequestDocument {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "rq_document_sequence", allocationSize = 5, initialValue = 5000, sequenceName = "RQ_DOCUMENT_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rq_document_sequence" )
     @Column(name="ID")
     private Long Id;
     @Column(name="DOCUMENT_ID")

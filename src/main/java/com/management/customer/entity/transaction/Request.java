@@ -16,7 +16,8 @@ import java.util.List;
 @Table(name="RQ_REQUEST")
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "rq_request_sequence", allocationSize = 5, initialValue = 10000, sequenceName = "RQ_REQUEST_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rq_request_sequence" )
     @Column(name="REQUEST_ID")
     private Long requestId;
     @ManyToOne

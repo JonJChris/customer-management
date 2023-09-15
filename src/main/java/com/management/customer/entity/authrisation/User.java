@@ -16,9 +16,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="APPLICATION_USER")
 public class User {
+    public User(Integer id, String userName, String userFirstName, String userLastName){
+        this.id = id;
+        this.userName = userName;
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
+    }
     @Id
     @Column(name="ID")
-    private Integer Id;
+    private Integer id;
     @Column(name="USER_NAME")
     private String userName;
     @Column(name="FIRST_NAME")

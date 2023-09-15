@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 public class AddressStore {
     @Id
     @Column(name="ADDRESS_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "address_store_sequence", allocationSize = 5, initialValue = 20000, sequenceName = "ADDRESS_STORE_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_store_sequence" )
     private Long addressId;
     @OneToOne
     @JoinColumn(name="CUSTOMER")

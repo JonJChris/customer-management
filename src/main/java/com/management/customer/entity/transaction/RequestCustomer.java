@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 @Table(name="RQ_CUSTOMER")
 public class RequestCustomer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "rq_customer_sequence", allocationSize = 5, initialValue = 2000, sequenceName = "RQ_CUSTOMER_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rq_customer_sequence" )
     @Column(name="ID")
-    private Long Od;
+    private Long id;
     @Column(name="CUSTOMER_ID")
     private Long customerId;
     @OneToOne

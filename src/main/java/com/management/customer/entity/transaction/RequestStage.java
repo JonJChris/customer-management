@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 public class RequestStage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "request_stage_sequence", allocationSize = 5, initialValue = 6000, sequenceName = "REQUEST_STAGE_SQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "request_stage_sequence" )
     @Column(name = "STAGE_ID")
     private Long id;
     @ManyToOne
