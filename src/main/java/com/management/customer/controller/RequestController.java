@@ -26,11 +26,16 @@ public class RequestController {
     }
     @PutMapping("{requestId}/submit")
     public RequestModel submitRequest(@PathVariable Long requestId, @RequestBody RequestModel requestModel){
-      return  requestService.submitRequest(requestModel, true);
+      return  requestService.submitRequest(requestModel, true, false);
+    }
+
+    @PutMapping("{requestId}/rework")
+    public RequestModel reworkRequest(@PathVariable Long requestId, @RequestBody RequestModel requestModel){
+        return  requestService.submitRequest(requestModel, true, true);
     }
     @PutMapping("{requestId}/save")
     public RequestModel saveRequest(@PathVariable Long requestId, @RequestBody RequestModel requestModel){
-        return  requestService.submitRequest(requestModel, false);
+        return  requestService.submitRequest(requestModel, false ,false);
     }
     @PostMapping("new")
     public RequestModel createRequest(@RequestBody CreateNewRequestModel createNewRequestModel){

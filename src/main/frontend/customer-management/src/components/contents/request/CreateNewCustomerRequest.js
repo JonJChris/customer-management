@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
-import TextField from './../../elements/TextField'
-import SelectField from './../../elements/SelectField'
-import WorkflowRibbon from '../../contents/request/WorkflowRibbon'
+import TextField from '../../elements/TextField'
+import SelectField from '../../elements/SelectField'
+import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
-import { isFieldEditable, isFieldMandatory, isFieldVisible } from './../../utility/generalUtil'
-import { postRequestAndThenCallBack} from './../../utility/api-util'
-import {NEW_REQUEST_NEW_CUSTOMER, API_URL_CREATE_REQUEST} from './../../utility/constants'
+import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
+import { postRequestAndThenCallBack} from '../../utility/api-util'
+import {NEW_REQUEST_NEW_CUSTOMER, API_URL_CREATE_REQUEST} from '../../utility/constants'
+import { useNavigate } from 'react-router-dom'
 const stages = [
   { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
   { stageId: '2', stageName: "Add Products", stageStatus: "COMPLETE" },
@@ -17,7 +18,8 @@ const stages = [
 ]
 
 
-const CreateNewCustomer = (props) => {
+const CreateNewCustomerRequest = (props) => {
+  const navigate = useNavigate();
 
   const masterData = useSelector(state => state.masterDataSlice);
   const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
@@ -41,11 +43,15 @@ const CreateNewCustomer = (props) => {
       nationality: newCustomer.Field_212_create_new_request_nationality,
       requestType : NEW_REQUEST_NEW_CUSTOMER
     }
+    console.log('click handler')
     postRequestAndThenCallBack(API_URL_CREATE_REQUEST, requestBody, newRequestCallBack);
   }
 
 const newRequestCallBack = (response) => {
-console.log(JSON.stringify(response));
+  if(response && response.requestId){
+    navigate(`/request/${response.requestId}/basic`);
+  }
+  
 }
 
   return (
@@ -108,4 +114,4 @@ console.log(JSON.stringify(response));
   )
 }
 
-export default CreateNewCustomer
+export default CreateNewCustomerRequest

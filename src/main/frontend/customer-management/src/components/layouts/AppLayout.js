@@ -4,7 +4,7 @@ import NavBarCustom from '../contents/common/NavBarCustom'
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './../../store/master-data'
 import { putRequestAndThenCallBack, getRequestAndThenCallBack } from './../utility/api-util'
-const AppLayout = () => {
+const AppLayout = (props) => {
     const dispatch = useDispatch();
     const masterData = useSelector(state => state.masterDataSlice);
     const updateMasterDataInStore = (masterData) => {

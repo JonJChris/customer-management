@@ -15,7 +15,7 @@ const TextField = (props) => {
           ? <input type="text" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} 
             value={props.fieldValue}
           onChange={props.fieldOnChange}
-          
+          maxLength={props.fieldMaxLength}
           />
           : <label className='text-strong col'>{props.fieldValue}</label>
         }

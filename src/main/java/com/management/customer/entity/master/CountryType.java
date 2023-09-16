@@ -20,6 +20,9 @@ public class CountryType {
         this.id = id;
         this.countryName = countryName;
     }
+    public CountryType(Integer id){
+        this.id = id;
+    }
     @Id
     @Column(name="ID")
     private Integer id;

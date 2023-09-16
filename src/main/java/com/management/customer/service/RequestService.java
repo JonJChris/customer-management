@@ -115,16 +115,17 @@ public class RequestService {
 
 
     public RequestModel createRequest(CreateNewRequestModel createNewRequestModel){
-        RequestType requestType = getRequestTypeFromString(createNewRequestModel.requestType());
 
-        CustomerStoreModel customerStoreModel = null;
-        if(!RequestTypeEnum.CREATE_NEW_CUSTOMER.getRequestTypeName().equals(requestType.getRequestType())){
-            if(createNewRequestModel.customerId() != null){
-                customerStoreModel = customerService.getCustomerDetails(createNewRequestModel.customerId());
-            }else{
-                throw new NoDataFoundException("Invalid Customer ID");
+        boolean isNewRequest = false;
+        RequestType requestType = getRequestTypeFromString(createNewRequestModel.requestType());
+        if(RequestTypeEnum.CREATE_NEW_CUSTOMER.getRequestTypeName().equals(requestType.getRequestType())){
+            if(Objects.isNull(createNewRequestModel.firstName()) || Objects.isNull(createNewRequestModel.lastName()) || Objects.isNull(createNewRequestModel.nationality())){
+                throw new NoDataFoundException("Invalid Data : New request require First Name Last Name and Nationality");
             }
+            isNewRequest = true;
         }
+
+
         // prepare
         Request request = new Request();
         RequestCustomer requestCustomer = new RequestCustomer();
@@ -155,10 +156,22 @@ public class RequestService {
         request.setRequestCustomer(requestCustomer);
         request.setRequestAddress(requestAddress);
 
-        mergeService.mergeCustomerStoreToRequestCustomer(customerStoreModel, requestCustomer, request, UserService.GENERAL_USER);
-        mergeService.mergeAddressStoreToRequestCustomer(customerStoreModel != null ? customerStoreModel.addressStoreModel() : null, requestAddress, request, UserService.GENERAL_USER);
-        mergeService.mergeProductStoreListToRequestProductsList(customerStoreModel != null ? customerStoreModel.productStoreModelList():null, requestProductRelationshipList, request, UserService.GENERAL_USER);
-        mergeService.mergeDocumentStoreListToRequestDocumentsList(customerStoreModel != null ? customerStoreModel.documentStoreModelsList():null,requestDocumentList, request, UserService.GENERAL_USER);
+
+        CustomerStoreModel customerStoreModel = null;
+
+        if(!RequestTypeEnum.CREATE_NEW_CUSTOMER.getRequestTypeName().equals(requestType.getRequestType())){
+            if(createNewRequestModel.customerId() != null){
+                customerStoreModel = customerService.getCustomerDetails(createNewRequestModel.customerId());
+
+            }else{
+                throw new NoDataFoundException("Invalid Customer ID");
+            }
+        }
+
+        mergeService.mergeCustomerStoreToRequestCustomer(isNewRequest, createNewRequestModel, customerStoreModel, requestCustomer, request, UserService.GENERAL_USER);
+        mergeService.mergeAddressStoreToRequestCustomer(isNewRequest, customerStoreModel != null ? customerStoreModel.addressStoreModel() : null, requestAddress, request, UserService.GENERAL_USER);
+        mergeService.mergeProductStoreListToRequestProductsList(isNewRequest, customerStoreModel != null ? customerStoreModel.productStoreModelList():null, requestProductRelationshipList, request, UserService.GENERAL_USER);
+        mergeService.mergeDocumentStoreListToRequestDocumentsList(isNewRequest, customerStoreModel != null ? customerStoreModel.documentStoreModelsList():null,requestDocumentList, request, UserService.GENERAL_USER);
 
 
         Request savedRequest = requestRepository.save(request);
@@ -174,8 +187,22 @@ public class RequestService {
         );
     }
 
-
-    public RequestModel submitRequest(RequestModel requestModel, boolean submitToNextStage) {
+//    public RequestModel reworkRequest(RequestModel requestModel, boolean submitToNextStage) {
+//        Integer userId = requestModel.requestSubmittedBy().userId();
+//        Optional<Request> requestOptional = requestRepository.findById(requestModel.requestId());
+//        if (requestOptional.isEmpty()) {
+//            throw new NoDataFoundException("Request Not Found");
+//        }
+//        Request requestEntity = requestOptional.get();
+//
+//        // fetch user details
+//        User userEntity = authorisationService.getUserEntity(userId).orElse(null);
+//        Optional<StageWorkflowRules> dummy = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.REWORK.name());
+//
+//
+//    }
+//
+    public RequestModel submitRequest(RequestModel requestModel, boolean submitToNextStage, boolean isRework) {
         // fetch request
         Integer userId = requestModel.requestSubmittedBy().userId();
         Optional<Request> requestOptional = requestRepository.findById(requestModel.requestId());
@@ -191,21 +218,32 @@ public class RequestService {
         mergeService.mergeRequestModelWithEntity(requestEntity, requestModel, userEntity);
 
         //save request data
-        Request savedRequest = requestRepository.save(requestEntity);
-        Optional<StageWorkflowRules> dummy = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.SUCCESS.name());
+//        Request savedRequest = requestRepository.save(requestEntity);
+//        Optional<StageWorkflowRules> dummy = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.SUCCESS.name());
         if(StageTypeEnum.CLOSED.getStatusTypeCode() != requestEntity.getStageType().getId() // Non-Closed Request only
                 && submitToNextStage){
 
             // get next request stage
-            Optional<StageWorkflowRules> nextStageOptional = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.SUCCESS.name());
+            Optional<StageWorkflowRules> nextStageOptional = null;
+            if(isRework){
+                 nextStageOptional = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.REWORK.name());
+            }else{
+                 nextStageOptional = workflowService.getNextStageEntity(requestEntity.getRequestType(), requestEntity.getStageType(), StageActionEnum.SUCCESS.name());
+            }
+
 
                 boolean updateNextStage = nextStageOptional.get().getNextStageType() != null;
                 StageWorkflowRules transitStageEntity = nextStageOptional.get();
                 // update request stage
                 requestEntity.setStageType(transitStageEntity.getNextStageType());
                 // update request stage to complete
-                workflowService.updateRequestStages(true, updateNextStage, savedRequest, transitStageEntity.getCurrentStageType(), transitStageEntity.getNextStageType(), userEntity);
-            customerService.persistDataCustomerStore(savedRequest);
+                workflowService.updateRequestStages(true, updateNextStage, requestEntity, transitStageEntity.getCurrentStageType(), transitStageEntity.getNextStageType(), userEntity, isRework);
+            Long savedCustomerId = customerService.persistDataCustomerStore(requestEntity);
+
+            if(!Objects.isNull(savedCustomerId ) && Objects.isNull(requestEntity.getRequestCustomer().getCustomerId())){
+                requestEntity.getRequestCustomer().setCustomerId(savedCustomerId);
+            }
+            requestRepository.save(requestEntity);
         }
 
         //TODO
@@ -215,7 +253,7 @@ public class RequestService {
 
 
 
-        return RequestTransformer.entityToModel(savedRequest,
+        return RequestTransformer.entityToModel(requestEntity,
                 uiInputFieldRules.orElse(null),
                 uiTabRules.orElse(null),
                 uiButtonRules.orElse(null)

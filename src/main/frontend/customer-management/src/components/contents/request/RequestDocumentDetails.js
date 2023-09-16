@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import TextField from '../../elements/TextField';
 import { useSelector } from 'react-redux';
 import SelectField from '../../elements/SelectField';
-
+import {getFieldMaxLength} from '../../utility/generalUtil'
 
 const RequestDocumentDetails = () => {
     const context = useOutletContext();
@@ -101,7 +101,8 @@ const RequestDocumentDetails = () => {
                         <div className='col-6 mx-auto'>
                             <TextField fieldId="Field_206_document_popup_document_path" fieldName="Document Link"
                                 fieldValue={props.newDocument.Field_206_document_popup_document_path}
-                                fieldOnChange={props.changeHandler} isMandatory={false} isVisible={true} isEditable={true}  />
+                                fieldOnChange={props.changeHandler} isMandatory={false} isVisible={true} isEditable={true}
+                                fieldMaxLength={getFieldMaxLength(uiFieldStore, 'Field_206_document_popup_document_path')}/>
                         </div>
                     </div>
                     <div className='row mt-5'>
@@ -128,7 +129,7 @@ const RequestDocumentDetails = () => {
 
     return (
         <div className="tab-pane fade show active" id="home" role="tabpanel"  >
-            <div className='m-2' >
+            <div className='m-2 section-standard' >
 
             
                 <div className=''>

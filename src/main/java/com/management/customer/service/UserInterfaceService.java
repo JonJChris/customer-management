@@ -20,7 +20,7 @@ public class UserInterfaceService {
 
 
 
-    Optional<List<UIFieldModel>> getRequestDetailsUIInputFieldRules(RequestType requestTypeId, StageType stageTypeId){
+    public Optional<List<UIFieldModel>> getRequestDetailsUIInputFieldRules(RequestType requestTypeId, StageType stageTypeId){
         List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldTypeAndUserInterfaceField_FieldArea(
                 requestTypeId,
                 stageTypeId,
@@ -35,7 +35,7 @@ public class UserInterfaceService {
 
     }
 
-    Optional<List<UIFieldModel>> getRequestDetailsUITabFieldRules(RequestType requestTypeId, StageType stageTypeId){
+    public Optional<List<UIFieldModel>> getRequestDetailsUITabFieldRules(RequestType requestTypeId, StageType stageTypeId){
         List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldTypeAndUserInterfaceField_FieldArea(
                 requestTypeId,
                 stageTypeId,
@@ -50,7 +50,7 @@ public class UserInterfaceService {
 
     }
 
-    Optional<List<UIFieldModel>> getRequestDetailsUIButtonFieldRules(RequestType requestTypeId, StageType stageTypeId){
+    public Optional<List<UIFieldModel>> getRequestDetailsUIButtonFieldRules(RequestType requestTypeId, StageType stageTypeId){
         List<UiFieldRules> uiFieldRulesList = userInterfaceRulesRepository.findByRequestTypeIdAndStageTypeIdAndUserInterfaceField_FieldTypeAndUserInterfaceField_FieldArea(
                 requestTypeId,
                 stageTypeId,

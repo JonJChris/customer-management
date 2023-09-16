@@ -24,3 +24,11 @@ export   const isFieldMandatory =  (uiFieldStore, fieldName) => {
     } 
     return returnVal;
   }
+  export   const getFieldMaxLength =  (uiFieldStore, fieldName) => {
+    let returnVal  = 0
+  
+    if(uiFieldStore && uiFieldStore.uiFields && uiFieldStore.uiFields[fieldName]){
+      returnVal = uiFieldStore.uiFields[fieldName].maxLength
+    } 
+    return returnVal;
+  }  

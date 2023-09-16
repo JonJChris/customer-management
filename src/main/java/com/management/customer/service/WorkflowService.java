@@ -42,14 +42,20 @@ public class WorkflowService {
     }
 
     @Transactional
-    public void updateRequestStages(boolean updateCurrentStage, boolean updateNextStage, Request request, StageType currentStageType, StageType nextStageType, User user){
+    public void updateRequestStages(boolean updateCurrentStage, boolean updateNextStage, Request request, StageType currentStageType, StageType nextStageType, User user, boolean isRework){
         if(updateCurrentStage) {
             // update current stage to complete
             Optional<RequestStage> currentRequestStage = stageRepository.findByRequestAndStageType(request, currentStageType);
             if (currentRequestStage.isPresent()) {
-                currentRequestStage.get().setStatusType(new StatusType(StatusTypeEnum.COMPLETE.getStageId(), StatusTypeEnum.COMPLETE.getStageTypeName()));
-                currentRequestStage.get().setUpdatedDate(LocalDateTime.now());
-                currentRequestStage.get().setUpdatedBy(user);
+                if(isRework){
+                    currentRequestStage.get().setStatusType(new StatusType(StatusTypeEnum.PENDING.getStageId(), StatusTypeEnum.PENDING.getStageTypeName()));
+                    currentRequestStage.get().setUpdatedDate(null);
+                    currentRequestStage.get().setUpdatedBy(null);
+                }else {
+                    currentRequestStage.get().setStatusType(new StatusType(StatusTypeEnum.COMPLETE.getStageId(), StatusTypeEnum.COMPLETE.getStageTypeName()));
+                    currentRequestStage.get().setUpdatedDate(LocalDateTime.now());
+                    currentRequestStage.get().setUpdatedBy(user);
+                }
                 stageRepository.save(currentRequestStage.get());
             }
         }

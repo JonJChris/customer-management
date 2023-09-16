@@ -189,3 +189,9 @@ a:hover {
 #basic-nav-dropdown{
   color: var(--custom-navbar-text-color);
 }
+.row-standard{
+  height: 55px;
+}
+.section-standard{
+  min-height: 400px;
+}

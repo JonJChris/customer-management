@@ -20,9 +20,11 @@ import CustomerDocumentDetails from './components/contents/customer/CustomerDocu
 import CustomerSearchLayout from './components/layouts/search/customer/CustomerSearchLayout';
 import RequestSearchLayout from './components/layouts/search/request/RequestSearchLayout.js';
 import ErrorPage from './components/contents/common/ErrorPage';
-import CreateNewCustomer from './components/contents/request/CreateNewCustomer';
 import AppLayout from './components/layouts/AppLayout';
 import { Home } from './components/contents/home/Home';
+import CreateNewCustomerRequest from './components/contents/request/CreateNewCustomerRequest';
+import CreateAmendRequest from './components/contents/request/CreateAmendRequest';
+
 
 
 
@@ -50,7 +52,9 @@ const App = () => {
             </Route>
             <Route exact path="search/customer" element={<CustomerSearchLayout />} />
             <Route exact path="search/request" element={<RequestSearchLayout />} />
-            <Route exact path="request/createNewCustomer" element={<CreateNewCustomer />} />
+            <Route exact path="request/createNewCustomerRequest" element={<CreateNewCustomerRequest />} />
+            <Route exact path="request/createAmendRequest" element={<CreateAmendRequest />} />
+            
             <Route exact path="*" element={<ErrorPage />} />
 
           </Route>

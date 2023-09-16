@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import {useSelector} from 'react-redux'
 const RequestTabs = (props) => {
   const uiData = useSelector(state => state.UIFieldStoreSlice);
-  console.log("----> "+JSON.stringify(props));
   return (
     <div>
       <div className=''>

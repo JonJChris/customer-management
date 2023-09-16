@@ -6,7 +6,7 @@ const CustomerProductDetails = () => {
     const context = useOutletContext();
     return (
         <div className="tab-pane fade show active" id="home" role="tabpanel"  >
-            <div className='m-2' >
+            <div className='m-2 section-standard' >
                 <h6 className='tab-section-title'></h6>
                 <div className=''>
 

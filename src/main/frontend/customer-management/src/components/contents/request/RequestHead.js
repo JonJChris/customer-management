@@ -14,7 +14,7 @@ const RequestHead = (props) => {
 
   return (
     <div className='mt-3 border border-rounded p-3'>
-      <div className='row'>
+      <div className='row row-standard'>
         <div className='col-5'>
           <TextField fieldId="Field_100_request_id" fieldName="Request Id" fieldValue={props.Field_100_request_id}
             isMandatory={isFieldMandatory(uiFieldStore, 'Field_100_request_id')} isVisible={isFieldVisible(uiFieldStore, 'Field_100_request_id')} isEditable={isFieldEditable(uiFieldStore, 'Field_100_request_id')}
@@ -27,7 +27,7 @@ const RequestHead = (props) => {
         </div>
       </div>
 
-      <div className='row mt-3'>
+      <div className='row row-standard'>
         <div className='col-5'>
           <DateField fieldId="Field_101_request_created" fieldName="Request Created" fieldValue={props.Field_101_request_created}
             isMandatory={isFieldMandatory(uiFieldStore, 'Field_101_request_created')} isVisible={isFieldVisible(uiFieldStore, 'Field_101_request_created')} isEditable={isFieldEditable(uiFieldStore, 'Field_101_request_created')} />

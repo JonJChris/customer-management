@@ -32,5 +32,7 @@ public class UserInterfaceField {
     private String fieldLink;
     @Column(name="FIELD_AREA")
     private String fieldArea;
+    @Column(name="MAX_LENGTH")
+    private Integer maxLength;
 
 }

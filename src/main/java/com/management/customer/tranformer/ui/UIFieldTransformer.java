@@ -13,7 +13,8 @@ public class UIFieldTransformer {
                     uiFieldRules.getIsEditable(),
                     uiFieldRules.getIsMandatory(),
                     uiFieldRules.getUserInterfaceField().getFieldOrder(),
-                    uiFieldRules.getUserInterfaceField().getFieldLink());
+                    uiFieldRules.getUserInterfaceField().getFieldLink(),
+                    uiFieldRules.getUserInterfaceField().getMaxLength());
         }
 
 }

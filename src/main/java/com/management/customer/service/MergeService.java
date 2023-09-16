@@ -174,12 +174,12 @@ public class MergeService {
 
     }
 
-    public void mergeCustomerStoreToRequestCustomer(CustomerStoreModel customerStoreModel, RequestCustomer requestCustomer, Request request, User currentUser){
+    public void mergeCustomerStoreToRequestCustomer(boolean isNewRequest, CreateNewRequestModel createNewRequestModel, CustomerStoreModel customerStoreModel, RequestCustomer requestCustomer, Request request, User currentUser){
         requestCustomer.setRequest(request);
         requestCustomer.setUpdatedBy(currentUser);
         requestCustomer.setUpdatedDate(LocalDateTime.now());
 
-        if(customerStoreModel != null){
+        if(!isNewRequest){
 
         requestCustomer.setCustomerId(customerStoreModel.customerId());
         requestCustomer.setTitleType(customerStoreModel.userTitle() != null ? new TitleType(customerStoreModel.userTitle().titleId(), customerStoreModel.userTitle().titleName()): null);
@@ -203,15 +203,19 @@ public class MergeService {
         requestCustomer.setCreatedBy(customerStoreModel.createdBy() != null ? new User(customerStoreModel.createdBy().userId(), customerStoreModel.createdBy().username(), customerStoreModel.createdBy().userFirstName(), customerStoreModel.createdBy().userLastName()) : null);
         requestCustomer.setCreatedDate(customerStoreModel.createdDate());
         }else{
+
+            requestCustomer.setFirstname(createNewRequestModel.firstName());
+            requestCustomer.setLastName(createNewRequestModel.lastName());
+            requestCustomer.setNationality(new CountryType(createNewRequestModel.nationality()));
             requestCustomer.setCreatedDate(LocalDateTime.now());
             requestCustomer.setCreatedBy(currentUser);
         }
     }
-    public void mergeAddressStoreToRequestCustomer(AddressStoreModel addressStoreModel, RequestAddress requestAddress, Request request, User currentUser){
+    public void mergeAddressStoreToRequestCustomer(boolean isNewRequest, AddressStoreModel addressStoreModel, RequestAddress requestAddress, Request request, User currentUser){
         requestAddress.setRequest(request);
         requestAddress.setUpdatedBy(currentUser);
         requestAddress.setUpdatedDate(LocalDateTime.now());
-        if(addressStoreModel != null) {
+        if(!isNewRequest){
             requestAddress.setAddressId(addressStoreModel.addressId());
             requestAddress.setRegisteredAddressLine1(addressStoreModel.registeredAddressLine1());
             requestAddress.setRegisteredAddressLine2(addressStoreModel.registeredAddressLine2());
@@ -234,9 +238,9 @@ public class MergeService {
             requestAddress.setCreatedBy(currentUser);
         }
     }
-    public void mergeProductStoreListToRequestProductsList(List<ProductStoreModel> productStoreModelList , List<RequestProductRelationship> requestProductRelationshipList, Request request, User currentUser){
+    public void mergeProductStoreListToRequestProductsList(boolean isNewRequest, List<ProductStoreModel> productStoreModelList , List<RequestProductRelationship> requestProductRelationshipList, Request request, User currentUser){
 
-        if(productStoreModelList != null){
+        if( !isNewRequest && productStoreModelList != null){
         if(!productStoreModelList.isEmpty()) {
             List<RequestProductRelationship> returnList = productStoreModelList.stream().map(productItem ->
                     new RequestProductRelationship(
@@ -257,8 +261,8 @@ public class MergeService {
         }
         }
     }
-    public void mergeDocumentStoreListToRequestDocumentsList(List<DocumentStoreModel> documentStoreModelList , List<RequestDocument> requestDocumentList, Request request, User currentUser){
-        if(documentStoreModelList != null) {
+    public void mergeDocumentStoreListToRequestDocumentsList(boolean isNewRequest, List<DocumentStoreModel> documentStoreModelList , List<RequestDocument> requestDocumentList, Request request, User currentUser){
+        if(!isNewRequest && documentStoreModelList != null) {
             if (!documentStoreModelList.isEmpty()) {
                 List<RequestDocument> returnList = documentStoreModelList.stream().map(documentItem ->
                         new RequestDocument(

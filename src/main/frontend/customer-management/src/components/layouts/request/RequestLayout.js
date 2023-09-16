@@ -117,7 +117,7 @@ const RequestLayout = () => {
     } else if (evt.target.name === 'Field_209_request_save') {
       putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/save`, requestBody, updateRequestPageState);
     } else if (evt.target.name === 'Field_146_request_rework') {
-      console.log('Rework Triggered');
+      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/rework`, requestBody, updateRequestPageState);
     }
 
 

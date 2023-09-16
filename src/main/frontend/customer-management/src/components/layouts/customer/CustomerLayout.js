@@ -59,7 +59,6 @@ const CustomerLayout = () => {
     dispatch(actions.refreshMasterData(masterData));
   }
   const updateCustomerPageState = (customerDetails) => {
-    console.log(customerDetails)
     updateCustomerHeadDetails(customerDetails, setCustomerHeadDetails);
     updateCustomerBasicDetails(customerDetails, setBasicDetails);
     updateCustomerAddressDetails(customerDetails, setAddressDetails);
@@ -74,7 +73,6 @@ const CustomerLayout = () => {
       getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
     }
 
-     console.log(">> Loading Data");
     if (params.customerId) {
       getRequestAndThenCallBack(`http://localhost:8080/api/customer/${params.customerId}`, updateCustomerPageState);
     }
@@ -114,7 +112,11 @@ const CustomerLayout = () => {
   
       
       {/* <form onSubmit={submitRequest}> */}
-        <CustomerHead {...customerHeadDetails} />
+        <CustomerHead {...customerHeadDetails} 
+        customerId={basicDetails.Field_159_customer_id} 
+        customerFirstName={basicDetails.Field_161_customer_first_name} 
+        customerLastName={basicDetails.Field_162_customer_last_name} 
+        />
 
         <div className='border border-rounded mt-2 p-2'>
           <CustomerTabs tabItems={tabItems} />

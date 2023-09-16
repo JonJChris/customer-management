@@ -12,9 +12,9 @@ const addressDetail = context.addressDetails
 const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
   return (
     <div className="tab-pane fade show active" id="home" role="tabpanel"  >
-        <div className='m-2' >
+        <div className='m-2 section-standard' >
         <h6 className='tab-section-title'>Registered Address </h6>
-        <div className='row'>
+        <div className='row row-standard'>
             <div className='col'>
             <TextField fieldId="Field_168_reg_address_line1" fieldName="Address Line 1" fieldValue={addressDetail.Field_168_reg_address_line1} 
             isMandatory={false} isVisible={true} isEditable={false} />
@@ -25,7 +25,7 @@ const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
             </div>
         </div>
         
-        <div className='row'>
+        <div className='row row-standard'>
             <div className='col'>
             <TextField fieldId="Field_170_reg_address_city" fieldName="City" fieldValue={addressDetail.Field_170_reg_address_city} fieldPlaceholder="Enter Customer First Name"  
             isMandatory={false} isVisible={true} isEditable={false} />
@@ -36,7 +36,7 @@ const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
             </div>
         </div>
       
-        <div className='row'>
+        <div className='row row-standard'>
             <div className='col'>
             <SelectField fieldId="Field_172_reg_address_country" fieldName="Country" fieldValue={addressDetail.Field_172_reg_address_country} fieldPlaceholder="Enter Customer Display Name" fieldOptions={masterData.countryModelList} 
             isMandatory={false} isVisible={true} isEditable={false} />
@@ -48,10 +48,8 @@ const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
             </div>
         </div>
 
-    <hr />
-
-    <h6 className='tab-section-title'>Communication Address </h6>
-        <div className='row'>
+      <h6 className='tab-section-title '>Communication Address </h6>
+        <div className='row row-standard'>
             <div className='col'>
             <TextField fieldId="Field_174_com_address_line1" fieldName="Address Line 1" fieldValue={addressDetail.Field_174_com_address_line1} fieldPlaceholder=""  
             isMandatory={false} isVisible={true} isEditable={false} />
@@ -62,7 +60,7 @@ const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
             </div>
         </div>
         
-        <div className='row'>
+        <div className='row row-standard'>
             <div className='col'>
             <TextField fieldId="Field_176_com_address_city" fieldName="City" fieldValue={addressDetail.Field_176_com_address_city} fieldPlaceholder="Enter Customer Firstname" 
             isMandatory={false} isVisible={true} isEditable={false} />
@@ -73,7 +71,7 @@ const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
             </div>
         </div>
       
-        <div className='row'>
+        <div className='row row-standard'>
             <div className='col'>
             <SelectField fieldId="Field_178_com_address_country" fieldName="Country" fieldValue={addressDetail.Field_178_com_address_country} fieldPlaceholder="Enter Customer Display Name" fieldOptions={masterData.countryModelList} 
             isMandatory={false} isVisible={true} isEditable={false} />

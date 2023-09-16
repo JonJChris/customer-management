@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 const RequestButtons = (props) => {
   const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
-  console.log("??? " + JSON.stringify(uiFieldStore.uiButtons))
   return (
     <div className='border border-rounded mt-3 p-3'>
       <div className='row'>

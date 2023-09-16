@@ -17,9 +17,9 @@ const CustomerBasicDetails = () => {
 
   return (
     <div className="tab-pane fade show active" id="home" role="tabpanel"  >
-    <div className='m-2' >
+    <div className='m-2 section-standard' >
     <h6 className='tab-section-title'>Customer Details </h6>
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <TextField fieldId="Field_159_customer_id" fieldName="Customer Id" fieldValue={ basicDetail&& basicDetail.Field_159_customer_id} 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -30,7 +30,7 @@ const CustomerBasicDetails = () => {
         </div>
     </div>
     
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <TextField fieldId="Field_161_customer_first_name" fieldName="Customer First Name" fieldValue={basicDetail && basicDetail.Field_161_customer_first_name}  fieldPlaceholder="Enter Customer First Name" 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -41,7 +41,7 @@ const CustomerBasicDetails = () => {
         </div>
     </div>
   
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <TextField fieldId="Field_163_customer_display_name" fieldName="Customer Display Name" fieldValue={basicDetail && basicDetail.Field_163_customer_display_name}  
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -54,7 +54,7 @@ const CustomerBasicDetails = () => {
     </div>
 
    
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <TextField fieldId="Field_165_customer_date_of_birth" fieldName="Customer Date of Birth"  fieldValue={basicDetail && basicDetail.Field_165_customer_date_of_birth} 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -66,7 +66,7 @@ const CustomerBasicDetails = () => {
         </div>
     </div>
     
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <SelectField fieldId="Field_166_customer_marital_status" fieldName="Customer Marital Status" fieldValue={basicDetail && basicDetail.Field_166_customer_marital_status} fieldOptions={masterData.maritalStatusModelList}  
         isMandatory={false} isVisible={true} isEditable={false} />

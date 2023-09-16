@@ -38,7 +38,8 @@ public class CustomerService {
     }
 
 
-    public void persistDataCustomerStore(Request request) {
+    public Long persistDataCustomerStore(Request request) {
+        Long returnCustomerId = null;
         if (request.getStageType().getStageName().equals("Closed")) {
             Long customerId = request.getRequestCustomer().getCustomerId();
 
@@ -61,10 +62,11 @@ public class CustomerService {
             mergeRequestAddressToAddressStore(customerStore.getAddressStore(), request.getRequestAddress(), customerStore);
             mergeRequestProductToProductStore(customerStore.getProductStoreList(), request.getProductRelationshipList(), customerStore);
             mergeRequestDocumentToDocumentStore(customerStore.getDocumentStoreList(), request.getDocumentListList(), customerStore);
-            customerStoreRepository.save(customerStore);
+            CustomerStore savedCustomer = customerStoreRepository.save(customerStore);
+            returnCustomerId =  savedCustomer.getCustomerId();
 
         }
-
+        return returnCustomerId;
     }
 
     private void mergeRequestCustomerToCustomerStore(CustomerStore customerStore, RequestCustomer requestCustomer) {

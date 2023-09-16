@@ -12,9 +12,9 @@ const CustomerAdditionalDetails = () => {
   const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
   return (
     <div className="tab-pane fade show active" id="home" role="tabpanel"  >
-    <div className='m-2' >
+    <div className='m-2 section-standard' >
     <h6 className='tab-section-title'></h6>
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <SelectField fieldId="Field_180_educational_qualification" fieldName="Educational Qualification" fieldValue={additionalDetail.Field_180_educational_qualification} fieldPlaceholder=""  fieldOptions={masterData.educationLevelsList} 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -25,7 +25,7 @@ const CustomerAdditionalDetails = () => {
         </div>
     </div>
     
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <TextField fieldId="Field_182_organisation_name" fieldName="Organisation Name" fieldValue={additionalDetail.Field_182_organisation_name} fieldPlaceholder="" 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -36,7 +36,7 @@ const CustomerAdditionalDetails = () => {
         </div>
     </div>
   
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <SelectField fieldId="Field_183_yearly_income" fieldName="Yearly Income" fieldValue={additionalDetail.Field_183_yearly_income} fieldPlaceholder="" fieldOptions={masterData.yearlyIncomeModelList} 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -49,7 +49,7 @@ const CustomerAdditionalDetails = () => {
     </div>
     <hr />
     <h6 className='tab-section-title'>Nomination Details</h6>
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <SelectField fieldId="Field_184_nominee_relationship_type" fieldName="Relationship Type" fieldValue={additionalDetail.Field_184_nominee_relationship_type}  fieldPlaceholder="" fieldOptions={masterData.relationshipTypeModelList} 
         isMandatory={false} isVisible={true} isEditable={false} />
@@ -60,7 +60,7 @@ const CustomerAdditionalDetails = () => {
         isMandatory={false} isVisible={true} isEditable={false} />
         </div>
     </div>
-    <div className='row'>
+    <div className='row row-standard'>
         <div className='col'>
         <TextField fieldId="Field_185_nominee_first_name" fieldName="First Name" fieldValue={additionalDetail.Field_185_nominee_first_name} fieldPlaceholder="" 
         isMandatory={false} isVisible={true} isEditable={false} />
