@@ -7,15 +7,28 @@ const UserStoreSlice = createSlice({
             userId: 25000,
             username: 'maggieparker',
             userFirstName: 'Maggie',
-            userLastName: 'Parker'
+            userLastName: 'Parker',
+            userRoles: [
+                {
+                    "roleTypeId": 28004,
+                    "roleTypeName": "FRONT_OFFICE"
+                }
+            ]
+
+            // userId: 0,
+            // username: '',
+            // userFirstName: '',
+            // userLastName: '',
+            // userRoles:[]
         }
     },
     reducers: {
         setUserDetail: (state, action) => {
-            state.userDetails.userId = action.payload.userId;
-            state.userDetails.username = action.payload.username;
-            state.userDetails.userFirstName = action.payload.userFirstName;
-            state.userDetails.userLastName = action.payload.userLastName;
+            state.userDetails.userId = action.payload.userModel.userId;
+            state.userDetails.username = action.payload.userModel.username;
+            state.userDetails.userFirstName = action.payload.userModel.userFirstName;
+            state.userDetails.userLastName = action.payload.userModel.userLastName;
+            state.userDetails.userRoles = action.payload.userModel.userRoles;
 
         },
         unsetUserDetail: (state, action) => {
@@ -23,7 +36,8 @@ const UserStoreSlice = createSlice({
                 userId: 0,
                 username: '',
                 userFirstName: '',
-                userLastName: ''
+                userLastName: '',
+                userRoles: []
             }
         }
     }

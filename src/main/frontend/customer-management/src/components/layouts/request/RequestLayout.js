@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import RequestHead from '../../contents/request/RequestHead'
 import RequestButtons from '../../contents/request/RequestButtons'
 import RequestTabs from './../../layouts/request/RequestTabs'
-import { Outlet, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 // import { actions } from './../../../store/master-data'
 import { actions as uiFieldActions } from './../../../store/ui-field-store'
@@ -26,6 +26,7 @@ const RequestLayout = () => {
   // const masterData = useSelector(state => state.masterDataSlice);
   const userStore = useSelector(state => state.UserStoreSlice);
   const params = useParams();
+  const navigate = useNavigate();
   const [requestHeadDetails, setRequestHeadDetails] = useState({ Field_100_request_id: 0, Field_102_request_type: { key: 0, value: '' }, Field_101_request_created: "", Field_103_request_status: { key: 0, value: '' } })
   const [basicDetails, setBasicDetails] = useState({
     Field_104_customer_id: 0, Field_105_customer_title: { key: 0, value: '' }, Field_106_customer_first_name: '', Field_107_customer_last_name: '',
@@ -57,16 +58,21 @@ const RequestLayout = () => {
 
 
   const updateRequestPageState = (requestDetails) => {
-    updateRequestHeadDetails(requestDetails, setRequestHeadDetails);
-    updateRequestBasicDetails(requestDetails, setBasicDetails);
-    updateRequestAddressDetails(requestDetails, setAddressDetails);
-    updateRequestAdditionalDetails(requestDetails, setAdditionalDetails);
-    updateProductDetails(requestDetails, setProductDetails);
-    updateDocumentDetails(requestDetails, setDocumentDetails);
-    updateStageRibbonDetails(requestDetails, setAllRequestStagesList);
-    dispatch(uiFieldActions.updateUIFields(requestDetails.uiInputFieldModelsList));
-    dispatch(uiFieldActions.updateUITabs(requestDetails.uiTabModelsList));
-    dispatch(uiFieldActions.updateUIButtons(requestDetails.uiButtonModelsList));
+    if(requestDetails == null){
+      navigate('/search/request/')
+    }else{
+      updateRequestHeadDetails(requestDetails, setRequestHeadDetails);
+      updateRequestBasicDetails(requestDetails, setBasicDetails);
+      updateRequestAddressDetails(requestDetails, setAddressDetails);
+      updateRequestAdditionalDetails(requestDetails, setAdditionalDetails);
+      updateProductDetails(requestDetails, setProductDetails);
+      updateDocumentDetails(requestDetails, setDocumentDetails);
+      updateStageRibbonDetails(requestDetails, setAllRequestStagesList);
+      dispatch(uiFieldActions.updateUIFields(requestDetails.uiInputFieldModelsList));
+      dispatch(uiFieldActions.updateUITabs(requestDetails.uiTabModelsList));
+      dispatch(uiFieldActions.updateUIButtons(requestDetails.uiButtonModelsList));
+    }
+    
   }
 
 
@@ -111,7 +117,7 @@ const RequestLayout = () => {
       productDetails,
       documentDetails,
       userStore.userDetails);
-    console.log("REQUEST >> " + JSON.stringify(requestBody));
+
     if (evt.target.name === 'Field_145_request_submit') {
       putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/submit`, requestBody, updateRequestPageState);
     } else if (evt.target.name === 'Field_209_request_save') {

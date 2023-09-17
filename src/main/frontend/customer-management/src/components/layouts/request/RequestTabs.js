@@ -10,7 +10,7 @@ const RequestTabs = (props) => {
 
           {uiData.uiTabs && uiData.uiTabs.filter(tabItem => tabItem.isVisible).map(tabItem => (
             <li key={tabItem.fieldName} className="nav-item">
-              <NavLink className={`nav-link   ${ (obj) => obj.isActive && 'active'}`} to={tabItem.fieldLink}>{tabItem.fieldDisplayName}</NavLink>
+              <NavLink end className={`nav-link   ${ (obj) => obj.isActive && 'active'}`} to={tabItem.fieldLink}>{tabItem.fieldDisplayName}</NavLink>
             </li>
           ))}
 

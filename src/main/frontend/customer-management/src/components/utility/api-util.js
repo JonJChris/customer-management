@@ -13,6 +13,7 @@ export const putRequestAndThenCallBack = async (url, requestBody, callbackFunc) 
       const data = await resp.json();
       callbackFunc(data);
     } catch (error) {
+      callbackFunc(null);
     }
   }
 
@@ -31,6 +32,7 @@ export const postRequestAndThenCallBack = async (url, requestBody, callbackFunc)
     const data = await resp.json();
     callbackFunc(data);
   } catch (error) {
+    callbackFunc(null);
 }
 }
 
@@ -47,5 +49,6 @@ export const postRequestAndThenCallBack = async (url, requestBody, callbackFunc)
       const data = await resp.json();
       callbackFunc(data);
     } catch (error) {
+      callbackFunc(null);
     }
   }

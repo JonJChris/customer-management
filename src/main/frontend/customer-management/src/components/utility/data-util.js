@@ -188,7 +188,7 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
   requestBody.addressModel['communicationAddressCountry'] = addressDetails.Field_124_com_address_country && { countryId: addressDetails.Field_124_com_address_country.key, countryName: addressDetails.Field_124_com_address_country.value };
   requestBody.addressModel['communicationAddressPostalCode'] = addressDetails.Field_125_com_address_postal_code;
 
-  console.log(JSON.stringify(productDetails.productsList))
+
   requestBody.productRelationshipModelList = productDetails.productsList.map(item => (
     {
       ...item,

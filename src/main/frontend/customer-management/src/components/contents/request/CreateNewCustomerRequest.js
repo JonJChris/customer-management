@@ -43,7 +43,7 @@ const CreateNewCustomerRequest = (props) => {
       nationality: newCustomer.Field_212_create_new_request_nationality,
       requestType : NEW_REQUEST_NEW_CUSTOMER
     }
-    console.log('click handler')
+
     postRequestAndThenCallBack(API_URL_CREATE_REQUEST, requestBody, newRequestCallBack);
   }
 

@@ -14,18 +14,18 @@ const RequestHead = (props) => {
 
   return (
     <div className='mt-3 border border-rounded p-3'>
-      <div className='row row-standard'>
+       <div className='row row-standard'>
         <div className='col-5'>
           <TextField fieldId="Field_100_request_id" fieldName="Request Id" fieldValue={props.Field_100_request_id}
-            isMandatory={isFieldMandatory(uiFieldStore, 'Field_100_request_id')} isVisible={isFieldVisible(uiFieldStore, 'Field_100_request_id')} isEditable={isFieldEditable(uiFieldStore, 'Field_100_request_id')}
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_100_request_id')} isVisible={isFieldVisible(uiFieldStore, 'Field_100_request_id')} isEditable={false}
           />
         </div>
          <div className='col-1'></div>
         <div className='col-5'>
           <SelectField fieldId="Field_102_request_type" fieldName="Request Type" fieldValue={props.Field_102_request_type} fieldOptions={masterData.requestTypeModelList}
-            isMandatory={isFieldMandatory(uiFieldStore, 'Field_102_request_type')} isVisible={isFieldVisible(uiFieldStore, 'Field_102_request_type')} isEditable={isFieldEditable(uiFieldStore, 'Field_102_request_type')} />
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_102_request_type')} isVisible={isFieldVisible(uiFieldStore, 'Field_102_request_type')} isEditable={false} />
         </div>
-      </div>
+      </div> 
 
       <div className='row row-standard'>
         <div className='col-5'>

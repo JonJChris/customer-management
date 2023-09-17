@@ -1,8 +1,9 @@
 import React from 'react'
 
 
-const TextField = (props) => {
-  
+
+const PasswordField = (props) => {
+
   if (props.isVisible) {
     return (
       <div className='text-field row'>
@@ -11,11 +12,10 @@ const TextField = (props) => {
           {props.isMandatory && <span className='field-mandatory-indicator'>*</span>}
         </div>
         {props.isEditable
-          ? <input type="text" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} 
+          ? <input type="password" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} 
             value={props.fieldValue}
           onChange={props.fieldOnChange}
           maxLength={props.fieldMaxLength}
-          readOnly={!props.isEditable}
           />
           : <label className='text-strong col'>{props.fieldValue}</label>
         }
@@ -31,4 +31,5 @@ const TextField = (props) => {
 }
 
 
-export default TextField
+
+export default PasswordField

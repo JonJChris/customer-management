@@ -4,6 +4,7 @@ import com.management.customer.entity.authrisation.User;
 import com.management.customer.entity.master.*;
 import com.management.customer.entity.store.CustomerStore;
 import com.management.customer.entity.transaction.*;
+import com.management.customer.model.master.ProductModel;
 import com.management.customer.model.store.AddressStoreModel;
 import com.management.customer.model.store.CustomerStoreModel;
 import com.management.customer.model.store.DocumentStoreModel;
@@ -16,6 +17,7 @@ import org.w3c.dom.Document;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static java.util.stream.Collectors.toList;
@@ -24,7 +26,10 @@ import static java.util.stream.Collectors.toList;
 public class MergeService {
     @Autowired
     MasterDataService masterDataService;
-    @Autowired
+
+
+
+
     AuthorisationService authorisationService;
     void mergeRequestModelWithEntity(Request requestEntity, RequestModel requestModel, User userEntity){
         mergeCustomerModelWithEntity(requestEntity.getRequestCustomer(), requestModel.customerModel(), userEntity);
@@ -72,13 +77,16 @@ public class MergeService {
                     )).findAny().isEmpty();
             if(missing){
                 RequestProductRelationship newRelationship = new RequestProductRelationship();
-                ProductType newProducttype = new ProductType();
-                newProducttype.setId(relationshipModel.productType().productTypeId());
-                BranchType newBranchtype = new BranchType();
-                newBranchtype.setId(relationshipModel.productBranch().branchTypeId());
-                newRelationship.setProductType(newProducttype);
-                newRelationship.setBranchType(newBranchtype);
-                String newAccNumber = String.valueOf(rand.nextLong(9000000) + 10000000);
+                ProductType productEntity = masterDataService.getProductEntity(relationshipModel.productType()).orElse(null);
+                BranchType branchEntity = masterDataService.getBranchEntity(relationshipModel.productBranch()).orElse(null);
+
+//                ProductType newProducttype = new ProductType();
+//                newProducttype.setId(relationshipModel.productType().productTypeId());
+//                BranchType newBranchtype = new BranchType();
+//                newBranchtype.setId(relationshipModel.productBranch().branchTypeId());
+                newRelationship.setProductType(productEntity);
+                newRelationship.setBranchType(branchEntity);
+                String newAccNumber = String.valueOf(rand.nextLong(8000000, 9000000) + 10000000);
                 newRelationship.setAccountId(newAccNumber);
                 newRelationship.setCreatedDate(LocalDateTime.now());
                 newRelationship.setUpdatedDate(LocalDateTime.now());
@@ -112,11 +120,12 @@ public class MergeService {
                     ).findAny().isEmpty();
             if(missing){
 
+                DocumentType documentTypeEntity = masterDataService.getDocumentTypeEntity(documentModel.documentType()).orElse(null);
                 RequestDocument newDocument = new RequestDocument();
-                DocumentType newDocumentType = new DocumentType();
-                newDocumentType.setId(documentModel.documentType().documentTypeId());
+//                DocumentType newDocumentType = new DocumentType();
+//                newDocumentType.setId(documentModel.documentType().documentTypeId());
                 newDocument.setDocumentLinkPath(documentModel.documentLinkPath());
-                newDocument.setDocumentType(newDocumentType);
+                newDocument.setDocumentType(documentTypeEntity);
                 newDocument.setRequest(request);
                 newDocument.setCreatedDate(LocalDateTime.now());
                 newDocument.setUpdatedDate(LocalDateTime.now());
@@ -243,15 +252,16 @@ public class MergeService {
         if( !isNewRequest && productStoreModelList != null){
         if(!productStoreModelList.isEmpty()) {
             List<RequestProductRelationship> returnList = productStoreModelList.stream().map(productItem ->
+
                     new RequestProductRelationship(
                             null,
                             productItem.productId(),
                             productItem.accountId(),
                             request,
-                            productItem.productType() != null ? new ProductType(productItem.productType().productTypeId(), productItem.productType().productTypeCode(), productItem.productType().productTypeName(), productItem.productType().productTypeDescription()) : null,
-                            productItem.productBranch() != null ? new BranchType(productItem.productBranch().branchTypeId(), productItem.productBranch().branchTypeCode(), productItem.productBranch().branchTypeName(), productItem.productBranch().branchTypeDescription()) : null,
+                            productItem.productType() != null ? masterDataService.getProductEntity(productItem.productType()).orElse(null) : null,
+                            productItem.productBranch() != null ? masterDataService.getBranchEntity(productItem.productBranch()).orElse(null) : null,
                             productItem.createdDate(),
-                            productItem.createdBy() != null ? new User(productItem.createdBy().userId(), productItem.createdBy().username(), productItem.createdBy().userFirstName(), productItem.createdBy().userLastName()) : null,
+                            currentUser,
                             LocalDateTime.now(),
                             currentUser
                     )
@@ -269,10 +279,10 @@ public class MergeService {
                                 null,
                                 documentItem.documentId(),
                                 request,
-                                documentItem.documentType() != null ? new DocumentType(documentItem.documentType().documentTypeId(), documentItem.documentType().documentTypeName(), documentItem.documentType().documentTypeName()) : null,
+                                documentItem.documentType() != null ? masterDataService.getDocumentTypeEntity(documentItem.documentType()).orElse(null) : null,
                                 documentItem.documentLinkPath(),
                                 documentItem.createdDate(),
-                                documentItem.createdBy() != null ? new User(documentItem.createdBy().userId(), documentItem.createdBy().username(), documentItem.createdBy().userFirstName(), documentItem.createdBy().userLastName()) : null,
+                                currentUser,
                                 LocalDateTime.now(),
                                 currentUser
                         )

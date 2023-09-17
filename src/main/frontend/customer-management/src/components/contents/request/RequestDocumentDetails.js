@@ -41,7 +41,7 @@ const RequestDocumentDetails = () => {
 
     }
     const onChangeHandler = (evt) => {
-        console.log(evt.target.name)
+  
         if (evt.target.type === 'select-one') {
             setNewDocument((prevState) => {
                 return {
@@ -64,9 +64,9 @@ const RequestDocumentDetails = () => {
     }
 
     const removeDocument = (removeDocumentId)  => {
-        console.log("removeProductId: "+removeDocumentId)
-        const result = context.documentDetails.documentsList.filter(item => item.documentId !== removeDocumentId)
-        console.log("TTT "+ JSON.stringify(result));
+   
+        const result = context.documentDetails.documentsList.filter(item => item.id !== removeDocumentId)
+    
         context.setDocumentDetails({documentsList: result})
        
       }
@@ -162,9 +162,9 @@ const RequestDocumentDetails = () => {
                                         <td>{document.documentStoreId}</td>
                                         <td>{document.documentType.documentTypeName}</td>
                                         <td>{document.documentLinkPath}</td>
-                                        <td>{document.createdDate}</td>
+                                        <td>{document.createdDate && document.createdDate.substring(0, 10)}</td>
                                         {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
-                                        <td><button name="remove_document" className='btn btn-primary btn-sm'  onClick={() => removeDocument(document.documentId)}>Remove</button></td>
+                                        <td><button name="remove_document" className='btn btn-primary btn-sm'  onClick={() => removeDocument(document.id)}>Remove</button></td>
                                         }
                                     </tr>
                                 ))

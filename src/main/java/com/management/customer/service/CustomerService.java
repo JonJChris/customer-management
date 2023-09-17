@@ -126,7 +126,7 @@ public class CustomerService {
             boolean missing = productStoreList.stream().filter(item -> item.getProductId().equals(requestItem.getProductId())).findAny().isEmpty();
             if (missing) {
                 ProductStore newProductToAdd = new ProductStore();
-                newProductToAdd.setProductId(requestItem.getId());
+//                newProductToAdd.setProductId(requestItem.getId());
                 newProductToAdd.setAccountId(requestItem.getAccountId());
                 newProductToAdd.setProductType(requestItem.getProductType());
                 newProductToAdd.setBranchType(requestItem.getBranchType());
@@ -140,7 +140,8 @@ public class CustomerService {
         }
         //loop store compare request
         for (ProductStore entityItem : productStoreList) {
-            boolean missing = requestProductList.stream().filter(item -> item.getProductId().equals(entityItem.getProductId())).findAny().isEmpty();
+            boolean missing = requestProductList.stream().filter(item -> entityItem.getProductId().equals(item.getProductId())).findAny().isEmpty();
+//            boolean missing = requestProductList.stream().filter(item -> item.getProductId().equals(entityItem.getProductId())).findAny().isEmpty();
             if (missing) {
                 itemsToRemove.add(entityItem);
             }
@@ -157,7 +158,7 @@ public class CustomerService {
             boolean missing = documentStoreList.stream().filter(item -> item.getDocumentId().equals(requestItem.getDocumentId())).findAny().isEmpty();
             if (missing) {
                 DocumentStore newDocumentToAdd = new DocumentStore();
-                newDocumentToAdd.setDocumentId(requestItem.getDocumentId());
+//                newDocumentToAdd.setDocumentId(requestItem.getDocumentId());
                 newDocumentToAdd.setDocumentType(requestItem.getDocumentType());
                 newDocumentToAdd.setDocumentLinkPath(requestItem.getDocumentLinkPath());
                 newDocumentToAdd.setCreatedDate(LocalDateTime.now());
@@ -170,7 +171,8 @@ public class CustomerService {
         }
         //loop store compare request
         for (DocumentStore entityItem : documentStoreList) {
-            boolean missing = requestDocumentsList.stream().filter(item -> item.getDocumentId().equals(entityItem.getDocumentId())).findAny().isEmpty();
+            boolean missing = requestDocumentsList.stream().filter(item -> entityItem.getDocumentId().equals(item.getDocumentId())).findAny().isEmpty();
+//            boolean missing = requestDocumentsList.stream().filter(item -> item.getDocumentId().equals(entityItem.getDocumentId())).findAny().isEmpty();
             if (missing) {
                 itemsToRemove.add(entityItem);
             }

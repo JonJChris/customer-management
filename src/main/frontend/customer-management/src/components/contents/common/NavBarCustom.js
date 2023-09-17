@@ -8,7 +8,7 @@ const NavBarCustom = () => {
     
   return (
     <div>
-      <Nav  class="bg-body-tertiary custom-nav-bar navbar navbar-expand-lg">
+      <Nav  className="bg-body-tertiary custom-nav-bar navbar navbar-expand-lg">
         <Container>
           <Navbar.Brand href="/">Customer Management System</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -17,11 +17,11 @@ const NavBarCustom = () => {
               {/* <Nav.Link href="#home">Home</Nav.Link> */}
               
               <NavDropdown title="Action" id="basic-nav-dropdown" className='my-dropdown'>
-                <NavDropdown.Item href="/search/request" >Search Request</NavDropdown.Item>
-                <NavDropdown.Item href="/search/customer">Search Customer</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/search/request" >Search Request</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/search/customer">Search Customer</NavDropdown.Item>
                 
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/request/createNewCustomerRequest">
+                <NavDropdown.Item as={Link} to="/request/createNewCustomerRequest">
                   Create New Customer
                 </NavDropdown.Item>
               </NavDropdown>

@@ -24,6 +24,7 @@ import AppLayout from './components/layouts/AppLayout';
 import { Home } from './components/contents/home/Home';
 import CreateNewCustomerRequest from './components/contents/request/CreateNewCustomerRequest';
 import CreateAmendRequest from './components/contents/request/CreateAmendRequest';
+import Login from './components/Login';
 
 
 
@@ -34,17 +35,18 @@ const App = () => {
     <div className="App container">
       {<BrowserRouter>
         <Routes>
+          <Route exact path="/login" element={<Login />} />
           <Route exact path="/" element={<AppLayout />}>
-          <Route index element={<Home />} />
+            <Route index element={<RequestSearchLayout />} />
             <Route exact path="request/:requestId" element={<RequestLayout />} >
-              <Route exact path="basic" element={<RequestBasicDetails />} />
+              <Route exact index element={<RequestBasicDetails />} />
               <Route exact path="Address" element={<RequestAddressDetails />} />
               <Route exact path="Additional" element={<RequestAdditionalDetails />} />
               <Route exact path="Document" element={<RequestDocumentDetails />} />
               <Route exact path="Product" element={<RequestProductDetails />} />
             </Route>
             <Route exact path="/customer/:customerId" element={<CustomerLayout />} >
-              <Route exact path="basic" element={<CustomerBasicDetails />} />
+              <Route exact index element={<CustomerBasicDetails />} />
               <Route exact path="Address" element={<CustomerAddressDetails />} />
               <Route exact path="Additional" element={<CustomerAdditionalDetails />} />
               <Route exact path="Document" element={<CustomerDocumentDetails />} />

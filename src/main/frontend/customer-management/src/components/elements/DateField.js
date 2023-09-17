@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
 
 
 const DateField = (props) => {
@@ -15,7 +15,7 @@ const DateField = (props) => {
           ? <input type="date" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} 
             value={props.fieldValue}
           onChange={props.fieldOnChange}
-          
+          readOnly={true}
           />
           : <label className='text-strong col'>{props.fieldValue && props.fieldValue.substring(0, 10) }</label>
         }
@@ -32,9 +32,4 @@ const DateField = (props) => {
 
 
 
-// TextField.propTypes = {
-//   fieldId: PropTypes.string.isRequired,
-//   fieldName: PropTypes.string.isRequired,
-//   // fieldPlaceholder: PropTypes.string.isRequired,
-// }
 export default DateField

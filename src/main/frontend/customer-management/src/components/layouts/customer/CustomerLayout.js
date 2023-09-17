@@ -4,7 +4,7 @@ import RequestHead from '../../contents/request/RequestHead'
 import RequestButtons from '../../contents/request/RequestButtons'
 import RequestTabs from '../request/RequestTabs'
 import CustomerTabs from '../customer/CustomerTabs'
-import { Outlet, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../../../store/master-data'
 import { actions as uiFieldActions } from '../../../store/ui-field-store'
@@ -17,7 +17,7 @@ import ActionBar from '../../contents/customer/ActionBar'
 const CustomerLayout = () => {
 
   const tabItems = [
-    { fieldName: 'Field_189_basic_details_tab', fieldDisplayName: "Basic Details", fieldErrors: 0, isActive: true, fieldLink: './basic' },
+    { fieldName: 'Field_189_basic_details_tab', fieldDisplayName: "Basic Details", fieldErrors: 0, isActive: true, fieldLink: '.' },
     { fieldName: 'Field_190_address_details_tab', fieldDisplayName: "Address Details", fieldErrors: 0, isActive: false, fieldLink: 'Address' },
     { fieldName: 'Field_191_additional_details_tab', fieldDisplayName: "Additional Details", fieldErrors: 0, isActive: false, fieldLink: 'Additional' },
     { fieldName: 'Field_192_product_details_tab', fieldDisplayName: "Product Details", fieldErrors: 0, isActive: false, fieldLink: 'Product' },
@@ -26,6 +26,7 @@ const CustomerLayout = () => {
   const dispatch = useDispatch();
   const masterData = useSelector(state => state.masterDataSlice);
   const userStore = useSelector(state => state.UserStoreSlice);
+  const navigate = useNavigate();
   const params = useParams();
   const [customerHeadDetails, setCustomerHeadDetails] = useState({ Field_197_customer_crated_date: '',  Field_198_customer_created_by: '', Field_199_customer_last_updated_date: '', Field_200_customer_last_updated_by: '' })
   const [basicDetails, setBasicDetails] = useState({
@@ -59,12 +60,17 @@ const CustomerLayout = () => {
     dispatch(actions.refreshMasterData(masterData));
   }
   const updateCustomerPageState = (customerDetails) => {
-    updateCustomerHeadDetails(customerDetails, setCustomerHeadDetails);
-    updateCustomerBasicDetails(customerDetails, setBasicDetails);
-    updateCustomerAddressDetails(customerDetails, setAddressDetails);
-    updateCustomerAdditionalDetails(customerDetails, setAdditionalDetails);
-    updateCustomerProductDetails(customerDetails, setProductDetails);
-    updateCustomerDocumentDetails(customerDetails, setDocumentDetails);
+    if(customerDetails == null){
+      navigate('/search/customer')
+    }else{
+      updateCustomerHeadDetails(customerDetails, setCustomerHeadDetails);
+      updateCustomerBasicDetails(customerDetails, setBasicDetails);
+      updateCustomerAddressDetails(customerDetails, setAddressDetails);
+      updateCustomerAdditionalDetails(customerDetails, setAdditionalDetails);
+      updateCustomerProductDetails(customerDetails, setProductDetails);
+      updateCustomerDocumentDetails(customerDetails, setDocumentDetails);
+    }
+    
   }
 
 

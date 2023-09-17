@@ -22,7 +22,7 @@ const CreateAmendRequest = (props) => {
     Field_217_create_amend_request_select_request_type: {key:'', value:''}});
 
     const changeHandler = (evt) => {
-      console.log(evt.target.name)
+   
       if (evt.target.type === 'select-one') {
         setAmendCustomer((prevState) => {
               return {
@@ -67,9 +67,9 @@ const CreateAmendRequest = (props) => {
   }
 
   const newRequestCallBack = (response) => {
-    console.log("Response: "+JSON.stringify(response));
+
     if(response && response.requestId){
-      navigate(`/request/${response.requestId}/basic`);
+      navigate(`/request/${response.requestId}`);
     }
     
   }
@@ -108,7 +108,7 @@ const CreateAmendRequest = (props) => {
         
         <div className='col-6 mx-auto'>
           <SelectField fieldId="Field_217_create_amend_request_select_request_type" fieldName="Request Type" fieldValue={amendCustomer.Field_217_create_amend_request_select_request_type.key}
-          fieldOptions={masterData.requestTypeModelList.filter(item => item.optionValue !== 'Create New Customer')}
+          fieldOptions={masterData.requestTypeModelList.filter(item => item.optionValue !== 'Create New Customer' && item.optionValue !== 'Customer Lifecycle Request')}
            fieldOnChange={changeHandler} isMandatory={false} isVisible={true} isEditable={true}/>
         </div>
         

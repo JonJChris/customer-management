@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/userInterface")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class UserInterfaceController {
     @Autowired
     UserInterfaceService userInterfaceService;

@@ -26,11 +26,11 @@ const CustomerProductDetails = () => {
                                 context.productDetails && context.productDetails.productsList.map(product => (
 
                                     <tr key={product.productId}>
-                                        <td>{product.productId}</td>
+                                        <th>{product.productId}</th>
                                         <td>{product.accountId}</td>
                                         <td>{product.productType.productTypeName}</td>
                                         <td>{product.productBranch.branchTypeName}</td>
-                                        <td>{product.createdDate}</td>
+                                        <td>{product.createdDate && product.createdDate.substring(0, 10)}</td>
                                     </tr>
                                 ))
                             }

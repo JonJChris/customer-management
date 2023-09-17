@@ -23,7 +23,7 @@ const uiFieldStore = useSelector( state => state.UIFieldStoreSlice);
             </div>
             <div className='col'>
             <TextField  fieldId="Field_115_reg_address_line2" fieldName="Address Line 2" fieldValue={addressDetail.Field_115_reg_address_line2} fieldPlaceholder=""  
-            isMandatory={isFieldMandatory(uiFieldStore, 'Field_115_reg_address_line2')} isVisible={isFieldVisible(uiFieldStore, 'Field_115_reg_address_line2')} isEditable={isFieldEditable(uiFieldStore, 'Field_10Field_115_reg_address_line28_customer_display_name')} 
+            isMandatory={isFieldMandatory(uiFieldStore, 'Field_115_reg_address_line2')} isVisible={isFieldVisible(uiFieldStore, 'Field_115_reg_address_line2')} isEditable={isFieldEditable(uiFieldStore, 'Field_115_reg_address_line2')} 
             fieldOnChange={context.updateStateForAddressTab} fieldMaxLength={getFieldMaxLength(uiFieldStore, 'Field_115_reg_address_line2')}/>
             </div>
         </div>

@@ -12,7 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/masterData")
-@CrossOrigin(origins =  {"http://localhost","http://localhost:3000"})
+//@CrossOrigin(origins =  {"http://localhost","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class MasterDataController {
     @Autowired
     MasterDataService masterDataService;

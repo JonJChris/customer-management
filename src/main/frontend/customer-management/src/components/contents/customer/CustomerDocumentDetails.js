@@ -27,7 +27,7 @@ const CustomerDocumentDetails = () => {
                                         <th scope="row">{document.documentId}</th>
                                         <td>{document.documentType.documentTypeName}</td>
                                         <td>{document.documentLinkPath}</td>
-                                        <td>{document.createdDate}</td>
+                                        <td>{document.createdDate && document.createdDate.substring(0, 10)}</td>
                                     </tr>
                                 ))
                             }

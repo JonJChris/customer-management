@@ -18,11 +18,15 @@ import com.management.customer.model.transaction.request.CreateNewRequestModel;
 import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.userInterface.UIFieldModel;
+import com.management.customer.repository.master.ProductRepository;
+import com.management.customer.repository.request.DocumentRepository;
+import com.management.customer.repository.request.ProductRelationshipRepository;
 import com.management.customer.repository.request.RequestRepository;
 import com.management.customer.repository.request.StageRepository;
 import com.management.customer.repository.workflow.RequestTypeRequestStageRulesRepository;
 import com.management.customer.tranformer.transaction.RequestTransformer;
 import com.management.customer.utils.StringUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +37,9 @@ import java.util.*;
 public class RequestService {
     @Autowired
     RequestRepository requestRepository;
+    @Autowired
+    ProductRelationshipRepository productRelationshipRepository;
+    DocumentRepository documentRepository;
     @Autowired
     UserInterfaceService userInterfaceService;
     @Autowired
@@ -47,6 +54,7 @@ public class RequestService {
     RequestTypeRequestStageRulesRepository requestTypeRequestStageRulesRepository;
     @Autowired
     StageRepository requestStageRepository;
+
 
     public RequestModel getRequestDetails(Long requestId) {
         Optional<Request> request = requestRepository.findById(requestId);
@@ -113,7 +121,7 @@ public class RequestService {
         }
     }
 
-
+    @Transactional
     public RequestModel createRequest(CreateNewRequestModel createNewRequestModel){
 
         boolean isNewRequest = false;
@@ -155,7 +163,8 @@ public class RequestService {
         request.setRequestRequestStages(stagesList);
         request.setRequestCustomer(requestCustomer);
         request.setRequestAddress(requestAddress);
-
+        request.setProductRelationshipList(requestProductRelationshipList);
+        request.setDocumentListList(requestDocumentList);
 
         CustomerStoreModel customerStoreModel = null;
 
@@ -173,9 +182,19 @@ public class RequestService {
         mergeService.mergeProductStoreListToRequestProductsList(isNewRequest, customerStoreModel != null ? customerStoreModel.productStoreModelList():null, requestProductRelationshipList, request, UserService.GENERAL_USER);
         mergeService.mergeDocumentStoreListToRequestDocumentsList(isNewRequest, customerStoreModel != null ? customerStoreModel.documentStoreModelsList():null,requestDocumentList, request, UserService.GENERAL_USER);
 
-
+        List<RequestProductRelationship> productRelationshipList = request.getProductRelationshipList();
+        List<RequestDocument> documentListList = request.getDocumentListList();
         Request savedRequest = requestRepository.save(request);
         List<RequestStage> stages = requestStageRepository.saveAll(stagesList);
+//        if(productRelationshipList != null) {
+//            productRelationshipRepository.saveAll(productRelationshipList);
+//        }
+//        if(documentListList != null ){
+//            documentRepository.saveAll(documentListList);
+//        }
+
+        savedRequest=  requestRepository.findById(savedRequest.getRequestId()).orElse(null);
+
 
         Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
@@ -202,6 +221,7 @@ public class RequestService {
 //
 //    }
 //
+    @Transactional
     public RequestModel submitRequest(RequestModel requestModel, boolean submitToNextStage, boolean isRework) {
         // fetch request
         Integer userId = requestModel.requestSubmittedBy().userId();
@@ -243,8 +263,24 @@ public class RequestService {
             if(!Objects.isNull(savedCustomerId ) && Objects.isNull(requestEntity.getRequestCustomer().getCustomerId())){
                 requestEntity.getRequestCustomer().setCustomerId(savedCustomerId);
             }
-            requestRepository.save(requestEntity);
+
+
+
         }
+        List<RequestProductRelationship> productRelationshipList = requestEntity.getProductRelationshipList();
+        List<RequestDocument> documentList = requestEntity.getDocumentListList();
+
+        Request savedRequest = requestRepository.save(requestEntity);
+
+//        if(productRelationshipList != null ){
+//            productRelationshipRepository.saveAll(productRelationshipList);
+//        }
+//        Optional<Request> byId = requestRepository.findById(requestEntity.getRequestId());
+//        if(documentRepository != null){
+//            documentRepository.saveAll(documentList);
+//        }
+//        Request savedRequest = requestRepository.findById(requestEntity.getRequestId()).get();
+
 
         //TODO
         Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
@@ -253,7 +289,7 @@ public class RequestService {
 
 
 
-        return RequestTransformer.entityToModel(requestEntity,
+        return RequestTransformer.entityToModel(savedRequest,
                 uiInputFieldRules.orElse(null),
                 uiTabRules.orElse(null),
                 uiButtonRules.orElse(null)

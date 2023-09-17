@@ -165,6 +165,11 @@ public class MasterDataService {
     public Optional<ProductType> getProductEntity(ProductModel productModel){
         return productRepository.findById(productModel.productTypeId());
     }
+
+    public Optional<BranchType> getBranchEntity(BranchModel branchModel){
+        return branchRepository.findById(branchModel.branchTypeId());
+    }
+
     public Optional<ProfessionType> getProfessionEntity(ProfessionModel professionModel){
         return professionRepository.findById(professionModel.professionId());
     }

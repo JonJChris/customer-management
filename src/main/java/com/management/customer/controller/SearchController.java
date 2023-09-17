@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/search")
-@CrossOrigin(origins =  {"http://localhost","http://localhost:3000"})
+//@CrossOrigin(origins =  {"http://localhost","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class SearchController {
     @Autowired
     SearchService searchService;

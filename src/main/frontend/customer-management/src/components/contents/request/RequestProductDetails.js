@@ -49,7 +49,7 @@ const RequestProductDetails = (props) => {
 
   }
   const onChangeHandler = (evt) => {
-    console.log(evt.target.name)
+
     setNewProduct((prevState) => {
       return {
         ...prevState,
@@ -62,9 +62,9 @@ const RequestProductDetails = (props) => {
   }
 
   const removeProduct = (removeProductId) => {
-    console.log("removeProductId: " + removeProductId)
+
     const result = context.productDetails.productsList.filter(item => item.id !== removeProductId)
-    console.log("TTT " + JSON.stringify(result));
+
     context.setProductDetails({ productsList: result })
 
   }
@@ -73,7 +73,7 @@ const RequestProductDetails = (props) => {
   const ProductPopup = (props) => {
 
     const masterData = useSelector(state => state.masterDataSlice)
-    console.log("AAA " + JSON.stringify(masterData.productModelList));
+
     return (
 
       <div id="myModal" className="popup-modal" ref={productModalRef}>
@@ -83,7 +83,7 @@ const RequestProductDetails = (props) => {
               <div className='text-header-strong'>Add Product</div>
             </div>
             <div className='col'>
-              <div className='text-end'><button className='text-end btn btn-primary btn-sm btn-block' onClick={() => console.log('modal close')}>X</button></div>
+              {/* <div className='text-end'><button className='text-end btn btn-primary btn-sm btn-block' onClick={() => console.log('modal close')}>X</button></div> */}
             </div>
             <hr className='mt-2' />
           </div>
@@ -124,7 +124,7 @@ const RequestProductDetails = (props) => {
       </div>
     )
   }
-  console.log("context.productDetails.length "+context.productDetails.productsList.length);
+
   return (
   
     <div className="tab-pane fade show active" id="home" role="tabpanel"  >
@@ -164,7 +164,7 @@ const RequestProductDetails = (props) => {
                     <td>{product.accountId}</td>
                     <td>{product.productType.productTypeName}</td>
                     <td>{product.productBranch.branchTypeName}</td>
-                    <td>{product.createdDate}</td>
+                    <td>{product.createdDate && product.createdDate.substring(0,10)}</td>
                     {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
                     <td><button name="remove_product" className='btn btn-primary btn-sm' onClick={() => removeProduct(product.id)}>Remove</button></td>
                     }

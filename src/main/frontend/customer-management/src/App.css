@@ -12,9 +12,9 @@
 
 
 .form-container {
-  max-width: 50%;
+  max-width: 60%;
   margin: auto;
-  padding-top: 25%;
+  padding: 20px;
 }
 
 .form-login {
