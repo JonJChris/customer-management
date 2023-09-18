@@ -7,3 +7,5 @@ export const NEW_REQUEST_PERIODIC_REVIEW = 'Periodic Review';
 export const NEW_REQUEST_LIFECYCLE_REQUEST = 'Customer Lifecycle Request';
 
 export const API_URL_CREATE_REQUEST = 'http://localhost:8080/api/request/new'
+export const API_CALL_BASE_URL = 'http://localhost:8080/api'
+

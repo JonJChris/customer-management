@@ -3,6 +3,7 @@ package com.management.customer.tranformer.transaction;
 import com.management.customer.model.master.StageTypeModel;
 import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.entity.transaction.Request;
+import com.management.customer.model.transaction.request.UserPermissionModel;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.tranformer.master.CountryTypeTransformer;
 import com.management.customer.tranformer.master.StageTypeTransformer;
@@ -14,9 +15,9 @@ import java.util.Objects;
 
 public class RequestTransformer {
     public static RequestModel entityToModel(Request request) {
-     return entityToModel(request, null, null, null);
+     return entityToModel(request, null, null, null, null);
     }
-    public static RequestModel entityToModel(Request request, List<UIFieldModel> uiInputFieldModelList, List<UIFieldModel> uiTabModelList, List<UIFieldModel> uiButtonModelList) {
+    public static RequestModel entityToModel(Request request, List<UIFieldModel> uiInputFieldModelList, List<UIFieldModel> uiTabModelList, List<UIFieldModel> uiButtonModelList, UserPermissionModel userPermissionModel) {
         return new RequestModel(
                 request.getRequestId(),
                 RequestTypeTransformer.entityToModel(request.getRequestType()),
@@ -33,7 +34,8 @@ public class RequestTransformer {
                 UserTransformer.entityToModel(request.getCreatedBy()),
                 request.getUpdatedDate(),
                 UserTransformer.entityToModel(request.getUpdatedBy()),
-                null
+                null,
+                userPermissionModel
                 );
     }
 }

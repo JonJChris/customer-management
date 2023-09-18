@@ -27,7 +27,7 @@ public record RequestModel(
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         LocalDateTime updatedDate,
         UserModel updatedBy,
-        UserModel requestSubmittedBy
-
+        Integer requestSubmittedBy,
+        UserPermissionModel userPermissionModel
 ) {
 }

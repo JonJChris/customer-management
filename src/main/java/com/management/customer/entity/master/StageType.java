@@ -21,5 +21,7 @@ public class StageType {
     private Integer id;
     @Column(name="STAGE")
     private String stageName;
+    @Column(name="STAGE_PERMISSION")
+    private Integer stagePermission;
 
 }

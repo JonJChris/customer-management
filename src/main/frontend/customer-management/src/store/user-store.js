@@ -4,22 +4,22 @@ const UserStoreSlice = createSlice({
     name: "UserStore",
     initialState: {
         userDetails: {
-            userId: 25000,
-            username: 'maggieparker',
-            userFirstName: 'Maggie',
-            userLastName: 'Parker',
-            userRoles: [
-                {
-                    "roleTypeId": 28004,
-                    "roleTypeName": "FRONT_OFFICE"
-                }
-            ]
+            // userId: 25000,
+            // username: 'maggieparker',
+            // userFirstName: 'Maggie',
+            // userLastName: 'Parker',
+            // userRoles: [
+            //     {
+            //         "roleTypeId": 28004,
+            //         "roleTypeName": "FRONT_OFFICE"
+            //     }
+            // ]
 
-            // userId: 0,
-            // username: '',
-            // userFirstName: '',
-            // userLastName: '',
-            // userRoles:[]
+            userId: 0,
+            username: '',
+            userFirstName: '',
+            userLastName: '',
+            userRoles:[]
         }
     },
     reducers: {

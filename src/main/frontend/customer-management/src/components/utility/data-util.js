@@ -1,4 +1,10 @@
 
+export const updateStageEditable = (requestDetails, setStateFunc) => {
+  if (requestDetails) {
+    setStateFunc(requestDetails.userPermissionModel && requestDetails.userPermissionModel.canEditStage);
+  }
+}
+
 export const updateRequestHeadDetails = (requestDetails, setStateFunc) => {
   if (requestDetails) {
     setStateFunc((prevState) => {
@@ -199,12 +205,15 @@ export const buildRequestBody = (requestHeadDetails, basicDetails, addressDetail
 
   requestBody.documentModelList = documentDetails.documentsList;
 
-  requestBody['requestSubmittedBy'] = {
-    userId: userDetail.userId,
-    username: userDetail.username,
-    userFirstName: userDetail.userFirstName,
-    userLastName: userDetail.userLastName
-  }
+  requestBody['requestSubmittedBy'] = userDetail.userId;
+
+
+  // requestBody['requestSubmittedBy'] = {
+  //   userId: userDetail.userId,
+  //   username: userDetail.username,
+  //   userFirstName: userDetail.userFirstName,
+  //   userLastName: userDetail.userLastName
+  // }
 
 
   return requestBody;

@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 public class RequestController {
     @Autowired
     RequestService requestService;
-    @GetMapping("{requestId}")
-    public RequestModel getRequestDetails(@PathVariable("requestId") Long requestId){
-        return requestService.getRequestDetails(requestId);
+    @PutMapping("{requestId}")
+    public RequestModel getRequestDetails(@PathVariable("requestId") Long requestId, @RequestBody RequestModel requestModel){
+        return requestService.getRequestDetails(requestId, requestModel);
     }
 
-    @GetMapping("{requestId}/nextStage")
-    public StageTypeModel getNextRequestStage(@PathVariable("requestId") Long requestId){
-        return requestService.getNextRequestStage(requestId);
+    @PutMapping("{requestId}/nextStage")
+    public StageTypeModel getNextRequestStage(@PathVariable("requestId") Long requestId, @RequestBody RequestModel requestModel){
+        return requestService.getNextRequestStage(requestId, requestModel);
 
     }
     @PutMapping("{requestId}/submit")

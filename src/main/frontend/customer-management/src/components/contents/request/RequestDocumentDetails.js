@@ -133,7 +133,7 @@ const RequestDocumentDetails = () => {
 
             
                 <div className=''>
-                {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
+                {context.stageEditable && uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
 
                     <div className='w-100'>
                         <button id='Field_136_add_new_document_button' name="addDocument" className='btn btn-primary'
@@ -147,7 +147,7 @@ const RequestDocumentDetails = () => {
                                 <th scope="col">Document Type</th>
                                 <th scope="col">Document Link Path</th>
                                 <th scope="col">Document Created</th>
-                                {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
+                                {context.stageEditable && uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
                                 <th scope="col">Action</th>
                                 }
                             </tr>
@@ -163,7 +163,7 @@ const RequestDocumentDetails = () => {
                                         <td>{document.documentType.documentTypeName}</td>
                                         <td>{document.documentLinkPath}</td>
                                         <td>{document.createdDate && document.createdDate.substring(0, 10)}</td>
-                                        {uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
+                                        {context.stageEditable && uiFieldStore.uiButtons.Field_136_add_new_document_button && uiFieldStore.uiButtons.Field_136_add_new_document_button.isVisible &&
                                         <td><button name="remove_document" className='btn btn-primary btn-sm'  onClick={() => removeDocument(document.id)}>Remove</button></td>
                                         }
                                     </tr>

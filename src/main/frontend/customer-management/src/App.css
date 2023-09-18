@@ -193,3 +193,10 @@ a:hover {
 .section-standard{
   min-height: 400px;
 }
+.header-title {
+  font-weight: bold;
+  color: var(--custom-text-color);
+}
+.dropdown-menu {
+  min-width: 200px;
+}

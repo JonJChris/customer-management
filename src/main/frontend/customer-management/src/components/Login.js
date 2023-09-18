@@ -5,10 +5,12 @@ import PasswordField from './elements/PasswordField'
 import { useDispatch } from 'react-redux'
 import { actions } from './../store/user-store'
 import { useNavigate } from 'react-router-dom'
+import {API_CALL_BASE_URL} from './utility/constants'
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginResponseHandler = (response) => {
+        console.log('Response : '+JSON.stringify(response));
         if (response.authorisationResponseType === 'LOGIN_FAILED') {
             setMsg(`Login Error: ${response.authorisationResponseMessage}`);
         } else if (response.authorisationResponseType === 'LOGIN_SUCCESS') {
@@ -25,7 +27,7 @@ const Login = () => {
             userName: userCredential.username,
             password: userCredential.password,
         }
-        postRequestAndThenCallBack("http://localhost:8080/api/auth/login", requestBody, loginResponseHandler);
+        postRequestAndThenCallBack(`${API_CALL_BASE_URL}/auth/login`, requestBody, loginResponseHandler);
 
     }
 
@@ -69,22 +71,22 @@ const Login = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <th>maggieparker</th><td>password</td><td>CREATE CUSTOMER, FRONT OFFICE</td>
+                            <th>maggieparker</th><td>password</td><td>KYC Owner, Document Owner, Font Office Approver, Final Approver</td>
                         </tr>
                         <tr>
-                            <th>brianflowers</th><td>password</td><td>MAINTAIN CUSTOMER</td>
+                            <th>brianflowers</th><td>password</td><td>KYC Owner</td>
                         </tr>
                         <tr>
-                            <th>chasedawson</th><td>password</td><td>CREATE_CUSTOMER, DOCUMENT_OWNER</td>
+                            <th>chasedawson</th><td>password</td><td>Document Owner</td>
                         </tr>
                         <tr>
-                            <th>robinjackson</th><td>password</td><td>FRONT OFFICE, DOCUMENT_OWNER</td>
+                            <th>robinjackson</th><td>password</td><td>Font Office Approver, Final Approver</td>
                         </tr>
                         <tr>
-                            <th>christinefloyd</th><td>password</td><td>FINAL APPROVER</td>
+                            <th>christinefloyd</th><td>password</td><td>Final Approver</td>
                         </tr>
                         <tr>
-                            <th>samueloconnor</th><td>password</td><td>MAINTAIN CUSTOMER, FINAL APPROVER</td>
+                            <th>samueloconnor</th><td>password</td><td>KYC Owner, Final Approver</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,10 +1,14 @@
 package com.management.customer.service;
 
 import com.management.customer.entity.authrisation.User;
+import com.management.customer.entity.master.StageType;
 import com.management.customer.enums.AuthorisationResponseTypeEnum;
+import com.management.customer.enums.UserRoleTypeEnum;
+import com.management.customer.exceptions.NoDataFoundException;
 import com.management.customer.model.authorisation.AuthorisationRequest;
 import com.management.customer.model.authorisation.AuthorisationResponse;
 import com.management.customer.model.authorisation.UserModel;
+import com.management.customer.model.transaction.request.UserPermissionModel;
 import com.management.customer.repository.authorisation.UserRepository;
 import com.management.customer.tranformer.transaction.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +68,19 @@ public class UserService {
         AuthorisationResponse response = null;
         response = new AuthorisationResponse(AuthorisationResponseTypeEnum.LOGOUT_SUCCESS, "LOGOUT SUCCESS", null);
         return response;
+    }
+
+    public UserPermissionModel getUserPermission(Integer userId, StageType stageType){
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if(userOptional.isEmpty()){
+            throw new NoDataFoundException("User Not Found");
+        }else{
+            User user = userOptional.get();
+            boolean canCreateNewCustomer = user.getUserRolesList().stream().anyMatch(role -> UserRoleTypeEnum.CREATE_NEW_CUSTOMER.name().equals(role.getUserRoleName()));
+            boolean canManageCustomer = user.getUserRolesList().stream().anyMatch(role -> UserRoleTypeEnum.MANAGE_CUSTOMER.name().equals(role.getUserRoleName()));
+            boolean canEditState = user.getUserRolesList().stream().anyMatch(role -> stageType.getStagePermission().equals(role.getId()));
+            return new UserPermissionModel(canCreateNewCustomer, canManageCustomer, canEditState);
+        }
     }
 }

@@ -4,6 +4,7 @@ import NavBarCustom from '../contents/common/NavBarCustom'
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './../../store/master-data'
 import { putRequestAndThenCallBack, getRequestAndThenCallBack } from './../utility/api-util'
+import {API_CALL_BASE_URL} from './../utility/constants'
 const AppLayout = (props) => {
     const dispatch = useDispatch();
     const masterData = useSelector(state => state.masterDataSlice);
@@ -15,11 +16,11 @@ const AppLayout = (props) => {
 
     useEffect(() => {
         if (!masterData.masterDataExists) {
-            getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+            getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
         }
-        // if(userData.userDetails.username === ''){
-        //     navigate('/login')
-        // }
+        if(userData.userDetails.username === ''){
+            navigate('/login')
+        }
     });
 
     return (

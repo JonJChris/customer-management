@@ -20,7 +20,7 @@ const stages = [
 
 const CreateNewCustomerRequest = (props) => {
   const navigate = useNavigate();
-
+  const UserStore = useSelector(state => state.UserStoreSlice);
   const masterData = useSelector(state => state.masterDataSlice);
   const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
   const [newCustomer, setNewCustomer] = useState({
@@ -41,7 +41,8 @@ const CreateNewCustomerRequest = (props) => {
       firstName: newCustomer.Field_210_create_new_request_first_name,
       lastName:newCustomer.Field_211_create_new_request_last_name,
       nationality: newCustomer.Field_212_create_new_request_nationality,
-      requestType : NEW_REQUEST_NEW_CUSTOMER
+      requestType : NEW_REQUEST_NEW_CUSTOMER,
+      requestSubmittedBy: UserStore.userDetails&& UserStore.userDetails.userId
     }
 
     postRequestAndThenCallBack(API_URL_CREATE_REQUEST, requestBody, newRequestCallBack);

@@ -17,6 +17,7 @@ import com.management.customer.model.store.CustomerStoreModel;
 import com.management.customer.model.transaction.request.CreateNewRequestModel;
 import com.management.customer.model.transaction.request.RequestModel;
 import com.management.customer.exceptions.NoDataFoundException;
+import com.management.customer.model.transaction.request.UserPermissionModel;
 import com.management.customer.model.userInterface.UIFieldModel;
 import com.management.customer.repository.master.ProductRepository;
 import com.management.customer.repository.request.DocumentRepository;
@@ -54,29 +55,34 @@ public class RequestService {
     RequestTypeRequestStageRulesRepository requestTypeRequestStageRulesRepository;
     @Autowired
     StageRepository requestStageRepository;
+    @Autowired
+    UserService userService;
 
 
-    public RequestModel getRequestDetails(Long requestId) {
+    public RequestModel getRequestDetails(Long requestId, RequestModel requestModel) {
         Optional<Request> request = requestRepository.findById(requestId);
 
         if (request.isEmpty()) {
             throw new NoDataFoundException("Request Not Found");
         } else {
+
             Request requestEntity = request.get();
+            UserPermissionModel userPermission = userService.getUserPermission(requestModel.requestSubmittedBy(), requestEntity.getStageType());
             Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
             Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
             Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(requestEntity.getRequestType(), requestEntity.getStageType());
             return RequestTransformer.entityToModel(requestEntity,
                     uiInputFieldRules.orElse(null),
                     uiTabRules.orElse(null),
-                    uiButtonRules.orElse(null)
+                    uiButtonRules.orElse(null),
+                    userPermission
             );
         }
     }
 
 
 
-    public StageTypeModel getNextRequestStage(Long requestId) {
+    public StageTypeModel getNextRequestStage(Long requestId, RequestModel requestModel) {
         Optional<Request> request = requestRepository.findById(requestId);
         if (request.isEmpty()) {
             throw new NoDataFoundException("Request Not Found");
@@ -193,16 +199,17 @@ public class RequestService {
 //            documentRepository.saveAll(documentListList);
 //        }
 
-        savedRequest=  requestRepository.findById(savedRequest.getRequestId()).orElse(null);
+//        savedRequest=  requestRepository.findById(savedRequest.getRequestId()).orElse(null);
 
-
+        UserPermissionModel userPermission = userService.getUserPermission(createNewRequestModel.requestSubmittedBy(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiTabRules = userInterfaceService.getRequestDetailsUITabFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         Optional<List<UIFieldModel>> uiButtonRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(savedRequest.getRequestType(), savedRequest.getStageType());
         return RequestTransformer.entityToModel(savedRequest,
                 uiInputFieldRules.orElse(null),
                 uiTabRules.orElse(null),
-                uiButtonRules.orElse(null)
+                uiButtonRules.orElse(null),
+                userPermission
         );
     }
 
@@ -224,7 +231,7 @@ public class RequestService {
     @Transactional
     public RequestModel submitRequest(RequestModel requestModel, boolean submitToNextStage, boolean isRework) {
         // fetch request
-        Integer userId = requestModel.requestSubmittedBy().userId();
+        Integer userId = requestModel.requestSubmittedBy();
         Optional<Request> requestOptional = requestRepository.findById(requestModel.requestId());
         if (requestOptional.isEmpty()) {
             throw new NoDataFoundException("Request Not Found");
@@ -272,6 +279,8 @@ public class RequestService {
 
         Request savedRequest = requestRepository.save(requestEntity);
 
+        UserPermissionModel userPermission = userService.getUserPermission(requestModel.requestSubmittedBy(), savedRequest.getStageType());
+
 //        if(productRelationshipList != null ){
 //            productRelationshipRepository.saveAll(productRelationshipList);
 //        }
@@ -292,7 +301,9 @@ public class RequestService {
         return RequestTransformer.entityToModel(savedRequest,
                 uiInputFieldRules.orElse(null),
                 uiTabRules.orElse(null),
-                uiButtonRules.orElse(null)
+                uiButtonRules.orElse(null),
+                userPermission
+
         );
 
     }

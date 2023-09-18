@@ -6,6 +6,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 // import { actions } from './../../../store/master-data'
 import { actions as uiFieldActions } from './../../../store/ui-field-store'
+import {API_CALL_BASE_URL} from './../../utility/constants'
 import {
   updateRequestHeadDetails,
   updateRequestAdditionalDetails,
@@ -14,9 +15,10 @@ import {
   updateProductDetails,
   updateDocumentDetails,
   updateStageRibbonDetails,
-  buildRequestBody
+  buildRequestBody,
+  updateStageEditable
 } from './../../utility/data-util'
-import { putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
+import { postRequestAndThenCallBack, putRequestAndThenCallBack, getRequestAndThenCallBack } from './../../utility/api-util'
 import WorkflowRibbon from '../../contents/request/WorkflowRibbon'
 
 
@@ -27,6 +29,7 @@ const RequestLayout = () => {
   const userStore = useSelector(state => state.UserStoreSlice);
   const params = useParams();
   const navigate = useNavigate();
+  const [stageEditable, setStageEditable] = useState(false);
   const [requestHeadDetails, setRequestHeadDetails] = useState({ Field_100_request_id: 0, Field_102_request_type: { key: 0, value: '' }, Field_101_request_created: "", Field_103_request_status: { key: 0, value: '' } })
   const [basicDetails, setBasicDetails] = useState({
     Field_104_customer_id: 0, Field_105_customer_title: { key: 0, value: '' }, Field_106_customer_first_name: '', Field_107_customer_last_name: '',
@@ -56,11 +59,13 @@ const RequestLayout = () => {
   });
 
 
+  
 
   const updateRequestPageState = (requestDetails) => {
     if(requestDetails == null){
       navigate('/search/request/')
     }else{
+      updateStageEditable(requestDetails, setStageEditable);
       updateRequestHeadDetails(requestDetails, setRequestHeadDetails);
       updateRequestBasicDetails(requestDetails, setBasicDetails);
       updateRequestAddressDetails(requestDetails, setAddressDetails);
@@ -78,11 +83,16 @@ const RequestLayout = () => {
 
   useEffect(() => {
     // if (!masterData.masterDataExists) {
-    //   getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+    //   getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
     // }
 
     if (params.requestId) {
-      getRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, updateRequestPageState);
+      const requestBody = {
+        requestId:params.requestId,
+        requestSubmittedBy: userStore.userDetails && userStore.userDetails.userId
+      }
+
+      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}`, requestBody ,updateRequestPageState);
     }
 
   }, []);
@@ -119,11 +129,11 @@ const RequestLayout = () => {
       userStore.userDetails);
 
     if (evt.target.name === 'Field_145_request_submit') {
-      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/submit`, requestBody, updateRequestPageState);
+      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}/submit`, requestBody, updateRequestPageState);
     } else if (evt.target.name === 'Field_209_request_save') {
-      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/save`, requestBody, updateRequestPageState);
+      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}/save`, requestBody, updateRequestPageState);
     } else if (evt.target.name === 'Field_146_request_rework') {
-      putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}/rework`, requestBody, updateRequestPageState);
+      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}/rework`, requestBody, updateRequestPageState);
     }
 
 
@@ -140,14 +150,14 @@ const RequestLayout = () => {
           <RequestTabs />
           <div className="tab-content" id="myTabContent">
             <Outlet context={{
-              basicDetails, addressDetails, additionalDetails, productDetails, documentDetails,
+              basicDetails, addressDetails, additionalDetails, productDetails, documentDetails, stageEditable,
               updateStateForBasicDetailTab, updateStateForAddressTab, updateStateForAdditionalTab,
               setProductDetails, setDocumentDetails
             }} />
           </div>
         </div>
 
-        <RequestButtons fieldOnSubmit={submitRequest} />
+        <RequestButtons fieldOnSubmit={submitRequest} stageEditable={stageEditable} />
       </form>
     </div>
   )

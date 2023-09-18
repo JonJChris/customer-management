@@ -21,4 +21,6 @@ public class UserRoleType {
     private Integer id;
     @Column(name="ROLE_TYPE_NAME")
     private String userRoleName;
+    @Column(name="ROLE_TYPE_DESCRIPTION")
+    private String userRoleDescription;
 }

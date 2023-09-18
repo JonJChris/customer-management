@@ -13,6 +13,7 @@ import { updateCustomerHeadDetails, updateCustomerAdditionalDetails, updateCusto
 import {putRequestAndThenCallBack, getRequestAndThenCallBack } from '../../utility/api-util'
 import CustomerHead from '../../contents/customer/CustomerHead'
 import ActionBar from '../../contents/customer/ActionBar'
+import {API_CALL_BASE_URL} from './../../utility/constants'
 
 const CustomerLayout = () => {
 
@@ -76,11 +77,11 @@ const CustomerLayout = () => {
 
   useEffect(() => {
     if (!masterData.masterDataExists) {
-      getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+      getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
     }
 
     if (params.customerId) {
-      getRequestAndThenCallBack(`http://localhost:8080/api/customer/${params.customerId}`, updateCustomerPageState);
+      getRequestAndThenCallBack(`${API_CALL_BASE_URL}/customer/${params.customerId}`, updateCustomerPageState);
     }
 
   }, []);
@@ -109,7 +110,7 @@ const CustomerLayout = () => {
   // const submitRequest = (evt) => {
   //   evt.preventDefault();
   //   const requestBody = buildRequestBody(requestHeadDetails, basicDetails, addressDetails, additionalDetails, userStore.userDetails);
-  //   putRequestAndThenCallBack(`http://localhost:8080/api/request/${params.requestId}`, requestBody ,updateRequestPageState);
+  //   putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}`, requestBody ,updateRequestPageState);
   // }
 
   return (

@@ -15,6 +15,7 @@ const CreateAmendRequest = (props) => {
 
   const masterData = useSelector(state => state.masterDataSlice);
   const uiFieldStore = useSelector(state => state.UIFieldStoreSlice);
+  const UserStore = useSelector(state => state.UserStoreSlice);
   const [amendCustomer, setAmendCustomer] = useState({
     Field_219_create_amend_request_customer_id:'', 
     Field_214_create_amend_request_first_name:'', 
@@ -61,7 +62,8 @@ const CreateAmendRequest = (props) => {
       customerId: amendCustomer.Field_219_create_amend_request_customer_id,
       firstName: amendCustomer.Field_214_create_amend_request_first_name,
       lastName:amendCustomer.Field_215_create_amend_request_last_name,
-      requestType : amendCustomer.Field_217_create_amend_request_select_request_type && amendCustomer.Field_217_create_amend_request_select_request_type.value
+      requestType : amendCustomer.Field_217_create_amend_request_select_request_type && amendCustomer.Field_217_create_amend_request_select_request_type.value, 
+      requestSubmittedBy: UserStore.userDetails&& UserStore.userDetails.userId
     }
     postRequestAndThenCallBack(API_URL_CREATE_REQUEST, requestBody, newRequestCallBack);
   }

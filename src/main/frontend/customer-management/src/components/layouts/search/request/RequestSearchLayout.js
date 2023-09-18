@@ -4,6 +4,7 @@ import RequestSearchResult from '../../../contents/search/request/RequestSearchR
 import { postRequestAndThenCallBack, getRequestAndThenCallBack } from '../../../utility/api-util'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../../../../store/master-data'
+import {API_CALL_BASE_URL} from './../../../utility/constants'
 const RequestSearchLayout = () => {
  
   const masterData = useSelector(state => state.masterDataSlice);
@@ -28,7 +29,7 @@ const RequestSearchLayout = () => {
   }
   const onClickHandler = (evt) => {
     
-    const url = "http://localhost:8080/api/search/request";
+    const url = `${API_CALL_BASE_URL}/search/request`;
     const requestBody = {
       requestId: requestSearchData.Field_153_search_request_id,
       customerFirstName: requestSearchData.Field_154_search_customer_first_name,
@@ -43,7 +44,7 @@ const RequestSearchLayout = () => {
 
   useEffect(() => {
     if (!masterData.masterDataExists) {
-      getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+      getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
     }
     
   }, []);

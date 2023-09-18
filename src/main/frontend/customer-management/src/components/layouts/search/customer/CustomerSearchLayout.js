@@ -5,6 +5,7 @@ import CustomerSearchResult from '../../../contents/search/customer/CustomerSear
 import { postRequestAndThenCallBack, getRequestAndThenCallBack } from '../../../utility/api-util'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../../../store/master-data'
+import {API_CALL_BASE_URL} from './../../../utility/constants'
 
 const CustomerSearchLayout = () => {
  
@@ -29,7 +30,7 @@ const CustomerSearchLayout = () => {
    
   }
   const onClickHandler = (evt) => {
-    const url = "http://localhost:8080/api/search/customer";
+    const url = `${API_CALL_BASE_URL}/search/customer`;
     const requestBody = {
       customerId: customerSearchData.Field_147_search_customer_id,
       firstName: customerSearchData.Field_148_search_customer_first_name,
@@ -44,7 +45,7 @@ const CustomerSearchLayout = () => {
 
   useEffect(() => {
     if (!masterData.masterDataExists) {
-      getRequestAndThenCallBack('http://localhost:8080/api/masterData/fetchAll', updateMasterDataInStore);
+      getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
     }
     
   }, []);

@@ -132,7 +132,7 @@ const RequestProductDetails = (props) => {
         <h6 className='tab-section-title'></h6>
         <div className=''>
 
-        {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
+        {context.stageEditable && uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
           <div className='w-100'>
             <button id='Field_135_add_new_product_button' name="addProduct" data-toggle="modal" data-target="#exampleModal"
               className='btn btn-primary' style={{ float: 'right', padding: '10px 20px ' }} onClick={() => setShowPopup(true)}>
@@ -149,7 +149,7 @@ const RequestProductDetails = (props) => {
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Branch</th>
                 <th scope="col">Product Created</th>
-                {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
+                {context.stageEditable && uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
                 <th scope="col">Action</th>
                 }
               </tr>
@@ -165,7 +165,7 @@ const RequestProductDetails = (props) => {
                     <td>{product.productType.productTypeName}</td>
                     <td>{product.productBranch.branchTypeName}</td>
                     <td>{product.createdDate && product.createdDate.substring(0,10)}</td>
-                    {uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
+                    {context.stageEditable && uiFieldStore.uiButtons.Field_135_add_new_product_button && uiFieldStore.uiButtons.Field_135_add_new_product_button.isVisible &&
                     <td><button name="remove_product" className='btn btn-primary btn-sm' onClick={() => removeProduct(product.id)}>Remove</button></td>
                     }
                   </tr>

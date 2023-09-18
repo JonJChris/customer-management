@@ -22,7 +22,7 @@ public class UserInterfaceController {
     @GetMapping("field")
     public List<UIFieldModel> getUIInputFieldForRequestAndStage(Integer requestType, Integer stageType){
         if(requestType!= null && stageType != null){
-            Optional<List<UIFieldModel>> requestDetailsUIInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(new RequestType(requestType, null), new StageType(stageType, null));
+            Optional<List<UIFieldModel>> requestDetailsUIInputFieldRules = userInterfaceService.getRequestDetailsUIInputFieldRules(new RequestType(requestType, null), new StageType(stageType, null, null));
             return requestDetailsUIInputFieldRules.orElse(null);
         }else{
             throw new NoDataFoundException("Invalid Request Type or Request Stage");
@@ -32,7 +32,7 @@ public class UserInterfaceController {
     @GetMapping("button")
     public List<UIFieldModel> getUIButtonForRequestAndStage(Integer requestType, Integer stageType){
         if(requestType!= null && stageType != null){
-            Optional<List<UIFieldModel>> requestDetailsUIInputFieldRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(new RequestType(requestType, null), new StageType(stageType, null));
+            Optional<List<UIFieldModel>> requestDetailsUIInputFieldRules = userInterfaceService.getRequestDetailsUIButtonFieldRules(new RequestType(requestType, null), new StageType(stageType, null, null));
             return requestDetailsUIInputFieldRules.orElse(null);
         }else{
             throw new NoDataFoundException("Invalid Request Type or Request Stage");
@@ -42,7 +42,7 @@ public class UserInterfaceController {
     @GetMapping("tab")
     public List<UIFieldModel> getUITabForRequestAndStage(Integer requestType, Integer stageType){
         if(requestType!= null && stageType != null){
-            Optional<List<UIFieldModel>> requestDetailsUIInputFieldRules = userInterfaceService.getRequestDetailsUITabFieldRules(new RequestType(requestType, null), new StageType(stageType, null));
+            Optional<List<UIFieldModel>> requestDetailsUIInputFieldRules = userInterfaceService.getRequestDetailsUITabFieldRules(new RequestType(requestType, null), new StageType(stageType, null, null));
             return requestDetailsUIInputFieldRules.orElse(null);
         }else{
             throw new NoDataFoundException("Invalid Request Type or Request Stage");
