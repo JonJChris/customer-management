@@ -15,7 +15,7 @@ const CustomerSearchResult = (props) => {
                 </thead>
                 <tbody>
                     
-                    {props.searchResult.length === 0 ? <tr><td colSpan="4"><h4 className='text-center mx-auto'>No Result Found</h4></td></tr>:""}
+                    {props.searchResult && props.searchResult.length === 0 ? <tr><td colSpan="4"><h4 className='text-center mx-auto'>No Result Found</h4></td></tr>:""}
                     {props.searchResult && props.searchResult.map(item => (
                         <tr key={item.customerId}>
                             <th scope="row"><NavLink to={`/customer/${item.customerId}`}>{item.customerId}</NavLink></th>

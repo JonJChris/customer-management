@@ -1,12 +1,12 @@
 :root {
-  --custom-text-color: darkred;
-  --custom-navbar-bg-color: darkred;
-  --custom-navbar-bg-color-hover: brown;
+  --custom-text-color: #8B0000;
+  --custom-navbar-bg-color: #8B0000;
+  --custom-navbar-bg-color-hover: #9c282e;
   --custom-navbar-text-color: #fff;
   --custom-drop-down-width:220px;
-  --color-wf-complete:green;
-  --color-wf-in-progress:yellow;
-  --color-wf-pending:orange;
+  --color-wf-complete:#47B39C;
+  --color-wf-in-progress:#CB9A43;
+  --color-wf-pending:#EC6B56;
 }
 
 .form-container {
@@ -78,14 +78,20 @@
 }
 
 .wf-stage-complete {
+  font-weight: bold;
+  color:#fff;
   background-color: var(--color-wf-complete)
 }
 
 .wf-stage-in_progress {
+  font-weight: bold;
+  color:#fff;
   background-color: var(--color-wf-in-progress)
 }
 
 .wf-stage-pending {
+  font-weight: bold;
+  color:#fff;
   background-color: var(--color-wf-pending)
 }
 
@@ -199,4 +205,7 @@ a:hover {
 }
 .dropdown-menu {
   min-width: 200px;
+}
+.my-dropdown-medium-text{
+  font-size: .9rem;
 }

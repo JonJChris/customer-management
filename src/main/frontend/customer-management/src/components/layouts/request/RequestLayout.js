@@ -6,7 +6,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 // import { actions } from './../../../store/master-data'
 import { actions as uiFieldActions } from './../../../store/ui-field-store'
-import {API_CALL_BASE_URL} from './../../utility/constants'
+import {API_CALL_BASE_URL, getRequestURL} from './../../utility/constants'
 import {
   updateRequestHeadDetails,
   updateRequestAdditionalDetails,
@@ -83,7 +83,7 @@ const RequestLayout = () => {
 
   useEffect(() => {
     // if (!masterData.masterDataExists) {
-    //   getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
+    //   getRequestAndThenCallBack(`${getRequestURL()}/masterData/fetchAll`, updateMasterDataInStore);
     // }
 
     if (params.requestId) {
@@ -92,7 +92,7 @@ const RequestLayout = () => {
         requestSubmittedBy: userStore.userDetails && userStore.userDetails.userId
       }
 
-      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}`, requestBody ,updateRequestPageState);
+      putRequestAndThenCallBack(`${getRequestURL()}/request/${params.requestId}`, requestBody ,updateRequestPageState);
     }
 
   }, []);
@@ -129,11 +129,11 @@ const RequestLayout = () => {
       userStore.userDetails);
 
     if (evt.target.name === 'Field_145_request_submit') {
-      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}/submit`, requestBody, updateRequestPageState);
+      putRequestAndThenCallBack(`${getRequestURL()}/request/${params.requestId}/submit`, requestBody, updateRequestPageState);
     } else if (evt.target.name === 'Field_209_request_save') {
-      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}/save`, requestBody, updateRequestPageState);
+      putRequestAndThenCallBack(`${getRequestURL()}/request/${params.requestId}/save`, requestBody, updateRequestPageState);
     } else if (evt.target.name === 'Field_146_request_rework') {
-      putRequestAndThenCallBack(`${API_CALL_BASE_URL}/request/${params.requestId}/rework`, requestBody, updateRequestPageState);
+      putRequestAndThenCallBack(`${getRequestURL()}/request/${params.requestId}/rework`, requestBody, updateRequestPageState);
     }
 
 

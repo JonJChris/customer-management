@@ -5,12 +5,12 @@ import PasswordField from './elements/PasswordField'
 import { useDispatch } from 'react-redux'
 import { actions } from './../store/user-store'
 import { useNavigate } from 'react-router-dom'
-import {API_CALL_BASE_URL} from './utility/constants'
+import {API_CALL_BASE_URL, getRequestURL} from './utility/constants'
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginResponseHandler = (response) => {
-        console.log('Response : '+JSON.stringify(response));
+        
         if (response.authorisationResponseType === 'LOGIN_FAILED') {
             setMsg(`Login Error: ${response.authorisationResponseMessage}`);
         } else if (response.authorisationResponseType === 'LOGIN_SUCCESS') {
@@ -27,7 +27,7 @@ const Login = () => {
             userName: userCredential.username,
             password: userCredential.password,
         }
-        postRequestAndThenCallBack(`${API_CALL_BASE_URL}/auth/login`, requestBody, loginResponseHandler);
+        postRequestAndThenCallBack(`${getRequestURL()}/auth/login`, requestBody, loginResponseHandler);
 
     }
 
@@ -48,7 +48,7 @@ const Login = () => {
 
             <form className='border rounded p-3' onSubmit={submitHandler}>
 
-                <section className='form-title'>Customer Managment System</section>
+                <section className='form-title header-title'>Customer Managment System</section>
                 <br /><br />
                 <TextField fieldType="username" fieldId="username" fieldName="User Name" fieldPlaceholder="Enter User Name"
                     isMandatory={true} isEditable={true} isVisible={true} fieldOnChange={changeHandler} fieldValue={userCredential.username} />
@@ -56,14 +56,19 @@ const Login = () => {
                 <PasswordField fieldType="passoword" fieldId="password" fieldName="Password" fieldPlaceholder="Enter Password"
                     isMandatory={true} isEditable={true} isVisible={true} fieldOnChange={changeHandler} fieldValue={userCredential.password} />
                 <br />
-                <label className='text-danger p-2'><strong>{msg}</strong></label>
-                <br /><br />
-                <div className='form--login-button-group'><button type="submit" className="btn btn-primary"
+                
+                <br />
+                <div className='row'>
+                <div className='form--login-button-group col'><button type="submit" className="btn btn-primary"
                     disabled={userCredential.username === '' || userCredential.password === ''}>Login</button></div>
+                
+                <label className='text-danger p-2 col'><strong>{msg}</strong></label>
+                </div>
+                
             </form>
             <br/ >
             <div className='border border-rounded p-3'>
-                <table className="table">
+                <table className="table" style={{fontSize:'.8rem'}}>
                     <thead>
                         <tr>
                             <th>USER NAME</th><th>PASSWORD</th><th>ROLES</th>
@@ -71,7 +76,7 @@ const Login = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <th>maggieparker</th><td>password</td><td>KYC Owner, Document Owner, Font Office Approver, Final Approver</td>
+                            <th style={{color:'darkred'}}  >maggieparker</th><td style={{color:'darkred'}}>password</td><td style={{color:'darkred'}}>KYC Owner, Document Owner, Font Office Approver, Final Approver</td>
                         </tr>
                         <tr>
                             <th>brianflowers</th><td>password</td><td>KYC Owner</td>

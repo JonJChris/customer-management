@@ -14,7 +14,6 @@ const RequestBasicDetails = () => {
   const basicDetail = context.basicDetails
 
 
-console.log(JSON.stringify(context));
 
   return (
     <div className="tab-pane fade show active" id="home" role="tabpanel"  >

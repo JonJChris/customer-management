@@ -26,7 +26,7 @@ public class CustomerTransformer {
                 Objects.isNull(requestCustomer.getNomineeRelationshipType()) ? null :   RelationshipTypeTransformer.entityToModel(requestCustomer.getNomineeRelationshipType()),
                 requestCustomer.getNomineeFirstName(),
                 requestCustomer.getNomineeLastName(),
-                requestCustomer.getDateOfBirth(),
+                requestCustomer.getNomineeDateOfBirth(),
                 Objects.isNull(requestCustomer.getHomeOwnershipType()) ? null :   HomeOwnershipTypeTransformer.entityToModel(requestCustomer.getHomeOwnershipType())
                 );
 

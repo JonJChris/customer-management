@@ -4,11 +4,14 @@ import com.management.customer.entity.master.CountryType;
 import com.management.customer.entity.master.RequestType;
 import com.management.customer.entity.store.CustomerStore;
 import com.management.customer.entity.transaction.Request;
+import com.management.customer.entity.transaction.RequestCustomer;
 
 public class RequestSearchBuilder {
     private final Request requestEntity;
     public RequestSearchBuilder(){
+
         requestEntity = new Request();
+        requestEntity.setRequestCustomer(new RequestCustomer());
     }
 
     public RequestSearchBuilder requestId(Long requestId){

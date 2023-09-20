@@ -5,7 +5,7 @@ import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
 import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
 import { postRequestAndThenCallBack} from '../../utility/api-util'
-import {NEW_REQUEST_NEW_CUSTOMER, API_URL_CREATE_REQUEST} from '../../utility/constants'
+import {NEW_REQUEST_NEW_CUSTOMER, API_URL_CREATE_REQUEST, getRequestURL} from '../../utility/constants'
 import { useNavigate } from 'react-router-dom'
 const stages = [
   { stageId: '1', stageName: "Collect KYC", stageStatus: "COMPLETE" },
@@ -44,13 +44,13 @@ const CreateNewCustomerRequest = (props) => {
       requestType : NEW_REQUEST_NEW_CUSTOMER,
       requestSubmittedBy: UserStore.userDetails&& UserStore.userDetails.userId
     }
-
-    postRequestAndThenCallBack(API_URL_CREATE_REQUEST, requestBody, newRequestCallBack);
+    const requestURL = `${getRequestURL()}/request/new`
+    postRequestAndThenCallBack(requestURL, requestBody, newRequestCallBack);
   }
 
 const newRequestCallBack = (response) => {
   if(response && response.requestId){
-    navigate(`/request/${response.requestId}/basic`);
+    navigate(`/request/${response.requestId}`);
   }
   
 }

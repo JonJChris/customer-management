@@ -83,7 +83,6 @@ const RequestProductDetails = (props) => {
               <div className='text-header-strong'>Add Product</div>
             </div>
             <div className='col'>
-              {/* <div className='text-end'><button className='text-end btn btn-primary btn-sm btn-block' onClick={() => console.log('modal close')}>X</button></div> */}
             </div>
             <hr className='mt-2' />
           </div>

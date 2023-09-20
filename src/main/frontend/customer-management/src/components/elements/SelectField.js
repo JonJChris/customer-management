@@ -22,7 +22,7 @@ const SelectField = (props) => {
                   
                 ))}
           </select>
-      : <label className='text-strong col'>{props.fieldValue && props.fieldValue.value}</label>}
+      : <label className='col'>{props.fieldValue && props.fieldValue.value}</label>}
     </div>
   )
               }

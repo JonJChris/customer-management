@@ -17,7 +17,7 @@ const TextField = (props) => {
           maxLength={props.fieldMaxLength}
           readOnly={!props.isEditable}
           />
-          : <label className='text-strong col'>{props.fieldValue}</label>
+          : <label className='col'>{props.fieldValue}</label>
         }
 
 

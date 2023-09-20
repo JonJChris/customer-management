@@ -5,7 +5,7 @@ import CustomerSearchResult from '../../../contents/search/customer/CustomerSear
 import { postRequestAndThenCallBack, getRequestAndThenCallBack } from '../../../utility/api-util'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from './../../../../store/master-data'
-import {API_CALL_BASE_URL} from './../../../utility/constants'
+import {API_CALL_BASE_URL, getRequestURL} from './../../../utility/constants'
 
 const CustomerSearchLayout = () => {
  
@@ -30,7 +30,7 @@ const CustomerSearchLayout = () => {
    
   }
   const onClickHandler = (evt) => {
-    const url = `${API_CALL_BASE_URL}/search/customer`;
+    const url = `${getRequestURL()}/search/customer`;
     const requestBody = {
       customerId: customerSearchData.Field_147_search_customer_id,
       firstName: customerSearchData.Field_148_search_customer_first_name,
@@ -45,7 +45,7 @@ const CustomerSearchLayout = () => {
 
   useEffect(() => {
     if (!masterData.masterDataExists) {
-      getRequestAndThenCallBack(`${API_CALL_BASE_URL}/masterData/fetchAll`, updateMasterDataInStore);
+      getRequestAndThenCallBack(`${getRequestURL()}/masterData/fetchAll`, updateMasterDataInStore);
     }
     
   }, []);
@@ -55,7 +55,7 @@ const CustomerSearchLayout = () => {
 
      
       <CustomerSearchHead changeHandler={onChangeHandler} clickHandler={onClickHandler} {...customerSearchData}/>
-      <CustomerSearchResult searchResult={customerSearchResult.customerItemList} />
+      <CustomerSearchResult searchResult={customerSearchResult && customerSearchResult.customerItemList} />
     </div>
   )
 }

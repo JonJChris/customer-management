@@ -9,23 +9,18 @@ import {actions} from './../../../store/user-store'
 const NavBarCustom = () => {
   const userStore = useSelector(state => state.UserStoreSlice);
   const dispatch = useDispatch();
-  // const [canCreateCustomer, setCanCreateCustomer] = useState(false)
+
   const logoutHandler = () => {
     dispatch(actions.unsetUserDetail());
   }
-  // useEffect(() => {
-  //   const createCustomer = userStore.userDetails && userStore.userDetails.userRoles.filter(item => item.roleTypeId === 28000);
-  //   setCanCreateCustomer(createCustomer && createCustomer.length > 0)
 
-  // }, [])
-  
 
   return (
     <div>
       <Nav className="bg-body-tertiary custom-nav-bar navbar navbar-expand-lg">
-        <Container>
+        <Container style={{paddingTop:'0px'}}>
 
-          <Navbar.Brand href="/" style={{ paddingRight: '500px' }}>Customer Management System</Navbar.Brand>
+          <Navbar.Brand href="/" style={{ paddingRight: '500px',  fontWeight:'bold', fontSize:'1rem' }}>Customer Management System</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -56,7 +51,7 @@ const NavBarCustom = () => {
                 {
                   userStore.userDetails && userStore.userDetails.userRoles && userStore.userDetails.userRoles.map(
                       roleItem => (
-                        <NavDropdown.ItemText key={roleItem.roleTypeId} >{roleItem.roleTypeDescription}</NavDropdown.ItemText>        
+                        <NavDropdown.ItemText key={roleItem.roleTypeId} className='my-dropdown-medium-text' >{roleItem.roleTypeDescription}</NavDropdown.ItemText>        
                       )
                   )
                 }                  

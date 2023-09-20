@@ -15,9 +15,9 @@ const DateField = (props) => {
           ? <input type="date" id={props.fieldId} name={props.fieldId} className="col form-control text-field-input" placeholder={props.fieldPlaceholder} 
             value={props.fieldValue}
           onChange={props.fieldOnChange}
-          readOnly={true}
+          readOnly={!props.isEditable}
           />
-          : <label className='text-strong col'>{props.fieldValue && props.fieldValue.substring(0, 10) }</label>
+          : <label className='col'>{props.fieldValue && props.fieldValue.substring(0, 10) }</label>
         }
 
 

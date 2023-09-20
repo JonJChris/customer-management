@@ -5,7 +5,7 @@ import WorkflowRibbon from './WorkflowRibbon'
 import { useSelector } from 'react-redux'
 import { isFieldEditable, isFieldMandatory, isFieldVisible } from '../../utility/generalUtil'
 import { postRequestAndThenCallBack} from '../../utility/api-util'
-import {NEW_REQUEST_NEW_CUSTOMER, API_URL_CREATE_REQUEST} from '../../utility/constants'
+import {NEW_REQUEST_NEW_CUSTOMER, API_URL_CREATE_REQUEST, getRequestURL} from '../../utility/constants'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
@@ -65,7 +65,8 @@ const CreateAmendRequest = (props) => {
       requestType : amendCustomer.Field_217_create_amend_request_select_request_type && amendCustomer.Field_217_create_amend_request_select_request_type.value, 
       requestSubmittedBy: UserStore.userDetails&& UserStore.userDetails.userId
     }
-    postRequestAndThenCallBack(API_URL_CREATE_REQUEST, requestBody, newRequestCallBack);
+    const requestURL = `${getRequestURL()}/request/new`
+    postRequestAndThenCallBack(requestURL, requestBody, newRequestCallBack);
   }
 
   const newRequestCallBack = (response) => {
