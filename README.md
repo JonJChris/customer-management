@@ -9,8 +9,9 @@ Customer management system is a web based application built to onboard and manag
 - Backend : Java 17, Spring Boot
 - Database: H2 Database
 - Hosting: onrender.com
-- URL: https://customer-management-80v7.onrender.com/
 - GitHub: https://github.com/JonJChris/customer-management
+- URL: https://customer-management-80v7.onrender.com/
+> **_NOTE:_**  This is a free hosting platform. Hence the application will be shutdown after 15 minutes of inactivity. In such a case, please wait for **~5** minutes, when you load the link for the first time. Once the application boot up then, the application will function as expected.
 
 **Actions users can perform,**
 - Login/ Logout
