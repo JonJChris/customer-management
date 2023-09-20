@@ -23,7 +23,7 @@ Customer management system is a web based application built to onboard and manag
   - Product Amendment
   - Document Amendment
 
-**Users Permissions **
+**Users Permissions**
 - KYC Owner
   - Edit KYC details
   - Add or remove products
